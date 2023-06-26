@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-apple",
-  "version": "3.0.0",
-  "description": "Gatsby blog starter kit with beautiful and responsive design",
+  "name": "hiimconan",
+  "version": "0.1.0",
+  "description": "hiimconan's Gatsby blog",
   "main": "index.js",
-  "private": true,
+  "private": false,
   "engines": {
     "node": ">=18.16.0"
   },
@@ -81,16 +81,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sungik-choi/gatsby-starter-apple.git"
+    "url": "https://github.com/HiImConan/HiImConan.github.io.git"
   },
   "keywords": [
     "gatsby"
   ],
-  "author": "Sungik Choi <sungik.dev@gmail.com> (http://sungikchoi.com/)",
+  "author": "Mingyu Kwak <mindol0320@naver.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sungik-choi/gatsby-starter-apple/issues"
-  },
-  "homepage": "https://github.com/sungik-choi/gatsby-starter-apple#readme",
   "packageManager": "yarn@3.5.1"
 }
