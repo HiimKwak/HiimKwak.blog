@@ -20,11 +20,11 @@ const metaConfig = {
   title: "Dev Kwak",
   description: `개발자 곽민규의 블로그`,
   author: "Mingyu Kwak",
-  siteUrl: "https://hiimconan.com/",
+  siteUrl: "https://hiimkwak.blog/",
   lang: "ko",
-  utterances: "hiimconan/HiImConan-blog-comment",
+  utterances: "hiimkwak/HiimKwak.github.io-comment",
   links: {
-    github: "https://github.com/hiimconan/HiImConan-blog",
+    github: "https://github.com/hiimkwak/HiimKwak.github.io",
   },
   favicon: "src/images/icon.png",
 }

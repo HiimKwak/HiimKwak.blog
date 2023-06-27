@@ -1,9 +1,9 @@
 {
-  "name": "hiimconan",
+  "name": "hiimkwak",
   "version": "0.1.0",
-  "description": "hiimconan's Gatsby blog",
+  "description": "HiimKwak's Gatsby blog",
   "main": "index.js",
-  "private": false,
+  "homepage": "https://hiimkwak.blog",
   "engines": {
     "node": ">=18.16.0"
   },
@@ -40,6 +40,7 @@
     "gatsby-source-filesystem": "^5.10.0",
     "gatsby-transformer-remark": "^6.10.0",
     "gatsby-transformer-sharp": "^5.10.0",
+    "gh-pages": "^5.0.0",
     "react-helmet": "^6.1.0",
     "react-typography": "^0.16.23",
     "styled-components": "^5.3.11",
@@ -81,7 +82,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HiImConan/HiImConan.github.io.git"
+    "url": "https://github.com/HiimKwak/HiimKwak.github.io.git"
   },
   "keywords": [
     "gatsby"
