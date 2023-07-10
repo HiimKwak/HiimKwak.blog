@@ -1,5 +1,5 @@
 # HiimKwak.github.io
-#### personal blog powered by gatsby.
+#### personal blog powered by Next.js.
 
 ## What is this?
 현재 Next.js(v12)로 구현 중인 블로그입니다.
