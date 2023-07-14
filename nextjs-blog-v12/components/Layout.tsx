@@ -2,13 +2,13 @@ import Head from "next/head";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-export default function RootLayout({
-  children,
-}: {
+interface LayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: LayoutProps) {
   return (
-    <>
+    <div className="flex flex-col p-4 mx-auto">
       <Head>
         <title>내 블로그</title>
       </Head>
@@ -17,6 +17,6 @@ export default function RootLayout({
       </header>
       <main>{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }
