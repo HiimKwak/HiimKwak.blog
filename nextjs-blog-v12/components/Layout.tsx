@@ -8,7 +8,7 @@ interface LayoutProps {
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <div className="flex flex-col p-4 mx-auto">
+    <div className="flex flex-col gap-4 p-4 mx-auto">
       <Head>
         <title>내 블로그</title>
       </Head>
