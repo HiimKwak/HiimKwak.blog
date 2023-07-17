@@ -1,45 +1,26 @@
 import fs from "fs";
+import { sync } from "glob";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import { Metadata, PostInfo, PostData } from "@/types/types";
+import { parsePost } from "./useParsePost";
 
-const postsDirectory = path.join(process.cwd(), "posts");
+export const BASE_PATH = "/posts";
+export const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
+// const postsDirectory = path.join(process.cwd(), "posts");
 
-export function getSortedPostsData(): PostInfo[] {
-  // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, "");
-
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
-
-    // Combine the data with the id
-    return {
-      id,
-      ...(matterResult.data as Metadata),
-    };
-  });
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
-}
+export const getAllPosts = () => {
+  // extract paths of posts and extract front-matter data
+  const postPaths: string[] = sync(`${POSTS_PATH}/**/*.md`);
+  return postPaths.map(parsePost);
+};
 
 export async function getPostData(id: PostData["id"]): Promise<PostData> {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  // const postPath = path.join(POSTS_PATH, `${id}.md`);
+  const postPath = sync(`/**/${id}.md`)[0];
+  const fileContents = fs.readFileSync(postPath, "utf8");
 
   const {
     data: { title, date },
@@ -57,13 +38,14 @@ export async function getPostData(id: PostData["id"]): Promise<PostData> {
   };
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
+export function getAllPostPaths() {
+  // const fileNames = fs.readdirSync(postsDirectory);
+  const postPaths: string[] = sync(`${POSTS_PATH}/**/*.md`);
 
-  return fileNames.map((fileName) => {
+  return postPaths.map((postPath) => {
     return {
       params: {
-        id: fileName.replace(/\.md$/, ""),
+        slug: postPath.slice(postPath.indexOf(BASE_PATH)).replace(/\.md$/, ""),
       },
     };
   });
