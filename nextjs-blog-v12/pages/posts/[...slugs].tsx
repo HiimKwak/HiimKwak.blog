@@ -14,7 +14,7 @@ export default function Post({ mdx }: { mdx: MDXRemoteSerializeResult }) {
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
-  // console.log(posts);
+  // console.log(posts.map((post) => post.slug));
   return {
     paths: posts.map((post) => post.slug),
     fallback: false,
@@ -22,12 +22,12 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 interface IParams extends ParsedUrlQuery {
-  slug: string;
+  slug: string[];
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  console.log(params); //{ slugs: [ '2023', '07', 'lets_learn_about_ajax_and_promise' ] }
   const { slugs } = params as { slugs: string[] };
-  console.log(slugs);
   const slug = `/posts/${[...slugs].join("/")}`;
   const postData = getAllPosts().find((post) => post.slug === slug);
   const mdx = postData ? await serializeMdx(postData.content) : "";
