@@ -1,7 +1,7 @@
 import RootLayout from "@/components/Layout";
-import { serializeMdx } from "@/utils/mdx";
+import { serializeMdx } from "@/lib/utils/mdx";
 import { Post } from "@/types/types";
-import { getAllPosts } from "@/utils/posts";
+import { getAllPosts } from "@/lib/utils/posts";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { ParsedUrlQuery } from "querystring";
