@@ -1,5 +1,5 @@
 import RootLayout from "@/components/Layout";
-import { serializeMdx } from "@/types/mdx";
+import { serializeMdx } from "@/utils/mdx";
 import { Post } from "@/types/types";
 import { getAllPosts } from "@/utils/posts";
 import { GetStaticPaths, GetStaticProps } from "next";

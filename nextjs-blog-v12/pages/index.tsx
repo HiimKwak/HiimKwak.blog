@@ -1,6 +1,8 @@
 import RootLayout from "@/components/Layout";
 import { getAllPosts } from "@/utils/posts";
-import { Post } from "@/types/types";
+import { compareDesc, format, parseISO } from "date-fns";
+import { allPosts, Post } from "contentlayer/generated";
+// import { Post } from "@/types/types";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 
@@ -21,7 +23,11 @@ export default function Home({ posts }: { posts: Post[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = getAllPosts();
+  // const posts = getAllPosts();
+  const posts: Post[] = allPosts.sort((a: Post, b: Post) =>
+    compareDesc(new Date(a.date), new Date(b.date))
+  );
+
   return {
     props: {
       posts,
