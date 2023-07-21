@@ -1,20 +1,31 @@
+import RootLayout from "@/components/Layout";
 import { serializeMdx } from "@/types/mdx";
+import { Post } from "@/types/types";
 import { getAllPosts } from "@/utils/posts";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
 import { ParsedUrlQuery } from "querystring";
 
-export default function Post({ mdx }: { mdx: MDXRemoteSerializeResult }) {
+export default function Post({
+  mdx,
+  postData,
+}: {
+  mdx: MDXRemoteSerializeResult;
+  postData: Post;
+}) {
   return (
-    <div className="prose dark:prose-dark">
-      <MDXRemote {...mdx} />
-    </div>
+    <RootLayout>
+      <div className="prose dark:prose-dark ">
+        <div className="text-xl">{postData.title}</div>
+        <MDXRemote {...mdx} />
+      </div>
+    </RootLayout>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
   const posts = getAllPosts();
-  // console.log(posts.map((post) => post.slug));
+
   return {
     paths: posts.map((post) => post.slug),
     fallback: false,
@@ -41,6 +52,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       mdx,
+      postData,
     },
   };
 };

@@ -29,7 +29,7 @@ date: 2023-07-04 20:56:02
 
 우선 당연하게도 불특정 다수의 로컬 IP에서 우리의 서비스에 접속하고자 요청할 때, 이들에게 서로 다른 페이지를 보여주거나 중앙에서 관리되지 않는 버전이 다른 페이지들을 보여준다면 사용자들은 큰 혼란을 겪게 될 것입니다. 사용자들한테 우리 페이지 파일은 여기 있으니 각자 다운받아서 알아서 쓰도록 해. 라고 말하기보다는 한 곳에 우리가 만든 사이트를 저장해놓고 요청이 들어올 때마다 해당 자원을 전송해주는 편이 훨씬 일관성있겠죠?
 
-![](https://velog.velcdn.com/images/kwak1539/post/efd8e225-2782-42d6-bd1e-1c2a8a76b1c3/image.png)
+![1](/postImg/2023/06/lets_learn_about_ajax_and_promise/1.png)
 
 또한, 유저 입장에서도 데이터를 변경하는 액션(e.g. 블로그 글 쓰기)을 취했을 때 자신이 변경한 데이터가 새로고침 이후에 저장이 안되어 사라지거나 나에게만 보이고 다른 사람에게는 보이지 않는다면 결국 서비스를 쓰지 않을 것입니다. 클라이언트에서 변경하고자 하는 데이터를 한 곳에서 모아 저장하고 변경한다면 매우 쉽게 관리가 가능하고 A가 변경한 데이터를 B에게도 보여줄 수 있겠죠.
 
@@ -47,15 +47,15 @@ date: 2023-07-04 20:56:02
 
 보통 ‘우리는 카카오 API를 사용해 ~를 만들 것입니다’ 등의 말을 자주 듣곤 하고, 백엔드 개발자와 커뮤니케이션할 때 7할 이상의 대화 내용은 API와 관련된 대화로 ‘혹시 API 나왔나요?’ ‘지금 API에 이 데이터가 빠져있는데…’ 등의 대화를 관찰할 수 있습니다. API 개념을 제대로 이해하지 못한 채 이런 질문을 받으면 많이 괴로우실 겁니다..
 
-![](https://velog.velcdn.com/images/kwak1539/post/07fc4cc8-f846-4693-abd8-b2c1ee3e3770/image.png)
+![2](/postImg/2023/06/lets_learn_about_ajax_and_promise/2.png)
 
 흔히 API를 레스토랑에 빗대어 표현합니다. 손님(내가 만드는 프로그램)이 메뉴판을 보고 웨이터(API)에게 주문을 합니다. 그럼 웨이터는 손님의 주문 내역을 주방(기상청, 공공포탈 등의 서버)에 갖다주고, 요청받은 요리를 완성해 웨이터에게 주면 웨이터가 다시 손님에게 음식을 가져다줍니다.
 
-![](https://velog.velcdn.com/images/kwak1539/post/16090655-d365-4060-8a82-41c8b2dcc297/image.png)
+![3](/postImg/2023/06/lets_learn_about_ajax_and_promise/3.png)
 
 여기서 손님이 프론트엔드 개발자, 주방장이 백엔드 개발자라고 생각한다면 메뉴판이 API가 되는 것입니다. 만약 정해진 메뉴판이 없이 손님이 주방에 직접 와서 음식을 주문해야한다고 하면, 손님마다 원하는 음식의 양도 다를 것이며 재료의 상태, 종류도 가지각색으로 달라질 수 있기 때문에 주방에서 절대 음식을 뺄 수 없는 상황이 될 것입니다. 때문에 메뉴판과 같은 정해져있는 포맷을 보고 주문하고 음식을 받아볼 수 있는 것이며 메뉴판이란 매개체가 있기 때문에 서로가 어떻게 일을 처리하는지 알 필요 없이 메뉴판을 통해 서로를 신뢰할 수 있게 되는 것이죠!
 
-![](https://velog.velcdn.com/images/kwak1539/post/97f64e1c-2bbf-423e-bd33-44e82aa8ae29/image.png)
+![4](/postImg/2023/06/lets_learn_about_ajax_and_promise/4.png)
 
 그래서 프로젝트 개발을 시작하게 되면 맨처음 하는 일은 API 설계와 시스템 구조 설계입니다. 백엔드 개발자들만 이 일을 하는게 아니라 프론트엔드 개발자도 참여하여 각 페이지마다 어떤 데이터가 필요하고 언제 필요한지 서로 알 수 있게 설계하는 과정을 거쳐야 합니다.
 
@@ -129,7 +129,7 @@ main();
 
 우리의 예상과 달리 `Second`가 마지막에 출력되었을 때의 과정은 어땠나요? `setTimeout` 메소드가 콜 스택에 쌓였다가 timer Web API를 호출하고 제거됐고, `main` 함수가 종료된 이후에야 테스크 큐에 남아있던 `setTimeout` 콜백 함수가 콜 스택으로 호출되어 실행되었죠?
 
-![](https://velog.velcdn.com/images/kwak1539/post/9b6c9348-53e1-4016-a2e2-dacc68603e34/image.png)
+![5](/postImg/2023/06/lets_learn_about_ajax_and_promise/5.png)
 
 모든 테스크가 동기적 또는 비동기적으로 작동하는 경우.
 
@@ -228,7 +228,7 @@ loadScript("1.js", function (error, script) {
 
 이런 코딩 패턴을 `콜백 지옥(callback hell)` 또는 `멸망의 피라미드(pyramid of doom)`라고 일컫습니다.
 
-![](https://velog.velcdn.com/images/kwak1539/post/4a170f63-fd78-4a44-b25a-a6c7352e7b42/image.png)
+![6](/postImg/2023/06/lets_learn_about_ajax_and_promise/6.png)
 
 이런 코딩 패턴으로만 비동기를 처리하는데 많은 불편함이 있었기 때문에, 아예 비동기 처리를 상태로 관리해주는 객체를 제공하는 라이브러리들이 생겨났고 결국 해당 객체가 표준화되어 ES2015에 공식 문법으로 지원되기 시작했으니 그 객체를 `Promise`라 부르게 되었습니다.
 
@@ -268,7 +268,7 @@ const getData = new Promise((resolve, reject) => {
 
 또한 인자에 콜백 함수를 선언할 수 있고, 콜백 함수의 인자는 `resolve`와 `reject`를 넣어줄 수 있습니다. 만약 `get(’아무주소’)` 메소드가 ‘아무 주소’로부터 적절한 응답 값을 가져왔다면 `resolve()` 메소드를 호출할 것이고, 응답이 없으면 `reject()`를 호출하게 됩니다.
 
-![](https://velog.velcdn.com/images/kwak1539/post/d5699c1e-f1fc-42f0-9ccc-746418b00d70/image.png)
+![7](/postImg/2023/06/lets_learn_about_ajax_and_promise/7.png)
 
 복잡한 설명 필요 없이 통신에 성공했다면(Fulfilled) `resolve()` 메소드가 동작하게 되고, 통신에 실패했다면(Rejected) `reject()` 메소드가 동작하게 됩니다. 별거 없죠?
 
@@ -443,7 +443,7 @@ Promise를 사용할 때와 달리, 함수 안에서 `await` 접두사를 통해
 
 ## 마무리
 
-![](https://velog.velcdn.com/images/kwak1539/post/2a3be5c8-dc6f-4864-bba1-c261bb051762/image.png)
+![8](/postImg/2023/06/lets_learn_about_ajax_and_promise/8.png)
 
 우리가 이번 시간 배운 Promise와 비동기 처리 방법들을 한 눈에 정리해주는 짤이 있어 가져와봤습니다. 이해가 확 되지 않으시나요?
 
