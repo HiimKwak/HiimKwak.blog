@@ -1,17 +1,16 @@
+import { allPosts, Post } from "@/.contentlayer/generated";
+import { GetStaticPaths, GetStaticProps } from "next";
 import RootLayout from "@/components/Layout";
 import { serializeMdx } from "@/lib/utils/mdx";
-import { Post } from "@/types/types";
-import { getAllPosts } from "@/lib/utils/posts";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import { ParsedUrlQuery } from "querystring";
+import { MDXRemoteSerializeResult } from "next-mdx-remote/dist/types";
+import { MDXRemote } from "next-mdx-remote";
 
 export default function Post({
-  mdx,
   postData,
+  mdx,
 }: {
-  mdx: MDXRemoteSerializeResult;
   postData: Post;
+  mdx: MDXRemoteSerializeResult;
 }) {
   return (
     <RootLayout>
@@ -24,24 +23,18 @@ export default function Post({
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const posts = getAllPosts();
-
+  const posts = allPosts;
   return {
-    paths: posts.map((post) => post.slug),
+    paths: posts.map((post) => post.url),
     fallback: false,
   };
 };
 
-interface IParams extends ParsedUrlQuery {
-  slug: string[];
-}
-
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log(params); //{ slugs: [ '2023', '07', 'lets_learn_about_ajax_and_promise' ] }
+  // console.log(params); //{ slugs: [ '2023', '07', 'lets_learn_about_ajax_and_promise' ] }
   const { slugs } = params as { slugs: string[] };
-  const slug = `/posts/${[...slugs].join("/")}`;
-  const postData = getAllPosts().find((post) => post.slug === slug);
-  const mdx = postData ? await serializeMdx(postData.content) : "";
+  const url = `/posts/${[...slugs].join("/")}`;
+  const postData = allPosts.find((post) => post.url === url);
 
   if (!postData) {
     return {
@@ -51,8 +44,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      mdx,
       postData,
+      mdx: await serializeMdx(postData?.body.raw),
     },
   };
 };
