@@ -38,10 +38,6 @@ export const Post = defineDocumentType(() => ({
       type: "string",
       resolve: (post) => `/posts/${post._raw.flattenedPath}`,
     },
-    // slug: {
-    //   type: "string",
-    //   resolve: (doc) => doc._raw.flattenedPath.replace(/^.+?(\/)/, ""),
-    // },
     toc: { type: "string", resolve: (doc) => extractTocHeadings(doc.body.raw) },
   },
 }));
