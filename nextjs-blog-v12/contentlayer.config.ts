@@ -1,5 +1,6 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import readingTime from "reading-time";
+import dayjs from "dayjs";
 import path from "path";
 // Remark packages
 import remarkGfm from "remark-gfm";
@@ -30,15 +31,24 @@ export const Post = defineDocumentType(() => ({
     image: { type: "string" },
     tags: { type: "list", of: { type: "string" }, required: true },
     draft: { type: "boolean" },
-    date: { type: "date", required: true },
   },
   computedFields: {
-    readingTime: { type: "json", resolve: (doc) => readingTime(doc.body.raw) },
+    date: {
+      type: "string",
+      resolve: (post) => dayjs(post.date).format("YY.MM.DD"),
+    },
+    readingTime: {
+      type: "number",
+      resolve: (post) => Math.ceil(readingTime(post.body.raw).minutes),
+    },
     url: {
       type: "string",
       resolve: (post) => `/posts/${post._raw.flattenedPath}`,
     },
-    toc: { type: "string", resolve: (doc) => extractTocHeadings(doc.body.raw) },
+    toc: {
+      type: "string",
+      resolve: (post) => extractTocHeadings(post.body.raw),
+    },
   },
 }));
 

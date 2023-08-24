@@ -1,18 +1,28 @@
-import RootLayout from "@/components/Layout";
-import { compareDesc, format, parseISO } from "date-fns";
-import { allPosts, Post } from "contentlayer/generated";
 import Link from "next/link";
 import { GetStaticProps } from "next";
 
-export default function Home({ posts }: { posts: Post[] }) {
+import RootLayout from "@/components/Layout";
+
+import { allPosts, Post } from "contentlayer/generated";
+import { compareDesc } from "date-fns";
+
+export default function Home({ posts }: { posts: string }) {
+  const postData = JSON.parse(posts) as Post[];
   return (
     <RootLayout>
       <div className="flex flex-col gap-2">
-        {posts.map((post) => (
+        {postData.map((post) => (
           <Link href={post.url} key={post._id}>
             <div className="text-xl font-bold">{post.title}</div>
-            <div className="text-slate-300">{post.description}</div>
-            <div className="text-sm">{post.date}</div>
+            <div className="text-base text-slate-500">{post.description}</div>
+            <div className="text-xs">
+              {post.date} {post.readingTime}분
+            </div>
+            <div>
+              {post.tags.map((tag) => (
+                <div key={tag}>{tag}</div>
+              ))}
+            </div>
           </Link>
         ))}
       </div>
@@ -28,7 +38,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      posts,
+      posts: JSON.stringify(posts),
     },
   };
 };
