@@ -1,6 +1,5 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
 import readingTime from "reading-time";
-import dayjs from "dayjs";
 import path from "path";
 // Remark packages
 import remarkGfm from "remark-gfm";
@@ -34,10 +33,6 @@ export const Post = defineDocumentType(() => ({
     date: { type: "string", required: true },
   },
   computedFields: {
-    date: {
-      type: "string",
-      resolve: (post) => dayjs(post.date).format("YY.MM.DD"),
-    },
     readingTime: {
       type: "number",
       resolve: (post) => Math.ceil(readingTime(post.body.raw).minutes),
