@@ -1,7 +1,7 @@
 import { allPosts, Post } from "@/.contentlayer/generated";
 import { GetStaticPaths, GetStaticProps } from "next";
 import RootLayout from "@/components/Layout";
-import { serializeMdx } from "@/lib/utils/mdx";
+import { serializeMdx } from "@/libs/utils/mdx";
 import { MDXRemoteSerializeResult } from "next-mdx-remote/dist/types";
 import { MDXRemote } from "next-mdx-remote";
 

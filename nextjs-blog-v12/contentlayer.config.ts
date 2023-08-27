@@ -6,10 +6,10 @@ import path from "path";
 import remarkGfm from "remark-gfm";
 import remarkFootnotes from "remark-footnotes";
 import remarkMath from "remark-math";
-import remarkExtractFrontmatter from "./lib/remark-extract-frontmatter";
-import remarkCodeTitles from "./lib/remark-code-title";
-import { extractTocHeadings } from "./lib/remark-toc-headings";
-import remarkImgToJsx from "./lib/remark-img-to-jsx";
+import remarkExtractFrontmatter from "./libs/remark-extract-frontmatter";
+import remarkCodeTitles from "./libs/remark-code-title";
+import { extractTocHeadings } from "./libs/remark-toc-headings";
+import remarkImgToJsx from "./libs/remark-img-to-jsx";
 // Rehype packages
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
