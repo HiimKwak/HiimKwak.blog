@@ -1,2 +1,2 @@
-export { ReactComponent as IcCalendar } from "./IcCalendar.svg";
-export { ReactComponent as IcClock } from "./IcClock.svg";
+export { default as IcCalendar } from "./IcCalendar";
+export { default as IcClock } from "./IcClock";
