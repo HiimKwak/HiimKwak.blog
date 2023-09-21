@@ -1,10 +1,11 @@
 {
   "name": "nextjs-blog-v12",
   "version": "0.1.0",
+  "homepage": "http://hiimkwak.github.io/HiimKwak.github.io",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "contentlayer build & next build",
+    "build": "contentlayer build & next build && next-export-optimize-images",
     "start": "next start",
     "lint": "next lint"
   },
@@ -48,6 +49,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "@types/glob": "^8.1.0",
     "glob": "^10.3.3",
+    "next-export-optimize-images": "^3.2.0",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-prism-plus": "^1.6.1",
