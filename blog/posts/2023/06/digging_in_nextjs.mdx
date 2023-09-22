@@ -68,9 +68,7 @@ date: 2023-06-29 00:00:01
 
 우선 Next.js 프로젝트에서 `npm run start` 스크립트 실행 코드는 `/src/cli/next-start` 에 있었다.
 
-```typescript
-//next.js/packages/next/src/cli/next-start.ts
-
+```ts:next.js/packages/next/src/cli/next-start.ts
 #!/usr/bin/env node
 
 import { startServer } from '../server/lib/start-server'
@@ -91,8 +89,7 @@ export { nextStart }
 
 위 코드를 요약하자면 결국 startServer 함수를 실행하기 위해 여러 값들을 설정하고 해당 함수로 넘겨준다.
 
-```typescript
-// next.js/packages/next/src/server/lib/start-server.ts
+```ts:next.js/packages/next/src/server/lib/start-server.ts
 
 ...
 export async function startServer({

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { $ } from "libs/core";
+import { $ } from "@/src/libs/core";
 
 export interface IconTextProps {
   Icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;

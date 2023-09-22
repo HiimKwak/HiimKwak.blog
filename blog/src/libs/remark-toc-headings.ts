@@ -5,7 +5,7 @@ import { Heading } from "mdast";
 import GithubSlugger from "github-slugger";
 import { toString } from "mdast-util-to-string";
 import { remark } from "remark";
-import { Toc } from "types/Toc";
+import { Toc } from "@/src/types/Toc";
 
 const slugger = new GithubSlugger();
 
