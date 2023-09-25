@@ -1,6 +1,6 @@
-import { allPosts, Post } from "contentlayer/generated";
+import { allPosts } from "contentlayer/generated";
 import { notFound } from "next/navigation";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import { getMDXComponent } from "next-contentlayer/hooks";
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ export default function Post({ params }: { params: { slugs: string[] } }) {
   const post = allPosts.find((post) => post.url === url);
   if (!post) return;
 
-  const MDXContent = useMDXComponent(post.body.code);
+  const MDXContent = getMDXComponent(post.body.code);
 
   return (
     <div className="prose dark:prose-dark ">

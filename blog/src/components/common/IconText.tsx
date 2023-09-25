@@ -4,20 +4,20 @@ import { $ } from "@/src/libs/core";
 
 export interface IconTextProps {
   Icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
-  iconSize?: number;
+  IconSize?: number;
   text?: React.ReactNode;
   className?: string;
 }
 
 export default function IconText({
   Icon,
-  iconSize = 14,
+  IconSize = 14,
   text,
   className,
 }: IconTextProps) {
   return (
     <div className={$("flex items-center", className ?? "gap-1 text-xs")}>
-      <Icon width={iconSize} height={iconSize} />
+      <Icon width={IconSize} height={IconSize} />
       <span>{text}</span>
     </div>
   );

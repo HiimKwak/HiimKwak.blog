@@ -1,11 +1,21 @@
 {
-  "name": "blog-of-hiimkwak",
+  "name": "hiimkwak.blog",
   "version": "0.1.0",
-  "homepage": "http://hiimkwak.github.io/HiimKwak.github.io",
+  "homepage": "https://hiimkwak.blog",
+  "description": "The Blog of Mingyu Kwak",
   "private": true,
+  "author": {
+    "name": "Mingyu Kwak",
+    "url": "https://hiimkwak.blog",
+    "email": "mindol0320@gmail.com",
+    "social": {
+      "github": "https://github.com/HiimKwak",
+      "instagram": "@_kwakwakwak"
+    }
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "contentlayer build & next build && next-export-optimize-images",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
