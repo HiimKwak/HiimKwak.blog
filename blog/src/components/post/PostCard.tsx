@@ -14,7 +14,7 @@ const PostCard = ({ post }: { post: Post }) => {
       className="grid w-full grid-cols-1 gap-1 p-4 pb-3"
     >
       <div className="text-xl font-bold">{post.title}</div>
-      <div className="text-base truncate text-slate-500">
+      <div className="text-base truncate text-neutral-600 dark:text-neutral-400">
         {post.description}
       </div>
       <div className="flex items-start justify-between gap-12 overflow-x-auto">

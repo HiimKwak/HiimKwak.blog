@@ -22,7 +22,7 @@ const NAV_LINKS: NavLinkProps[] = [
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-4">
+    <nav className="flex items-center justify-between">
       <Link href={"/"}>
         <Image
           src={DUCK_IMG}
