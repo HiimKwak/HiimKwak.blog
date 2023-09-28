@@ -10,7 +10,7 @@ const PostTime = ({
   readingTime: number;
 }) => {
   return (
-    <div className="flex gap-2 text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
+    <div className="flex items-center h-6 gap-2 text-neutral-600 dark:text-neutral-400 whitespace-nowrap">
       <IconText Icon={IcCalendar} text={dayjs(date).format("YY.MM.DD")} />
       <IconText Icon={IcClock} text={`${readingTime}분`} />
     </div>

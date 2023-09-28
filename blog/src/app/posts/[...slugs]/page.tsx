@@ -33,7 +33,7 @@ export default function Post({ params }: { params: { slugs: string[] } }) {
 
   return (
     <div className="prose dark:prose-dark ">
-      <div className="text-xl">{post.title}</div>
+      <div className="text-xl ">{post.title}</div>
       <MDXContent components={mdxComponents} />
     </div>
   );
