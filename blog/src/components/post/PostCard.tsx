@@ -11,7 +11,7 @@ const PostCard = ({ post }: { post: Post }) => {
     <Link
       href={post.url}
       key={post._id}
-      className="grid w-full grid-cols-1 gap-1 p-4"
+      className="grid w-full grid-cols-1 gap-1 p-4 pb-3"
     >
       <div className="text-xl font-bold">{post.title}</div>
       <div className="text-base truncate text-slate-500">
