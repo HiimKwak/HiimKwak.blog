@@ -1,10 +1,10 @@
 import PostCard from "@/src/components/post/PostCard";
 import { allPosts } from "contentlayer/generated";
-import { compareAsc } from "date-fns";
+import { compareDesc } from "date-fns";
 
 const PostSorter = ({ category }: { category: string }) => {
   const posts = allPosts
-    .sort((a, b) => compareAsc(new Date(a.date), new Date(b.date)))
+    .sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
     .filter((post) => post._raw.sourceFileDir.includes(category));
 
   return (
