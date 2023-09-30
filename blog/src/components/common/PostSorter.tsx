@@ -14,9 +14,9 @@ const PostSorter = ({
     .filter((post) => post._raw.sourceFileDir.includes(category));
 
   return (
-    <>
+    <div className="py-4">
       {header && (
-        <div className="text-[2rem] font-bold tracking-tight my-4">
+        <div className="text-[2rem] font-bold tracking-tight mb-4">
           {category.charAt(0).toUpperCase() + category.slice(1)}
         </div>
       )}
@@ -26,7 +26,7 @@ const PostSorter = ({
           <PostCard post={post} key={post._id} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

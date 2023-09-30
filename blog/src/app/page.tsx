@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="text-[3rem] font-extrabold tracking-tight my-4	">
+      <div className="text-[3rem] font-extrabold tracking-tight mt-8">
         Latest
       </div>
       {categories.map((category) => (
