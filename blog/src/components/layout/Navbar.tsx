@@ -34,7 +34,11 @@ export default function Navbar() {
       </Link>
       <div className="flex space-x-4">
         {NAV_LINKS.map((route: NavLinkProps) => (
-          <Link href={route.link} key={route.title}>
+          <Link
+            href={route.link}
+            key={route.title}
+            className="inline-flex items-center justify-center text-sm font-medium transition rounded-md text-secondary hover:text-highlight focus-visible:outline-none focus-visible:ring focus-visible:ring-sunglow-primary"
+          >
             {route.icon ? (
               <IconText Icon={IcGithub} IconSize={25} />
             ) : (
