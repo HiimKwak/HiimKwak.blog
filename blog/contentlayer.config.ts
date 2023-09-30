@@ -43,6 +43,16 @@ export const Post = defineDocumentType(() => ({
       type: "string",
       resolve: (post) => extractTocHeadings(post.body.raw),
     },
+    category: {
+      type: "string",
+      resolve: (post) =>
+        post._raw.sourceFileDir.indexOf("/") !== -1
+          ? post._raw.sourceFileDir.slice(
+              0,
+              post._raw.sourceFileDir.indexOf("/")
+            )
+          : post._raw.sourceFileDir,
+    },
   },
 }));
 
