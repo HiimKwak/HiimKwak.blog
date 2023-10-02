@@ -7,6 +7,7 @@ export interface IconTextProps {
   IconSize?: number;
   text?: React.ReactNode;
   className?: string;
+  fill?: string;
 }
 
 export default function IconText({
@@ -14,10 +15,11 @@ export default function IconText({
   IconSize = 14,
   text,
   className,
+  fill,
 }: IconTextProps) {
   return (
     <div className={$("flex items-center", className ?? "gap-1 text-xs")}>
-      <Icon width={IconSize} height={IconSize} />
+      <Icon width={IconSize} height={IconSize} className={fill} />
       <span>{text}</span>
     </div>
   );
