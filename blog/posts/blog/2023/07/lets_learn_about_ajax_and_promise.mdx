@@ -1,8 +1,8 @@
 ---
-title: "비동기 처리와 Promise에 대해 알아보자"
-description: "자바스크립트 기본 개념인 Promise을 뜯어보았다."
-icon: ""
-image: ""
+title: '비동기 처리와 Promise에 대해 알아보자'
+description: '자바스크립트 기본 개념인 Promise을 뜯어보았다.'
+icon: ''
+image: ''
 tags:
   - JavaScript
 draft: false
@@ -86,7 +86,7 @@ XML에 대해 자세히 알 필요 없습니다. 그냥 웹 확장성을 갖춘 
 const xhr = new XMLHttpRequest();
 
 // HTTP 요청 초기화
-xhr.open("GET", "https://jsonplaceholder.typicode.com/todos/1");
+xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1');
 
 // HTTP 요청 전송
 xhr.send();
@@ -97,7 +97,7 @@ xhr.onreadystatechange = () => {
   if (xhr.status === 200) {
     console.log(JSON.parse(xhr.response));
   } else {
-    console.error("Error", xhr.status, xhr.statusText);
+    console.error('Error', xhr.status, xhr.statusText);
   }
 };
 ```
@@ -114,11 +114,11 @@ xhr.onreadystatechange = () => {
 
 ```jsx
 function main() {
-  console.log("First");
+  console.log('First');
   setTimeout(function display() {
-    console.log("Second");
+    console.log('Second');
   }, 0);
-  console.log("Third");
+  console.log('Third');
 }
 main();
 
@@ -153,7 +153,7 @@ main();
 function loadScript(src) {
   // <script> 태그를 만들고 페이지에 태그를 추가합니다.
   // 태그가 페이지에 추가되면 src에 있는 스크립트를 로딩하고 실행합니다.
-  let script = document.createElement("script");
+  let script = document.createElement('script');
   script.src = src;
   document.head.append(script);
 }
@@ -164,7 +164,7 @@ function loadScript(src) {
 `loadScript` 함수를 불러온 뒤 수정하는 코드를 달기 위해서 아래와 같이 실행할 수 있겠죠.
 
 ```jsx
-loadScript("/my/script.js"); // script.js엔 "function newFunction() {…}"이 있습니다.
+loadScript('/my/script.js'); // script.js엔 "function newFunction() {…}"이 있습니다.
 
 newFunction(); // 함수가 존재하지 않는다는 에러가 발생합니다!
 ```
@@ -172,11 +172,11 @@ newFunction(); // 함수가 존재하지 않는다는 에러가 발생합니다!
 이렇게 실행하면 에러를 마주칠거에요. `newFunction`은 `script.js` 파일 안에 위치해있는데, `loadScript` 함수가 실행이 모두 끝난 뒤에 `newFunction`이 호출되지 않고 비동기적으로 호출되기 때문이죠. 자바스크립트는 기본적으로 시간이 오래 걸리는 작업들은 모두 비동기적으로 동작하도록 짜여져있기 때문에 프로그래머가 어떤 함수의 실행 이후 조건부적으로 그 다음 동작을 수행시키고 싶다할 때엔 반드시 비동기 프로그래밍을 해야합니다!
 
 ```jsx
-function loadScript(src, **callback**) {
+function loadScript(src, callback) {
   let script = document.createElement('script');
   script.src = src;
 
-  **script.onload = () => callback(script);**
+  script.onload = () => callback(script);
 
   document.head.append(script);
 }
@@ -187,11 +187,11 @@ function loadScript(src, **callback**) {
 그러면 이제부터는 아래와 같이 작성한다면 원하는 함수를 콜백함수로서 동작시킬 수 있게됩니다.
 
 ```jsx
-loadScript('/my/script.js', **function() {**
+loadScript('/my/script.js', function() {
   // 이름 짓지 않은(익명) 콜백 함수를 두 번째 인자로 넘겨주었습니다.
-  **newFunction();** // loadScript 함수 안에 콜백 함수의 존재를 알렸으니 이제 함수가 제대로 동작합니다.
- **** ...
-**}**);
+  newFunction(); // loadScript 함수 안에 콜백 함수의 존재를 알렸으니 이제 함수가 제대로 동작합니다.
+  ...
+});
 ```
 
 ### 콜백지옥
@@ -199,17 +199,17 @@ loadScript('/my/script.js', **function() {**
 이 때, 스크립트가 어려 개 있다고 생각해봅시다. 여러 개의 스크립트를 순차적으로 불러오고 싶다면 아래와 같이 코드를 작성해볼 수 있겠죠?
 
 ```jsx
-loadScript("1.js", function (error, script) {
+loadScript('1.js', function (error, script) {
   if (error) {
     handleError(error);
   } else {
     // ...
-    loadScript("2.js", function (error, script) {
+    loadScript('2.js', function (error, script) {
       if (error) {
         handleError(error);
       } else {
         // ...
-        loadScript("3.js", function (error, script) {
+        loadScript('3.js', function (error, script) {
           if (error) {
             handleError(error);
           } else {
@@ -256,12 +256,12 @@ Promise 객체 자체가 낯선 분들이 계실 수 있습니다. 이 글을 �
 
 ```jsx
 const getData = new Promise((resolve, reject) => {
-  $.get("아무 주소", (response) => {
+  $.get('아무 주소', (response) => {
     // jQuery 문법입니다. 그냥 넘어가셔도 됩니다 :)
     if (response) {
       resolve(response);
     }
-    reject(new Error("Request failed"));
+    reject(new Error('Request failed'));
   });
 });
 ```
@@ -314,9 +314,9 @@ new Promise((resolve, reject) => {
 또 Promise 메소드를 자세히 살펴보시면 콜백 함수랑 뭔가 비슷한 점이 있지 않나요?
 
 ```jsx
-loadScript("/article/promise-chaining/one.js").then((script1) => {
-  loadScript("/article/promise-chaining/two.js").then((script2) => {
-    loadScript("/article/promise-chaining/three.js").then((script3) => {
+loadScript('/article/promise-chaining/one.js').then((script1) => {
+  loadScript('/article/promise-chaining/two.js').then((script2) => {
+    loadScript('/article/promise-chaining/three.js').then((script3) => {
       // 여기서 script1, script2, script3에 정의된 함수를 사용할 수 있습니다.
       one();
       two();
@@ -331,9 +331,9 @@ loadScript("/article/promise-chaining/one.js").then((script1) => {
 하지만 아래와 같이 코드를 조금이나마 가독성 있게 고칠 수는 있습니다.
 
 ```jsx
-loadScript("/article/promise-chaining/one.js")
-  .then((script) => loadScript("/article/promise-chaining/two.js"))
-  .then((script) => loadScript("/article/promise-chaining/three.js"))
+loadScript('/article/promise-chaining/one.js')
+  .then((script) => loadScript('/article/promise-chaining/two.js'))
+  .then((script) => loadScript('/article/promise-chaining/three.js'))
   .then((script) => {
     // 스크립트를 정상적으로 불러왔기 때문에 스크립트 내의 함수를 호출할 수 있습니다.
     one();
@@ -348,7 +348,7 @@ loadScript("/article/promise-chaining/one.js")
 
 ```jsx
 function logName() {
-  const user = fetchUser("domain.com/users/1");
+  const user = fetchUser('domain.com/users/1');
   // fetchUser 함수는 인수로 넘겨받은 주소에 접근하면 user 정보 객체를 반환해준다고 가정해봅시다.
   if (user.id === 1) {
     console.log(user.name);
@@ -360,7 +360,7 @@ function logName() {
 
 ```jsx
 function logName() {
-  const user = fetchUser("domain.com/users/1", function (user) {
+  const user = fetchUser('domain.com/users/1', function (user) {
     if (user.id === 1) {
       console.log(user.name);
     }
@@ -376,12 +376,13 @@ function logName() {
 
 ```jsx
 // async & await 적용 후
-**async** function logName() {
-  const user = **await** fetchUser('domain.com/users/1');
+async function logName() {
+  const user = await fetchUser('domain.com/users/1');
   if (user.id === 1) {
     console.log(user.name);
   }
-}ㅓ
+}
+ㅓ;
 ```
 
 `async / await` 를 배우지도 않았는데 단번에 이해가 되지 않으시나요? 심지어 기존 코드를 훼손시키지도 않고 그저 접두사 2개만 붙여주었을 뿐인데 위에서부터 아래로 순서가 보장이 되네요!
@@ -406,7 +407,7 @@ function f() {
 ```jsx
 async function f() {
   let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("완료!"), 1000);
+    setTimeout(() => resolve('완료!'), 1000);
   });
 
   let result = await promise; // 프라미스가 이행될 때까지 기다림 (*)
@@ -426,7 +427,7 @@ f();
 ```jsx
 async function f() {
   try {
-    let response = await fetch("http://유효하지-않은-주소");
+    let response = await fetch('http://유효하지-않은-주소');
     let user = await response.json();
   } catch (err) {
     // fetch와 response.json에서 발행한 에러 모두를 여기서 잡습니다.
