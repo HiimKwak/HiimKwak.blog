@@ -1,8 +1,8 @@
 ---
-title: "Next.js repository 뜯어보기"
-description: "원티드 프리온보딩 챌린지(FE, 7월) 사전과제"
-icon: ""
-image: ""
+title: 'Next.js 코드 뜯어보기'
+description: '원티드 프리온보딩 챌린지(FE, 7월) 사전과제'
+icon: ''
+image: ''
 tags:
   - Next.js
 draft: false
@@ -26,39 +26,39 @@ date: 2023-06-29 00:00:01
 
 1. CSR(Client-side Rendering)이란 무엇이며, 그것의 장단점에 대하여 설명해주세요.
 
-   **CSR은 Client-Side Rendering의 줄임말로 SSR(Server-Side Rendering)과 대비되는 랜더링 패러다임이다.** 결국 `렌더링을 어느 사이드에서 할 것인가?`란 질문에 `클라이언트` 사이드와 `서버` 사이드로 나눠 접근하는 것인데, `CSR`은 렌더링을 클라이언트 사이드인 `브라우저`에서 담당하는 방식이고 `SSR`은 `서버`가 렌더링하여 전송하는 방식이다. 이를 이해하려면 `클라이언트` 사이드와 `서버` 사이드가 어떻게 다른지 먼저 이해해야 한다.
+**CSR은 Client-Side Rendering의 줄임말로 SSR(Server-Side Rendering)과 대비되는 랜더링 패러다임이다.** 결국 `렌더링을 어느 사이드에서 할 것인가?`란 질문에 `클라이언트` 사이드와 `서버` 사이드로 나눠 접근하는 것인데, `CSR`은 렌더링을 클라이언트 사이드인 `브라우저`에서 담당하는 방식이고 `SSR`은 `서버`가 렌더링하여 전송하는 방식이다. 이를 이해하려면 `클라이언트` 사이드와 `서버` 사이드가 어떻게 다른지 먼저 이해해야 한다.
 
-   웹페이지는 크게 `클라이언트`와 `서버` 두 부분으로 나누어져있다. 쉽게 설명하자면, 브라우저 상에 우리가 마우스와 키보드 등의 인풋 장치로 접근할 수 있는 '눈으로 보이는' 부분과, 상호작용이 발생했을 때 실제로 그 상호작용의 결과를 반영하고 보여주기 위해 뒷단에서 일어나는 '눈으로 보이지 않는' 부분이 바로 `클라이언트`와 `서버`인 것이다.
+웹페이지는 크게 `클라이언트`와 `서버` 두 부분으로 나누어져있다. 쉽게 설명하자면, 브라우저 상에 우리가 마우스와 키보드 등의 인풋 장치로 접근할 수 있는 '눈으로 보이는' 부분과, 상호작용이 발생했을 때 실제로 그 상호작용의 결과를 반영하고 보여주기 위해 뒷단에서 일어나는 '눈으로 보이지 않는' 부분이 바로 `클라이언트`와 `서버`인 것이다.
 
-   우리가 브라우저를 통해 웹페이지에 접속할 때 웹페이지는 단순히 한순간에 팝 하고 생기지 않는다. 매우 짧은 시간에 웹페이지를 페인팅하기 위한 소스들을 서버로부터 받아오고 차례대로 뼈대를 조립한 다음 페인팅을 하여 우리 눈 앞에 보여지는 것이다. 그 과정을 흔히 `Critical Render Path`라고 일컫는다.
+우리가 브라우저를 통해 웹페이지에 접속할 때 웹페이지는 단순히 한순간에 팝 하고 생기지 않는다. 매우 짧은 시간에 웹페이지를 페인팅하기 위한 소스들을 서버로부터 받아오고 차례대로 뼈대를 조립한 다음 페인팅을 하여 우리 눈 앞에 보여지는 것이다. 그 과정을 흔히 `Critical Render Path`라고 일컫는다.
 
-   `Critical Render Path`는 다음 이미지와 같은 과정으로 진행되며 원칙적으로 현재 띄워져있는 웹페이지의 요소 하나에 변경사항이 생길 때마다 이 `Critical Render Path`가 반복 실행된다.
-   ![2](/postImg/2023/07/digging_in_nextjs/2.png)
-   그런데 웹이 발전함에 따라, 정적 사이트에 interactive한 요소들이 추가되고 JavaScript 코드가 여럿 달리기 시작하면서 더이상 요소 하나가 변경될 때마다 페이지 전체를 로드하는 방식으로는 성능 개선이 어려워지기 시작했다. 더욱이 변경사항이 생길 때마다 페이지를 통째로 로드해오면 그 사이에 번쩍이는 하얀 화면을 맞닥뜨리게 되는데 사용자 경험 측면에서 굉장한 문제였다. 그래서 페이지 전체를 다시 로드해오는 것이 아니라, '필요한 부분'만 부분적으로 '동적으로' 로드해 전체 페이지는 유지하면서도 끊김없는 사용자 경험을 제공하는 방식을 고안하게 되는데 이것이 `SPA(Single Page Application)`이다(기존 방식은 `MPA(Multi Page Application)`).
+`Critical Render Path`는 다음 이미지와 같은 과정으로 진행되며 원칙적으로 현재 띄워져있는 웹페이지의 요소 하나에 변경사항이 생길 때마다 이 `Critical Render Path`가 반복 실행된다.
+![2](/postImg/2023/07/digging_in_nextjs/2.png)
+그런데 웹이 발전함에 따라, 정적 사이트에 interactive한 요소들이 추가되고 JavaScript 코드가 여럿 달리기 시작하면서 더이상 요소 하나가 변경될 때마다 페이지 전체를 로드하는 방식으로는 성능 개선이 어려워지기 시작했다. 더욱이 변경사항이 생길 때마다 페이지를 통째로 로드해오면 그 사이에 번쩍이는 하얀 화면을 맞닥뜨리게 되는데 사용자 경험 측면에서 굉장한 문제였다. 그래서 페이지 전체를 다시 로드해오는 것이 아니라, '필요한 부분'만 부분적으로 '동적으로' 로드해 전체 페이지는 유지하면서도 끊김없는 사용자 경험을 제공하는 방식을 고안하게 되는데 이것이 `SPA(Single Page Application)`이다(기존 방식은 `MPA(Multi Page Application)`).
 
-   `SPA` 방식을 채택하면 거의 대부분 `CSR` 방식을 채택하게 되는데, 데이터를 부분적으로 서버에 요청하여 필요 부분만 브라우저에서 렌더링하면 되기 때문에 완성된 페이지를 주고받는 `SSR`보다 `CSR`이 선호됐다. `CSR`은 최초 요청 시 HTML, CSS, JS 등 리소스를 모두 다운받아 브라우저에서 렌더링을 실행한다. 따라서 한 번만 렌더링하면 그 다음부터는 별도의 리소스 요청 없이 데이터만 요청하기 때문에 **서버 트래픽 부담이 적다.** 또한 **페이지 이동 시 전환속도가 빠르고 더 나은 사용자 경험을 제공할 수 있다.**
+`SPA` 방식을 채택하면 거의 대부분 `CSR` 방식을 채택하게 되는데, 데이터를 부분적으로 서버에 요청하여 필요 부분만 브라우저에서 렌더링하면 되기 때문에 완성된 페이지를 주고받는 `SSR`보다 `CSR`이 선호됐다. `CSR`은 최초 요청 시 HTML, CSS, JS 등 리소스를 모두 다운받아 브라우저에서 렌더링을 실행한다. 따라서 한 번만 렌더링하면 그 다음부터는 별도의 리소스 요청 없이 데이터만 요청하기 때문에 **서버 트래픽 부담이 적다.** 또한 **페이지 이동 시 전환속도가 빠르고 더 나은 사용자 경험을 제공할 수 있다.**
 
-   그러나 항상 모든 분야가 그렇듯, 여러 방법이 있으면 각각의 `trade-off`가 존재한다.
+그러나 항상 모든 분야가 그렇듯, 여러 방법이 있으면 각각의 `trade-off`가 존재한다.
 
-   - **느린 TTV(Time to View)와 TTI(Time to Interact)**
-     처리를 거쳐 렌더링이 가능한 HTML을 보내는 `SSR`과 달리 `CSR`은 그 과정을 브라우저에서 진행하기 때문에 `JS`를 실행하고 데이터를 불러와 채워넣기 전까지 사용자는 빈 페이지를 보게 된다. 이는 브라우저의 환경에 따라 천차만별의 접근시간을 가지게 된다. 인터넷이 잘 갖춰져 있는 환경에서는 문제가 없지만, 인터넷 환경이 취약한 곳에선 눈에 띄게 접근 시간이 늘어나게 되는 단점이 있다.
-   - **취약한 검색 엔진 최적화**
-     검색 엔진은 자동화된 '크롤러'란 봇으로 웹사이트의 메타데이터를 읽고 이를 바탕으로 유저들에게 노출해주는데, 대다수의 검색 엔진 크롤러가 `JS`를 지원하지 않아 첫 렌더링을 브라우저에서 뒤늦게 실행하는 `CSR` 특성상 검색 경쟁에서 약점을 가진다. 구글 검색 엔진 크롤러는 `JS`를 지원하지만 국내 1위 포털인 네이버는 JS를 지원하지 않으므로 여전히 고려해야할 문제이다.
-   - **보안에 취약하다**
-     `CSR`은 서버로부터 리소스를 제공받아 브라우저에서 모든 렌더링 및 실행을 수행하므로 보안에 취약하다. 어떤 서버에서 어떤 데이터를 받아오는지와 같은 정보나, 실행하는데 필요한 코드와 키 요소들이 클라이언트에 모아지므로 상대적으로 보안에 취약할 수 밖에 없다.
+- **느린 TTV(Time to View)와 TTI(Time to Interact)**
+  처리를 거쳐 렌더링이 가능한 HTML을 보내는 `SSR`과 달리 `CSR`은 그 과정을 브라우저에서 진행하기 때문에 `JS`를 실행하고 데이터를 불러와 채워넣기 전까지 사용자는 빈 페이지를 보게 된다. 이는 브라우저의 환경에 따라 천차만별의 접근시간을 가지게 된다. 인터넷이 잘 갖춰져 있는 환경에서는 문제가 없지만, 인터넷 환경이 취약한 곳에선 눈에 띄게 접근 시간이 늘어나게 되는 단점이 있다.
+- **취약한 검색 엔진 최적화**
+  검색 엔진은 자동화된 '크롤러'란 봇으로 웹사이트의 메타데이터를 읽고 이를 바탕으로 유저들에게 노출해주는데, 대다수의 검색 엔진 크롤러가 `JS`를 지원하지 않아 첫 렌더링을 브라우저에서 뒤늦게 실행하는 `CSR` 특성상 검색 경쟁에서 약점을 가진다. 구글 검색 엔진 크롤러는 `JS`를 지원하지만 국내 1위 포털인 네이버는 JS를 지원하지 않으므로 여전히 고려해야할 문제이다.
+- **보안에 취약하다**
+  `CSR`은 서버로부터 리소스를 제공받아 브라우저에서 모든 렌더링 및 실행을 수행하므로 보안에 취약하다. 어떤 서버에서 어떤 데이터를 받아오는지와 같은 정보나, 실행하는데 필요한 코드와 키 요소들이 클라이언트에 모아지므로 상대적으로 보안에 취약할 수 밖에 없다.
 
 2. SPA(Single Page Application)로 구성된 웹 앱에서 SSR(Server-side Rendering)이 필요한 이유에 대하여 설명해주세요.
 
-   인간은 항상 끊임없이 발전을 추구한다. 새로운 패러다임이 제시되어도, 금방 단점을 발견하며 놀랍게도 다른 방식과 결합하여 또 다른 방안을 제시한다. 웹 개발에서도 그렇다. `SPA` 방식이 웹 개발의 스탠다드가 되었지만, `CSR`의 단점을 극복하기 위해 여러 방식들을 고안하는데 이것이 바로 최근 `React` Scene에서 새로운 선두주자로 두각을 드러내는 `Next.js`의 이야기이다.
+인간은 항상 끊임없이 발전을 추구한다. 새로운 패러다임이 제시되어도, 금방 단점을 발견하며 놀랍게도 다른 방식과 결합하여 또 다른 방안을 제시한다. 웹 개발에서도 그렇다. `SPA` 방식이 웹 개발의 스탠다드가 되었지만, `CSR`의 단점을 극복하기 위해 여러 방식들을 고안하는데 이것이 바로 최근 `React` Scene에서 새로운 선두주자로 두각을 드러내는 `Next.js`의 이야기이다.
 
-   앞서 말했듯 `CSR`은 사용자 경험 측면에서 혁신적인 장점을 가지고 있었으나 그에 못지 않은 단점들도 있었다. 첫 페이지 로딩 속도가 느리고, SEO 최적화의 문제를 가지고 있었다. 모든 환경이 최상의 컨디션을 갖추고 있진 않기 때문에, 좀 더 보편적으로 렌더링 방식을 최적화할 필요가 있었다.
+앞서 말했듯 `CSR`은 사용자 경험 측면에서 혁신적인 장점을 가지고 있었으나 그에 못지 않은 단점들도 있었다. 첫 페이지 로딩 속도가 느리고, SEO 최적화의 문제를 가지고 있었다. 모든 환경이 최상의 컨디션을 갖추고 있진 않기 때문에, 좀 더 보편적으로 렌더링 방식을 최적화할 필요가 있었다.
 
-   그래서 개발자들은 `CSR`과 `SSR`을 동시에 활용하는 하이브리드 방식을 생각해낸다. 이 방식을 고안한 배경은 다음과 같다.
+그래서 개발자들은 `CSR`과 `SSR`을 동시에 활용하는 하이브리드 방식을 생각해낸다. 이 방식을 고안한 배경은 다음과 같다.
 
-   - 동적으로 렌더링해야 하는 페이지보다 정적 페이지의 수가 훨씬 많다.
-   - 필요하지 않은 페이지까지 `CSR`로 처리하는 것은 낭비다.
+- 동적으로 렌더링해야 하는 페이지보다 정적 페이지의 수가 훨씬 많다.
+- 필요하지 않은 페이지까지 `CSR`로 처리하는 것은 낭비다.
 
-   동적으로 처리해야하는 동적 페이지는 `CSR`로 처리하고, 그럴 필요가 없는 정적 사이트는 서버 사이드에서 렌더링하도록 '최적화'한 것이다.
+동적으로 처리해야하는 동적 페이지는 `CSR`로 처리하고, 그럴 필요가 없는 정적 사이트는 서버 사이드에서 렌더링하도록 '최적화'한 것이다.
 
 사실 서버 사이드 렌더링이 끝이 아니다. `SSG(Static Site Generation)`와 `ISR(Incremental Site Regeneration)` 방식으로 더 자세하게 나눌 수 있다. 서버에 요청이 들어올 때마다 페이지를 제작해서 보내는게 아니라, 애초에 빌드할 때부터 정적인 사이트를 미리 만들어놔 캐싱해두고 이를 재사용하는 SSG, 주기적으로 최신화하는 ISR 방식으로 세분화되는 것이다. `Next.js`는 기본적으로 `SSG` 방식을 권유하고, 필요시에 `CSR / SSR` 방식을 활용할 것을 권장한다.
 
@@ -90,20 +90,9 @@ export { nextStart }
 위 코드를 요약하자면 결국 startServer 함수를 실행하기 위해 여러 값들을 설정하고 해당 함수로 넘겨준다.
 
 ```tsx
-
 ...
-export async function startServer({
-  dir,
-  prevDir,
-  port,
-  isDev,
-  hostname,
-  useWorkers,
-  allowRetry,
-  keepAliveTimeout,
-  onStdout,
-  onStderr,
-}: StartServerOptions): Promise<TeardownServer> {
+export async function startServer({...}: StartServerOptions): Promise<TeardownServer> {
+
   const sockets = new Set<ServerResponse | Duplex>()
   let worker: import('next/dist/compiled/jest-worker').Worker | undefined
   let handlersReady = () => {}
@@ -128,30 +117,17 @@ export async function startServer({
       console.error(err)
     }
   })
-
-  if (keepAliveTimeout) {
-    server.keepAliveTimeout = keepAliveTimeout
-  }
+  ...
   server.on('upgrade', async (req, socket, head) => {
-    try {
-      sockets.add(socket)
-      socket.on('close', () => sockets.delete(socket))
-      await upgradeHandler(req, socket, head)
-    } catch (err) {
-      socket.destroy()
-      Log.error(`Failed to handle request for ${req.url}`)
-      console.error(err)
-    }
+    ...
+    await upgradeHandler(req, socket, head)
+    ...
   })
 
   let portRetryCount = 0
-
   server.on('error', (err: NodeJS.ErrnoException) => {
     if (
-      allowRetry &&
-      port &&
-      isDev &&
-      err.code === 'EADDRINUSE' &&
+      ...
       portRetryCount < 10
     ) {
       Log.warn(`Port ${port} is in use, trying ${port + 1} instead.`)
@@ -159,8 +135,7 @@ export async function startServer({
       portRetryCount += 1
       server.listen(port, hostname)
     } else {
-      Log.error(`Failed to start server`)
-      console.error(err)
+      ...
       process.exit(1)
     }
   })
@@ -168,114 +143,20 @@ export async function startServer({
   let targetHost = hostname
 
   await new Promise<void>((resolve) => {
-    server.on('listening', () => {
-      const addr = server.address()
-      port = typeof addr === 'object' ? addr?.port || port : port
-
-      let host = !hostname || hostname === '0.0.0.0' ? 'localhost' : hostname
-
-      let normalizedHostname = hostname || '0.0.0.0'
-
-      if (isIPv6(hostname)) {
-        host = host === '::' ? '[::1]' : `[${host}]`
-        normalizedHostname = `[${hostname}]`
-      }
-      targetHost = host
-
-      const appUrl = `http://${host}:${port}`
-
-      if (isNodeDebugging) {
-        const debugPort = getDebugPort()
-        Log.info(
-          `the --inspect${
-          isNodeDebugging === 'brk' ? '-brk' : ''
-          } option was detected, the Next.js proxy server should be inspected at port ${debugPort}.`
-        )
-      }
-
-      Log.ready(
-        `started server on ${normalizedHostname}${
-        (port + '').startsWith(':') ? '' : ':'
-        }${port}, url: ${appUrl}`
-      )
-      resolve()
-    })
+    ...
     server.listen(port, hostname)
   })
 
   try {
     if (useWorkers) {
-      const httpProxy =
-            require('next/dist/compiled/http-proxy') as typeof import('next/dist/compiled/http-proxy')
-
-      let renderServerPath = require.resolve('./render-server')
-      let jestWorkerPath = require.resolve('next/dist/compiled/jest-worker')
-
-      if (prevDir) {
-        jestWorkerPath = jestWorkerPath.replace(prevDir, dir)
-        renderServerPath = renderServerPath.replace(prevDir, dir)
-      }
-
+      ...
       const { Worker } =
             require(jestWorkerPath) as typeof import('next/dist/compiled/jest-worker')
 
-      const routerWorker = new Worker(renderServerPath, {
-        numWorkers: 1,
-        // TODO: do we want to allow more than 10 OOM restarts?
-        maxRetries: 10,
-        forkOptions: {
-          execArgv: await genRouterWorkerExecArgv(
-            isNodeDebugging === undefined ? false : isNodeDebugging
-          ),
-          env: {
-            FORCE_COLOR: '1',
-            ...((initialEnv || process.env) as typeof process.env),
-            PORT: port + '',
-            NODE_OPTIONS: getNodeOptionsWithoutInspect(),
-            ...(process.env.NEXT_CPU_PROF
-                ? { __NEXT_PRIVATE_CPU_PROFILE: `CPU.router` }
-                : {}),
-            WATCHPACK_WATCHER_LIMIT: '20',
-          },
-        },
-        exposedMethods: ['initialize'],
-      }) as any as InstanceType<typeof Worker> & {
+      const routerWorker = new Worker(renderServerPath, {...}) as any as InstanceType<typeof Worker> & {
         initialize: typeof import('./render-server').initialize
       }
-                                let didInitialize = false
-
-                                for (const _worker of ((routerWorker as any)._workerPool?._workers ||
-                                  []) as {
-                                    _child: ChildProcess
-                                  }[]) {
-                                    // eslint-disable-next-line no-loop-func
-                                    _worker._child.on('exit', (code, signal) => {
-                                      // catch failed initializing without retry
-                                      if ((code || signal) && !didInitialize) {
-                                        routerWorker?.end()
-                                        process.exit(1)
-                                      }
-                                    })
-                                  }
-
-      const workerStdout = routerWorker.getStdout()
-      const workerStderr = routerWorker.getStderr()
-
-      workerStdout.on('data', (data) => {
-        if (typeof onStdout === 'function') {
-          onStdout(data)
-        } else {
-          process.stdout.write(data)
-        }
-      })
-      workerStderr.on('data', (data) => {
-        if (typeof onStderr === 'function') {
-          onStderr(data)
-        } else {
-          process.stderr.write(data)
-        }
-      })
-
+      ...
       const { port: routerPort } = await routerWorker.initialize({
         dir,
         port,
@@ -299,38 +180,12 @@ export async function startServer({
           ws: true,
           followRedirects: false,
         })
-
-        proxyServer.on('error', (_err) => {
-          // TODO?: enable verbose error logs with --debug flag?
-        })
         return proxyServer
       }
 
       // proxy to router worker
       requestHandler = async (req, res) => {
-        const urlParts = (req.url || '').split('?')
-        const urlNoQuery = urlParts[0]
-
-        // this normalizes repeated slashes in the path e.g. hello//world ->
-        // hello/world or backslashes to forward slashes, this does not
-        // handle trailing slash as that is handled the same as a next.config.js
-        // redirect
-        if (urlNoQuery?.match(/(\\|\/\/)/)) {
-          const cleanUrl = normalizeRepeatedSlashes(req.url!)
-          res.statusCode = 308
-          res.setHeader('Location', cleanUrl)
-          res.end(cleanUrl)
-          return
-        }
-        const proxyServer = getProxyServer(req.url || '/')
-
-        // http-proxy does not properly detect a client disconnect in newer
-        // versions of Node.js. This is caused because it only listens for the
-        // `aborted` event on the our request object, but it also fully reads
-        // and closes the request object. Node **will not** fire `aborted` when
-        // the request is already closed. Listening for `close` on our response
-        // object will detect the disconnect, and we can abort the proxy's
-        // connection.
+      ...
         proxyServer.on('proxyReq', (proxyReq) => {
           res.on('close', () => proxyReq.destroy())
         })
