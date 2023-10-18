@@ -4,9 +4,21 @@ import { getMDXComponent } from 'next-contentlayer/hooks';
 import type { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import PostTime from '@/src/components/post/PostTime';
+import Image from 'next/image';
 
 const mdxComponents: MDXComponents = {
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
+  img: ({ src, alt, width, height }) => (
+    <Image
+      src={src as string}
+      alt={alt as string}
+      width={(width as number) || 350}
+      height={(height as number) || 300}
+    />
+  ),
+  ImageCarousel: ({ children }: { children: React.ReactNode }) => (
+    <div className='flex overflow-auto'>{children}</div>
+  ),
 };
 
 export const generateStaticParams = async () =>

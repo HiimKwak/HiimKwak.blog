@@ -6,3 +6,11 @@
 .prose aside p {
   @apply m-0 text-[0.9rem];
 }
+
+.prose p > img {
+  @apply flex justify-center w-full;
+}
+
+.prose video {
+  @apply w-full;
+}
