@@ -7,8 +7,12 @@
   @apply m-0 text-[0.9rem];
 }
 
-.prose p > img {
-  @apply flex justify-center w-full;
+.prose p:has(> img) {
+  @apply flex overflow-auto;
+}
+
+.prose img {
+  @apply w-full object-contain;
 }
 
 .prose video {

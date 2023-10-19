@@ -4,20 +4,29 @@ import { getMDXComponent } from 'next-contentlayer/hooks';
 import type { MDXComponents } from 'mdx/types';
 import Link from 'next/link';
 import PostTime from '@/src/components/post/PostTime';
-import Image from 'next/image';
+import CustomImage from '@/src/components/common/CustomImage';
 
 const mdxComponents: MDXComponents = {
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
   img: ({ src, alt, width, height }) => (
-    <Image
+    <CustomImage
       src={src as string}
       alt={alt as string}
-      width={(width as number) || 350}
-      height={(height as number) || 300}
+      height={height as number}
+      width={width as number}
     />
   ),
-  ImageCarousel: ({ children }: { children: React.ReactNode }) => (
-    <div className='flex overflow-auto'>{children}</div>
+  ImageCarousel: ({ children }) => {
+    return <div className='not-prose'>{children}</div>;
+  },
+  CustomImage: ({ src, alt, width, height, caption }) => (
+    <CustomImage
+      src={src as string}
+      alt={alt as string}
+      height={height as number}
+      width={width as number}
+      caption={caption as string}
+    />
   ),
 };
 
