@@ -8,14 +8,6 @@ import CustomImage from '@/src/components/common/CustomImage';
 
 const mdxComponents: MDXComponents = {
   a: ({ href, children }) => <Link href={href as string}>{children}</Link>,
-  img: ({ src, alt, width, height }) => (
-    <CustomImage
-      src={src as string}
-      alt={alt as string}
-      height={height as number}
-      width={width as number}
-    />
-  ),
   ImageCarousel: ({ children }) => {
     return <div className='not-prose'>{children}</div>;
   },
