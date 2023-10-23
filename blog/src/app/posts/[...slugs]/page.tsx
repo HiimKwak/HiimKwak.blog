@@ -51,7 +51,9 @@ export default function Post({ params }: { params: { slugs: string[] } }) {
         <div className='flex justify-center'>
           <PostTime date={post.date} readingTime={post.readingTime} />
         </div>
-        <h1>{post.title}</h1>
+        <span className='mb-4 text-3xl font-semibold text-black'>
+          {post.title}
+        </span>
       </div>
 
       <MDXContent components={mdxComponents} />
