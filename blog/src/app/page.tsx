@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='text-[2.5rem] font-bold tracking-tight'>최근</div>
+      <div className='text-[2.5rem] font-semibold tracking-tight'>최근</div>
       {categories.map((category) => (
         <div key={category}>
           <PostSorter category={category} header={true} />

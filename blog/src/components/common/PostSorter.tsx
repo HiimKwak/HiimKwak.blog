@@ -27,7 +27,7 @@ const PostSorter = ({
   return (
     <div className='py-4'>
       {header && (
-        <div className='text-[1.5rem] font-semibold tracking-tight mb-4'>
+        <div className='text-[1.5rem] tracking-tight mb-4'>
           {CATEGORIES[category as CategoryKeys]}
         </div>
       )}

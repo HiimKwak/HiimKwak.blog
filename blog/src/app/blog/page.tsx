@@ -1,10 +1,12 @@
-import PostSorter from "@/src/components/common/PostSorter";
+import PostSorter from '@/src/components/common/PostSorter';
 
 const Blog = () => {
   return (
     <>
-      <div className="text-[3rem] font-extrabold tracking-tight mt-8">Blog</div>
-      <PostSorter category="blog" />
+      <div className='text-[2.5rem] font-semibold tracking-tight'>
+        개발 이야기
+      </div>
+      <PostSorter category='blog' />
     </>
   );
 };

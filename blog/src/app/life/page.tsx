@@ -3,7 +3,7 @@ import PostSorter from '@/src/components/common/PostSorter';
 const Life = () => {
   return (
     <>
-      <div className='text-[3rem] font-extrabold tracking-tight mt-8'>Life</div>
+      <div className='text-[2.5rem] font-semibold tracking-tight'>일상</div>
       <PostSorter category='life' />
     </>
   );
