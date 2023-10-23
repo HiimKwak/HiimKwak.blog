@@ -43,11 +43,10 @@ export default function Navbar() {
           <Link
             href={route.link}
             key={route.title}
-            className={
-              route.link === pathname
-                ? 'inline-flex items-center justify-center text-sm font-medium transition rounded-md text-primary bg-secondary p-2 border-b-4 border-sunglow-primary hover:bg-sunglow-primary  hover:border-neutral-400 focus-visible:outline-offset-2 focus-visible:ring focus-visible:ring-sunglow-primary'
-                : 'inline-flex items-center justify-center p-2 text-sm font-medium transition rounded-md text-secondary hover:text-highlight focus-visible:outline-none focus-visible:ring focus-visible:ring-sunglow-primary'
-            }
+            className={`p-2 text-sm transition text-secondary hover:text-highlight ${
+              pathname.includes(route.link || `posts/${route.link}`) &&
+              'text-highlight'
+            }`}
           >
             {route.icon ? (
               <IconText
