@@ -12,17 +12,21 @@ type CustomImage = {
 export default function CustomImage({
   src,
   alt,
-  width = 350,
-  height = 350,
+  width = 700,
+  height = 400,
   caption,
 }: CustomImage) {
-  return caption ? (
+  return (
     <section className='flex flex-col items-center justify-center gap-4 my-4 not-prose'>
-      <Image src={src} alt={alt} width={width} height={height} />
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className='not-prose'
+      />
       <div className='text-sm italic opacity-80'>{caption}</div>
     </section>
-  ) : (
-    <Image src={src} alt={alt} width={width} height={height} />
   );
 }
 // onClick => 이미지 확대 팝업
