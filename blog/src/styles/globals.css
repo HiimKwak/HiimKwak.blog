@@ -25,3 +25,7 @@ html,
 body {
   height: 100%;
 }
+
+main {
+  min-height: calc(100% - 4rem - 82px);
+}

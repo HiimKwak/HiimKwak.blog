@@ -7,7 +7,7 @@ export default function Main({ children }: { children: React.ReactNode }) {
 
   return (
     <main
-      className={`p-4 min-h-[82.7%] ${
+      className={`p-4 ${
         pathname.includes('/posts') ? 'bg-white' : 'bg-ghostwhite-primary'
       }`}
     >
