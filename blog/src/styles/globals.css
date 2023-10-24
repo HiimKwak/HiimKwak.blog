@@ -20,12 +20,11 @@ img {
   -o-user-drag: none;
   user-drag: none;
 }
-
 html,
 body {
   height: 100%;
 }
 
 main {
-  min-height: calc(100% - 4rem - 82px);
+  min-height: calc(100% - 4rem);
 }

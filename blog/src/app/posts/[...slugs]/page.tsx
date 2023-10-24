@@ -46,17 +46,19 @@ export default function Post({ params }: { params: { slugs: string[] } }) {
   const MDXContent = getMDXComponent(post.body.code);
 
   return (
-    <div className='w-full prose dark:prose-dark'>
-      <div className='grid gap-4 auto-rows-auto'>
+    <div className='w-full max-w-screen-md prose divide-y dark:prose-dark divide-slate-200'>
+      <div className='grid gap-4 mb-8 auto-rows-auto'>
         <div className='flex justify-center'>
           <PostTime date={post.date} readingTime={post.readingTime} />
         </div>
-        <span className='mb-4 text-3xl font-semibold text-black'>
+        <span className='text-4xl font-semibold text-center text-black'>
           {post.title}
         </span>
       </div>
 
-      <MDXContent components={mdxComponents} />
+      <div className='pt-4'>
+        <MDXContent components={mdxComponents} />
+      </div>
     </div>
   );
 }

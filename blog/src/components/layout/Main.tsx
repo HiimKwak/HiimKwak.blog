@@ -7,11 +7,11 @@ export default function Main({ children }: { children: React.ReactNode }) {
 
   return (
     <main
-      className={`p-4 ${
+      className={`p-4 flex justify-center pt-[82px] ${
         pathname.includes('/posts') ? 'bg-white' : 'bg-ghostwhite-primary'
       }`}
     >
-      {children}
+      <div className='w-full max-w-screen-lg'>{children}</div>
     </main>
   );
 }
