@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Target,
   UseIntersectionProps,
@@ -9,14 +9,20 @@ const useIntersectionObserver = ({
   options,
   initialVisible = true,
 }: UseIntersectionProps): UseIntersectionResult => {
-  const [Target, setTarget] = useState<Target>(null);
+  const [target, setTarget] = useState<Target>(null);
   const [isIntersected, setIsIntersected] = useState(initialVisible);
 
-  const observer = new IntersectionObserver(([entry]) => {
-    setIsIntersected(entry.isIntersecting);
-  }, options);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsIntersected(entry.isIntersecting);
+    }, options);
 
-  Target && observer.observe(Target);
+    target && observer.observe(target);
+
+    return () => {
+      target && observer.unobserve(target);
+    };
+  }, [target]);
 
   const setTargetElement = (root: Target) => {
     setTarget(root);
