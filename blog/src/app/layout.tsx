@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className='relative'>
-        <header className='sticky top-0 left-0 right-0'>
+        <header className='fixed top-0 left-0 right-0 z-10'>
           <Navbar />
         </header>
         <div id='header-flag' />
