@@ -19,7 +19,7 @@ const PostSorter = ({
     .filter((post) => post._raw.sourceFileDir.includes(category));
 
   const CATEGORIES: Categories = {
-    blog: '블로그',
+    blog: '개발 이야기',
     life: '일상',
     memo: '메모',
   };

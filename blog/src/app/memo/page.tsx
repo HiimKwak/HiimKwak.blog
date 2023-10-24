@@ -1,4 +1,4 @@
-import PostSorter from '@/src/components/common/PostSorter';
+import PostSorter from '@/src/components/post/PostSorter';
 
 const Memo = () => {
   return (

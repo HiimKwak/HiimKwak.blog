@@ -1,5 +1,5 @@
 import { allPosts } from '@/.contentlayer/generated';
-import PostSorter from '@/src/components/common/PostSorter';
+import PostSorter from '@/src/components/post/PostSorter';
 
 export default function Home() {
   let categories: string[] = [];
