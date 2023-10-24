@@ -1,7 +1,8 @@
 import '../styles/globals.css';
 import { Metadata } from 'next';
-import Footer from '@/src/components/layout/Footer';
+import Main from '@/src/components/layout/Main';
 import Navbar from '@/src/components/layout/Navbar';
+import Footer from '@/src/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'Hiimkwak',
@@ -15,11 +16,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='p-4 bg-[#F1F1F6]'>
-        <header className='mb-4'>
+      <body className='relative'>
+        <header className='sticky top-0 left-0 right-0'>
           <Navbar />
         </header>
-        {children}
+        <div id='header-flag' />
+        <Main>{children}</Main>
         <Footer />
       </body>
     </html>

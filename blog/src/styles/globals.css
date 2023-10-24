@@ -20,3 +20,8 @@ img {
   -o-user-drag: none;
   user-drag: none;
 }
+
+html,
+body {
+  height: 100%;
+}
