@@ -68,6 +68,7 @@ Next.js(App router)로 구현 중인 블로그입니다.
 To Do List
 
 - 이전 글 / 다음 글 제작 필요
+- 동영상 포맷 바꿔야함
 - 좋아요 기능 및 블로그 이용자 수 기능 제작 필요
   - SEO, Lighthouse 최적화 필요
 - 자기소개 페이지 구성 필요
@@ -80,7 +81,7 @@ To Do List
 
 | page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/6c08ba62-46b7-4460-bdec-b485358840c4"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/842d1d01-d5ac-4c27-8c90-5bc55391e1be"> |
+| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8b411746-9282-4979-a15d-92fac40224ff"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/719ea162-74ec-4892-a0a5-fd35229f5c93"> |
 
 ### 23.10.20 ver 0.5.0
 
