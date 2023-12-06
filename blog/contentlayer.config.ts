@@ -4,9 +4,9 @@ import path from 'path';
 // Remark packages
 import remarkGfm from 'remark-gfm';
 import remarkFootnotes from 'remark-footnotes';
-import remarkExtractFrontmatter from './src/libs/remark-extract-frontmatter';
-import remarkCodeTitles from './src/libs/remark-code-title';
-import { extractTocHeadings } from './src/libs/remark-toc-headings';
+import remarkExtractFrontmatter from './app/libs/remark-extract-frontmatter';
+import remarkCodeTitles from './app/libs/remark-code-title';
+import { extractTocHeadings } from './app/libs/remark-toc-headings';
 // Rehype packages
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
