@@ -57,12 +57,11 @@ export default function RootLayout({
       )}
     >
       <body className='flex flex-col max-w-2xl mx-4 mt-8 mb-40 antialiased md:mx-auto'>
+        <div id='header-flag' />
+        <header className='fixed top-0 left-0 right-0 z-10'>
+          <Navbar />
+        </header>
         <main className='flex flex-col flex-auto min-w-0 px-2 mt-14 md:px-0'>
-          <header className='fixed top-0 left-0 right-0 z-10'>
-            <Navbar />
-          </header>
-          <div id='header-flag' />
-
           {children}
           <Analytics />
         </main>
