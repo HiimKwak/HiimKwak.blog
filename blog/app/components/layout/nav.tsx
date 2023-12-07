@@ -1,24 +1,22 @@
 'use client';
 
-import { useEffect } from 'react';
-import Image from 'next/image';
+import { motion, LayoutGroup } from 'framer-motion';
+import { Suspense, useEffect } from 'react';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import DUCK_IMG from 'public/duck.jpeg';
 
 import useIntersectionObserver from 'app/hooks/useIntersectionObserver';
 import { $ } from 'app/libs/core';
 
-interface NavLinkProps {
-  title: string;
-  link: string;
-}
-
-const NAV_LINKS: NavLinkProps[] = [
-  { title: '홈', link: '/' },
-  { title: '포스트', link: '/post' },
-];
+const navItems = {
+  '/': {
+    name: '홈',
+  },
+  '/post': {
+    name: '포스트',
+  },
+};
 
 export default function Navbar() {
   useEffect(() => {
@@ -30,40 +28,66 @@ export default function Navbar() {
   const [setTargetElement, isIntersected] = useIntersectionObserver({});
 
   return (
-    <nav
+    <aside
       className={$(
-        'flex items-center p-4 justify-between',
-        pathname.includes('/posts') ? 'bg-white' : 'bg-ghostwhite-primary',
+        '-ml-[8px] tracking-tight p-4 ',
+        pathname.includes('/post') ? 'bg-white' : 'bg-ghostwhite-primary',
         !isIntersected &&
           'bg-transparent border-b border-neutral-300 backdrop-blur-xl'
       )}
     >
-      <Link href={'/'}>
-        <Image
-          src={DUCK_IMG}
-          height={50}
-          width={50}
-          alt='home_btn'
-          className={$(
-            'rounded-full',
-            pathname === '/' && 'shadow-[0_0_10px_2px] shadow-sunglow-primary'
-          )}
-        />
-      </Link>
-      <div className='flex items-center justify-center gap-2'>
-        {NAV_LINKS.map(({ link, title }: NavLinkProps) => (
-          <Link
-            href={link}
-            key={title}
-            className={$(
-              'p-2 text-sm transition text-secondary hover:text-highlight',
-              pathname.includes(link || `posts/${link}`) && 'text-highlight'
-            )}
+      <div className='max-w-2xl lg:sticky lg:top-20 lg:mx-auto'>
+        <LayoutGroup>
+          <nav
+            className='relative flex flex-row items-start px-4 pb-0 fade md:overflow-auto scroll-pr-6 md:relative'
+            id='nav'
           >
-            {title}
-          </Link>
-        ))}
+            <div className='flex flex-row pr-10 space-x-0'>
+              <Suspense fallback={null}>
+                {Object.entries(navItems).map(([path, { name }]) => {
+                  return <NavItem key={path} path={path} name={name} />;
+                })}
+              </Suspense>
+            </div>
+          </nav>
+        </LayoutGroup>
       </div>
-    </nav>
+    </aside>
+  );
+}
+
+function NavItem({ path, name }: { path: string; name: string }) {
+  let pathname = usePathname() || '/';
+  if (pathname.includes('/post/')) {
+    pathname = '/post';
+  }
+  let isActive = path === pathname;
+
+  return (
+    <Link
+      key={path}
+      href={path}
+      className={$(
+        'transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle',
+        {
+          'text-neutral-500': !isActive,
+        }
+      )}
+    >
+      <span className='relative px-2 py-1'>
+        {name}
+        {path === pathname ? (
+          <motion.div
+            className='absolute h-[1px] top-7 mx-2 inset-0 bg-sunglow dark:bg-gradient-to-r from-transparent to-sunglow'
+            layoutId='sidebar'
+            transition={{
+              type: 'spring',
+              stiffness: 350,
+              damping: 30,
+            }}
+          />
+        ) : null}
+      </span>
+    </Link>
   );
 }

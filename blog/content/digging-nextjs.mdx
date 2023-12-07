@@ -4,7 +4,7 @@ publishedAt: '2023-06-29'
 summary: '원티드 프리온보딩 챌린지(FE, 7월) 사전과제'
 ---
 
-<Image src='/images/digging-nextjs/1.png' alt='1' />
+<Image src='/images/digging-nextjs/1.png' alt='1' width={1686} height={882} />
 
 ### 사전 과제
 
@@ -29,7 +29,7 @@ summary: '원티드 프리온보딩 챌린지(FE, 7월) 사전과제'
 
 `Critical Render Path`는 다음 이미지와 같은 과정으로 진행되며 원칙적으로 현재 띄워져있는 웹페이지의 요소 하나에 변경사항이 생길 때마다 이 `Critical Render Path`가 반복 실행된다.
 
-<Image src='/images/digging-nextjs/2.png' alt='2' />
+<Image src='/images/digging-nextjs/2.png' alt='2' width={939} height={358} />
 
 그런데 웹이 발전함에 따라, 정적 사이트에 interactive한 요소들이 추가되고 JavaScript 코드가 여럿 달리기 시작하면서 더이상 요소 하나가 변경될 때마다 페이지 전체를 로드하는 방식으로는 성능 개선이 어려워지기 시작했다. 더욱이 변경사항이 생길 때마다 페이지를 통째로 로드해오면 그 사이에 번쩍이는 하얀 화면을 맞닥뜨리게 되는데 사용자 경험 측면에서 굉장한 문제였다. 그래서 페이지 전체를 다시 로드해오는 것이 아니라, '필요한 부분'만 부분적으로 '동적으로' 로드해 전체 페이지는 유지하면서도 끊김없는 사용자 경험을 제공하는 방식을 고안하게 되는데 이것이 `SPA(Single Page Application)`이다(기존 방식은 `MPA(Multi Page Application)`).
 
@@ -241,11 +241,11 @@ export async function startServer({...}: StartServerOptions): Promise<TeardownSe
 
 위 코드는 `start-server.ts` 코드다. 필요한 부분만 옮겨적어봤는데도 양이 엄청나다. 대강 이해하기로 HTTP 서버를 생성하고 `server.on()` 메소드를 통해 지정된 포트에서 서버를 통해 클라이언트 요청을 리스닝하는 것 같았다. 그리고 `teardown()` 함수로 서버를 깔끔하게 종료시키는 것도 관찰할 수 있었다. 이를 좀 더 정확하게 이해하고 싶어 chatGPT에 질문해봤다.
 
-<Image src='/images/digging-nextjs/3.png' alt='3' />
+<Image src='/images/digging-nextjs/3.png' alt='3' width={1536} height={1088} />
 
 그냥 단순히 코드 링크만 보냈을 뿐인데 원하는대로 해당 파일을 분석해줬다. 자세한 설명은 얻어내진 못했지만 핵심 기능은 잘 설명하는 듯 했다. 코드 중간에 `worker`라는 객체가 자주 등장했는데 이 객체가 하는 역할이 무엇인지 이해가 안돼 이 부분도 물어보았다.
 
-<Image src='/images/digging-nextjs/4.png' alt='4' />
+<Image src='/images/digging-nextjs/4.png' alt='4' width={1528} height={1202} />
 
 더 자세한 내용은 경험이 부족하여 이해하기 어려웠지만, jest-worker가 `Jest` 테스트 프레임워크의 일부라는 지식을 얻었다.
 

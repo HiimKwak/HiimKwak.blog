@@ -1,13 +1,13 @@
 {
   "name": "hiimkwak.blog",
-  "version": "0.7.0",
+  "version": "1.0",
   "homepage": "https://hiimkwak.blog",
-  "description": "The Blog of Mingyu Kwak",
+  "description": "개발자 곽민규의 블로그입니다.",
   "private": true,
   "author": {
     "name": "Mingyu Kwak",
     "url": "https://hiimkwak.blog",
-    "email": "mindol0320@gmail.com",
+    "email": "mindol0320@naver.com",
     "social": {
       "github": "https://github.com/HiimKwak",
       "instagram": "@_kwakwakwak"
@@ -33,10 +33,11 @@
     "clsx": "^2.0.0",
     "dayjs": "^1.11.9",
     "eslint": "8.44.0",
+    "framer-motion": "^10.16.14",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
     "next": "^14.0.3",
-    "next-auth": "^4.24.5",
+    "next-auth": "^5.0.0-beta.4",
     "next-mdx-remote": "^4.4.1",
     "postcss": "8.4.25",
     "react": "^18.2.0",

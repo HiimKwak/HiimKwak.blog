@@ -6,6 +6,7 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 
 export async function increment(slug: string) {
+  console.log(slug);
   noStore();
   await sql`
     INSERT INTO views (slug, count)

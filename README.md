@@ -1,10 +1,10 @@
-# HiimKwak.github.io
+# HiimKwak.blog
 
 #### personal blog powered by Next.js.
 
 ## What is this?
 
-Next.js(App router)로 구현 중인 블로그입니다.
+Next.js(App router)로 구현한 블로그입니다.
 
 <details>
   <summary style="font-size: 1.25rem; font-weight: 600;">App router로 migrate 할 때 참고한 문서입니다.</summary>
@@ -34,7 +34,6 @@ Next.js(App router)로 구현 중인 블로그입니다.
         <li><a href="https://nextjs.org/docs/app/api-reference/components/image#placeholder">NEXT.JS Docs: Image</a></li>
         <li><a href="https://contentlayer.dev/docs/sources/files/images-eeed57ba">Contentlayer Docs: Working with Images</a></li>    
       </ul>
-      <span>지속적으로 업데이트 및 배포 예정입니다.</span>
     </ul>
 </details>
 
@@ -50,7 +49,41 @@ Next.js(App router)로 구현 중인 블로그입니다.
     </ul>
 </details>
 
+## Template
+
+Next.js의 메인테이너인 [Lee Robinson의 블로그](https://github.com/leerob/leerob.io)를 토대로 만든 블로그입니다.
+
+- **Framework**: [Next.js](https://nextjs.org/)
+- **Database**: [Postgres](https://vercel.com/postgres)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org)
+- **Deployment**: [Vercel](https://vercel.com)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com)
+- **Analytics**: [Vercel Analytics](https://vercel.com/analytics)
+
+보다 자세한 셋업 방법은 [leerob.io/README.md](https://github.com/leerob/leerob.io/blob/main/README.md)를 참고하기 바랍니다.
+
 ## Timeline
+
+### 23.12.07 ver 1.0 출시!
+
+완료 목록
+
+- **Contentlayer**를 제거하고 node.js fs 모듈로 로컬 파일을 직접 가져오는 방식을 채택했습니다. 해당 마이그레이션에 관한 글은 [여기](https://hiimkwak.blog/post/)를 참고해주세요.
+- Vercel/Postgres를 활용해 views 관리
+- 의존성 미니멀리즘: 불필요한 의존성 제거
+
+To Do List
+
+- 이전 글 / 다음 글 제작 필요
+- 동영상 포맷 교체 필요
+- 좋아요 기능
+- 댓글 utterance 제작 필요
+
+| page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8b411746-9282-4979-a15d-92fac40224ff"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/719ea162-74ec-4892-a0a5-fd35229f5c93"> |
+
+---
 
 ### 23.10.24 ver 0.7.0
 
@@ -82,6 +115,8 @@ To Do List
 | page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8b411746-9282-4979-a15d-92fac40224ff"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/719ea162-74ec-4892-a0a5-fd35229f5c93"> |
+
+---
 
 ### 23.10.20 ver 0.5.0
 
@@ -129,6 +164,8 @@ To Do List
 | page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
 | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8f8b7366-1155-4bb4-a7b2-168ca8b760c9"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/802dfe13-b134-4eba-9d08-21e355e6024b"> |
+
+---
 
 ### 23.7.10 ver 0.0.0
 

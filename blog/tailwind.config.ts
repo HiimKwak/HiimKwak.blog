@@ -31,15 +31,9 @@ export default {
           800: '#262626',
           900: '#171717',
         },
-        sunglow: {
-          primary: '#E4AF08',
-        },
-        ghostwhite: {
-          primary: '#F2F2F7',
-        },
-        platinum: {
-          primary: '#e5e5e5',
-        },
+        sunglow: '#E4AF08',
+        ghostwhite: '#F2F2F7',
+        platinum: '#e5e5e5',
       },
     },
   },
@@ -47,4 +41,4 @@ export default {
     typography: ['dark'],
   },
   plugins: [typography],
-} satisfies Config
+} satisfies Config;

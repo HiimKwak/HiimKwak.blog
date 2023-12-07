@@ -9,11 +9,11 @@ export default function Main({ children }: { children: React.ReactNode }) {
   return (
     <main
       className={$(
-        'p-4 flex justify-center pt-[82px]',
-        pathname.includes('/posts') ? 'bg-white' : 'bg-ghostwhite-primary'
+        'p-4 flex justify-center mt-8',
+        pathname.includes('/post') ? 'bg-white' : 'bg-ghostwhite-primary'
       )}
     >
-      <div className='w-full max-w-screen-lg'>{children}</div>
+      <div className='w-full'>{children}</div>
     </main>
   );
 }

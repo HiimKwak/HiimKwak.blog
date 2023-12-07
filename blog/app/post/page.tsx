@@ -1,12 +1,13 @@
 import { getBlogPosts } from '../db/post';
 import Link from 'next/link';
-import IconText from '../components/common/icon-text';
-import { IcCalendar } from '../assets/icons';
 import dayjs from 'dayjs';
+// import { Suspense } from 'react';
+// import ViewCounter from './view-counter';
+// import { getViewsCount } from 'app/db/queries';
 
 export const metadata = {
   title: '포스트',
-  description: '소프트웨어 개발에 대한 제 생각을 읽어보세요.',
+  description: '소프트웨어 개발, 인생에 대한 제 생각들입니다.',
 };
 
 export default function Post() {
@@ -36,22 +37,12 @@ export default function Post() {
 
 function PostCard(post: ReturnType<typeof getBlogPosts>[0]) {
   return (
-    <Link href={post.slug} className='grid w-full grid-cols-1 p-4 pb-3'>
-      <div className='text-xl'>{post.metadata.title}</div>
-      <div className='text-[0.9rem] truncate text-neutral-600 dark:text-neutral-400'>
-        {post.metadata.summary}
-      </div>
-      <div className='flex items-start justify-between gap-12 overflow-x-auto'>
-        <PostTime date={post.metadata.publishedAt} />
-      </div>
+    <Link href={`/post/${post.slug}`} className='min-w-0 py-4 pb-3'>
+      <p className='text-xl font-semibold'>{post.metadata.title}</p>
+      <p className='my-2 text-xs truncate text-neutral-600 dark:text-neutral-400'>
+        {`${dayjs(post.metadata.publishedAt).format('MMMM D, YYYY')} -
+          ${post.metadata.summary} `}
+      </p>
     </Link>
-  );
-}
-
-function PostTime({ date }: { date: string }) {
-  return (
-    <div className='flex items-center h-6 gap-2 text-neutral-600 dark:text-neutral-400 whitespace-nowrap'>
-      <IconText Icon={IcCalendar} text={dayjs(date).format('YY.MM.DD')} />
-    </div>
   );
 }

@@ -2,7 +2,6 @@ import './globals.css';
 import { Metadata } from 'next';
 import Main from 'app/components/layout/main';
 import Navbar from 'app/components/layout/nav';
-import Footer from 'app/components/layout/footer';
 import { Analytics } from '@vercel/analytics/react';
 import localFont from 'next/font/local';
 import { $ } from './libs/core';
@@ -55,16 +54,17 @@ export default function RootLayout({
       lang='ko'
       className={$('text-black dark:text-white', `${pretendard.variable}`)}
     >
-      <body className='relative'>
-        <header className='fixed top-0 left-0 right-0 z-10'>
-          <Navbar />
-        </header>
-        <div id='header-flag' />
-        <Main>
-          {children}
-          <Analytics />
-        </Main>
-        <Footer />
+      <body className='flex flex-col max-w-2xl mx-4 mt-8 mb-40 antialiased md:flex-row lg:mx-auto'>
+        <main className='flex flex-col flex-auto min-w-0 px-2 mt-6 md:px-0'>
+          <header className='fixed top-0 left-0 right-0 z-10'>
+            <Navbar />
+          </header>
+          <div id='header-flag' />
+          <Main>
+            {children}
+            <Analytics />
+          </Main>
+        </main>
       </body>
     </html>
   );

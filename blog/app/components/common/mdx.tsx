@@ -147,7 +147,7 @@ function createHeading(level: number) {
   };
 }
 
-function ImageCarousel(children: ReactNode) {
+function ImageCarousel({ children }: { children: ReactNode }) {
   return <div className='not-prose'>{children}</div>;
 }
 

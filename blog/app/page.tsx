@@ -4,139 +4,7 @@ import session from 'public/images/home/session.webp';
 import badge from 'public/images/home/badge.webp';
 import profile from 'public/images/home/profile.webp';
 import hackathon from 'public/images/home/hackathon.webp';
-import qt from 'public/images/home/qt.png';
-
-export default function Page() {
-  return (
-    <section>
-      <h1 className='mb-8 text-2xl font-medium tracking-tighter'>
-        곽민규의 블로그에 오신 것을 환영합니다!
-      </h1>
-      <p className='prose prose-neutral dark:prose-invert'>
-        저는 프론트엔드 개발자입니다. 깊이있는 개발자가 되기를 목표로 하고
-        있습니다.
-      </p>
-      <div className='prose prose-neutral dark:prose-invert'>
-        <p>
-          <Badge href='https://react.dev'>
-            <img
-              alt='React logomark'
-              src='/react-logo.svg'
-              className='!mr-1 h-[14px] w-[14px]'
-              width='14'
-              height='14'
-            />
-            React
-          </Badge>
-          {`와 `}
-          <Badge href='https://nextjs.org'>
-            <img
-              alt='Next.js logomark'
-              src='/next-logo.svg'
-              className='!mr-1'
-              width='14'
-              height='14'
-            />
-            Next.js
-          </Badge>
-          {`를 즐겨 사용하고 있습니다. 사람들이 쓰고싶은 서비스를 만들기를 좋아합니다.`}
-        </p>
-      </div>
-      <div className='gap-4 my-8 columns-2 sm:columns-3'>
-        <div className='relative h-40 mb-4'>
-          <Image
-            alt=''
-            src={session}
-            fill
-            sizes='(max-width: 768px) 213px, 33vw'
-            priority
-            className='object-cover rounded-lg'
-          />
-        </div>
-        <div className='relative mb-4 h-80 sm:mb-0'>
-          <Image
-            alt='badge'
-            src={badge}
-            fill
-            sizes='(max-width: 768px) 213px, 33vw'
-            priority
-            className='rounded-lg object-cover object-[-16px] sm:object-center'
-          />
-        </div>
-        <div className='relative h-40 sm:h-80 sm:mb-4'>
-          <Image
-            alt='Me standing on stage at Reactathon delivering the keynote'
-            src={profile}
-            fill
-            sizes='(max-width: 768px) 213px, 33vw'
-            priority
-            className='object-cover object-top rounded-lg sm:object-center'
-          />
-        </div>
-        <div className='relative h-40 mb-4 sm:mb-0'>
-          <Image
-            alt='Me standing on stage at SmashingConf giving a talk about my optimism for the web'
-            src={hackathon}
-            fill
-            sizes='(max-width: 768px) 213px, 33vw'
-            priority
-            className='object-cover rounded-lg'
-          />
-        </div>
-        <div className='relative h-40 mb-4'>
-          <Image
-            alt='Me and Guillermo Rauch on stage for Vercel Ship, answering questions from the Next.js community'
-            src={qt}
-            fill
-            sizes='(max-width: 768px) 213px, 33vw'
-            priority
-            className='object-cover rounded-lg'
-          />
-        </div>
-        {/* <div className='relative h-80'>
-          <Image
-            alt='My badge on top of a pile of badges from a Vercel meetup we held'
-            src={meetups}
-            fill
-            sizes='(min-width: 768px) 213px, 33vw'
-            priority
-            className='object-cover rounded-lg'
-          />
-        </div> */}
-      </div>
-      <div className='prose prose-neutral dark:prose-invert'>
-        <p>
-          개발하는 것이 보람있고 즐겁습니다. 웹 개발의 미래가 무궁무진하다
-          생각하고 이 분야에 기여하고 싶습니다.
-        </p>
-      </div>
-      <ul className='flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300'>
-        <li>
-          <a
-            className='flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100'
-            rel='noopener noreferrer'
-            target='_blank'
-            href='https://twitter.com/leeerob'
-          >
-            <ArrowIcon />
-            <p className='ml-2 h-7'>follow me</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className='flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100'
-            rel='noopener noreferrer'
-            target='_blank'
-            href='https://leerob.substack.com'
-          >
-            <ArrowIcon />
-            <p className='ml-2 h-7'>get email updates</p>
-          </a>
-        </li>
-      </ul>
-    </section>
-  );
-}
+import Link from 'next/link';
 
 function Badge(props: ComponentProps<'a'>) {
   return (
@@ -162,5 +30,117 @@ function ArrowIcon() {
         fill='currentColor'
       />
     </svg>
+  );
+}
+
+export default function Page() {
+  return (
+    <section>
+      <h1 className='mb-8 text-2xl font-medium tracking-tighter'>
+        개발자 곽민규의 블로그
+      </h1>
+      <p className='prose prose-neutral dark:prose-invert'>
+        저는 프론트엔드 개발자입니다. 깊이있는 개발자가 되기를 목표로 하고
+        있습니다. 개발하는 것이 보람있고 즐겁습니다. 나영석같은 PD가 되고 싶어
+        미디어커뮤니케이션학부를 전공했으나 잘 안맞아 소프트웨어를 직접 만들 수
+        있는 개발자로 전향했습니다. 천직이라 생각합니다.
+      </p>
+      <div className='prose prose-neutral dark:prose-invert'>
+        <p>
+          <Badge href='https://react.dev'>
+            <img
+              alt='React logomark'
+              src='/react-logo.svg'
+              className='!mr-1 h-[14px] w-[14px]'
+              width='14'
+              height='14'
+            />
+            React
+          </Badge>
+          {`와 `}
+          <Badge href='https://nextjs.org'>
+            <img
+              alt='Next.js logomark'
+              src='/next-logo.svg'
+              className='!mr-1'
+              width='14'
+              height='14'
+            />
+            Next.js
+          </Badge>
+          {`를 즐겨 사용하고 있습니다. 아직은 대단한 가치관은 없고 그저 사람들이 내가 만든 서비스를 사용해줄 때 쾌감을 느낍니다.`}
+        </p>
+      </div>
+      <div className='gap-4 my-8 columns-2 sm:columns-3'>
+        <div className='relative h-40 mb-4 sm:h-[21rem] sm:mb-0'>
+          <Image
+            alt='10기 멋사 중앙해커톤 당시 촬영한 내 팻말'
+            src={badge}
+            fill
+            sizes='(max-width: 768px) 213px, 33vw'
+            priority
+            className='object-cover rounded-lg sm:object-center'
+          />
+        </div>
+        <div className='relative h-40 sm:mb-4'>
+          <Image
+            alt='멋사 공통 세션에서 API를 주제로 발표하고 있는 내 모습'
+            src={session}
+            fill
+            sizes='(max-width: 768px) 213px, 33vw'
+            priority
+            className='object-cover rounded-lg'
+          />
+        </div>
+        <div className='relative h-40 mb-4 sm:mb-0'>
+          <Image
+            alt='프로팔 사진'
+            src={profile}
+            fill
+            sizes='(max-width: 768px) 213px, 33vw'
+            priority
+            className='object-cover object-top rounded-lg sm:object-center'
+          />
+        </div>
+        <div className='relative h-40 sm:h-[21rem] sm:mb-0'>
+          <Image
+            alt='11기 멋사 중앙해커톤 큐택 팀으로 참가한 당시 촬영한 인증샷'
+            src={hackathon}
+            fill
+            sizes='(max-width: 768px) 213px, 33vw'
+            priority
+            className='object-cover rounded-lg'
+          />
+        </div>
+      </div>
+      <div className='prose prose-neutral dark:prose-invert'>
+        <p>
+          개발 외에는 핑거스타일 기타 연주, 게임, 축구, 맨몸운동, 러닝 등 각종
+          운동을 좋아합니다.
+        </p>
+      </div>
+      <ul className='flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300'>
+        <li>
+          <a
+            className='flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100'
+            rel='noopener noreferrer'
+            target='_blank'
+            href='https://github.com/hiimkwak'
+          >
+            <ArrowIcon />
+            <p className='ml-2 h-7'>깃허브로 이동</p>
+          </a>
+        </li>
+        <li>
+          <Link
+            className='flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100'
+            href='about'
+          >
+            <ArrowIcon />
+            <p className='ml-2 h-7'>이력 보기</p>
+          </Link>
+        </li>
+      </ul>
+    </section>
   );
 }
