@@ -24,22 +24,20 @@ export default function Navbar() {
     setTargetElement(target);
   }, []);
 
-  const pathname = usePathname();
   const [setTargetElement, isIntersected] = useIntersectionObserver({});
 
   return (
     <aside
       className={$(
-        '-ml-[8px] tracking-tight p-4 ',
-        pathname.includes('/post') ? 'bg-white' : 'bg-ghostwhite-primary',
+        '-ml-[8px] tracking-tight px-2 py-4 md:px-0',
         !isIntersected &&
-          'bg-transparent border-b border-neutral-300 backdrop-blur-xl'
+          'bg-transparent border-b border-neutral-300 dark:border-gray-600 backdrop-blur-xl'
       )}
     >
-      <div className='max-w-2xl lg:sticky lg:top-20 lg:mx-auto'>
+      <div className='max-w-2xl md:mx-auto'>
         <LayoutGroup>
           <nav
-            className='relative flex flex-row items-start px-4 pb-0 fade md:overflow-auto scroll-pr-6 md:relative'
+            className='relative flex flex-row items-start px-4 pb-0 fade md:overflow-auto scroll-pr-6 md:relative md:px-0'
             id='nav'
           >
             <div className='flex flex-row pr-10 space-x-0'>

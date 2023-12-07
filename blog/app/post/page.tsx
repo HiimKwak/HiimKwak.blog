@@ -25,7 +25,7 @@ export default function Post() {
         개발 이야기
       </div>
       <div className='py-4'>
-        <div className='flex flex-col bg-white divide-y rounded-lg divide-slate-200'>
+        <div className='flex flex-col divide-y rounded-lg divide-slate-200 dark:divide-gray-700'>
           {allPosts.map((post) => (
             <PostCard {...post} key={post.slug} />
           ))}
