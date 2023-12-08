@@ -7,9 +7,9 @@ interface CustomImage extends ImageProps {
 
 export default function CustomImage({ caption, ...props }: CustomImage) {
   return (
-    <div className='flex flex-col items-center justify-center gap-4 my-4 rounded-lg not-prose'>
+    <div className='flex flex-col items-center justify-center gap-4 my-4 not-prose'>
       <Image {...props} className='not-prose' />
-      <div className='text-sm italic opacity-80'>{caption}</div>
+      <span className='text-sm italic opacity-80'>{caption}</span>
     </div>
   );
 }
