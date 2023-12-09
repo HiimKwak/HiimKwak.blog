@@ -6,6 +6,7 @@ import { CustomMDX } from 'app/components/common/mdx';
 import { getViewsCount } from 'app/db/queries';
 import { increment } from 'app/db/actions';
 import ViewCounter from '../view-counter';
+import Comment from './comment';
 
 export async function generateMetadata({
   params,
@@ -103,6 +104,14 @@ export default function Post({ params }: { params: { slug: string } }) {
       <article className='prose prose-quoteless prose-neutral dark:prose-invert'>
         <CustomMDX source={post.content} />
       </article>
+      <footer className='mt-8 max-w-[650px] border-t border-neutral-300 dark:border-gray-600 py-8'>
+        <span className='mb-8 text-sm italic text-gray-500'>
+          이전글/다음글 기능 추가 예정입니다.
+        </span>
+        <Suspense fallback={<div className='h-40 bg-gray-200 rounded' />}>
+          <Comment />
+        </Suspense>
+      </footer>
     </section>
   );
 }
