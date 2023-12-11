@@ -76,12 +76,27 @@ To Do List
 
 - 이전 글 / 다음 글 제작 필요
 - 동영상 포맷 교체 필요
-- 좋아요 기능
-- 댓글 utterance 제작 필요
+- ~~좋아요 기능~~
+- ~~댓글 utterance 제작 필요~~
 
-| page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8b411746-9282-4979-a15d-92fac40224ff"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/719ea162-74ec-4892-a0a5-fd35229f5c93"> |
+<table>
+  <tr>
+    <th>/</th>
+    <th>/post</th>
+    <th>/post/[postName]</th>
+  </tr>
+  <tr>
+    <td style='width: 33.3%'>
+      <img alt="image" src="https://github.com/hufs-sports-live/client/assets/87803596/e010b8ca-c366-4337-a5f9-5706684e7edd" />
+    </td>
+    <td style='width: 33.3%'>
+      <img alt="image" src="https://github.com/hufs-sports-live/client/assets/87803596/5b37e1e6-a048-43dc-80ee-641f4f152315" />
+    </td>
+    <td style='width: 33.3%'>
+      <img alt="image" src="https://github.com/hufs-sports-live/client/assets/87803596/9cdb1a7e-a69c-4187-aba1-9a7f63ff6aed" />
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -112,9 +127,20 @@ To Do List
 - 블로그 대문 제작 필요
 - 댓글 utterance 제작 필요
 
-| page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8b411746-9282-4979-a15d-92fac40224ff"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/719ea162-74ec-4892-a0a5-fd35229f5c93"> |
+<table>
+  <tr>
+    <th>page.tsx</th>
+    <th>posts/[...slugs].tsx</th>
+  </tr>
+  <tr>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8b411746-9282-4979-a15d-92fac40224ff" />
+    </td>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/719ea162-74ec-4892-a0a5-fd35229f5c93" />
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -143,9 +169,20 @@ To Do List
 - 블로그 대문 제작 필요
 - 댓글 utterance 제작 필요
 
-| page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/28b5d1c7-7e96-40a9-92be-b7dafda1cd7b"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/23442152-e749-486c-9516-d7bdf9b729f9"> |
+<table>
+  <tr>
+    <th>page.tsx</th>
+    <th>posts/[...slugs].tsx</th>
+  </tr>
+  <tr>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/28b5d1c7-7e96-40a9-92be-b7dafda1cd7b" />
+    </td>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/23442152-e749-486c-9516-d7bdf9b729f9" />
+    </td>
+  </tr>
+</table>
 
 ### 23.9.22 ver 0.2.0
 
@@ -161,9 +198,20 @@ To Do List
 
 등등..
 
-| page.tsx                                                                                                                    | posts/[...slugs].tsx                                                                                                        |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8f8b7366-1155-4bb4-a7b2-168ca8b760c9"> | <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/802dfe13-b134-4eba-9d08-21e355e6024b"> |
+<table>
+  <tr>
+    <th>page.tsx</th>
+    <th>posts/[...slugs].tsx</th>
+  </tr>
+  <tr>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/8f8b7366-1155-4bb4-a7b2-168ca8b760c9">
+    </td>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/802dfe13-b134-4eba-9d08-21e355e6024b">
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -171,6 +219,17 @@ To Do List
 
 가장 기초적인 코드 베이스 작성을 완료했습니다.
 
-| index.tsx                                                                                                                                | posts/[id].tsx                                                                                                                           |
-| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| <img width="1381" alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/4f800015-fadc-4ed9-8b9a-92096dfe3f61"> | <img width="1381" alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/faef8f14-b300-45a1-9a24-06b0ab5ad16a"> |
+<table>
+  <tr>
+    <th>index.tsx</th>
+    <th>posts/[id].tsx</th>
+  </tr>
+  <tr>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/4f800015-fadc-4ed9-8b9a-92096dfe3f61">
+    </td>
+    <td style='width: 50%'>
+      <img alt="image" src="https://github.com/HiimKwak/HiimKwak.github.io/assets/87803596/faef8f14-b300-45a1-9a24-06b0ab5ad16a">
+    </td>
+  </tr>
+</table>
