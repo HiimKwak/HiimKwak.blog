@@ -40,10 +40,10 @@ export default function Page() {
         개발자 곽민규의 블로그
       </h1>
       <p className='prose prose-neutral dark:prose-invert'>
-        저는 프론트엔드 개발자입니다. 깊이있는 개발자가 되기를 목표로 하고
-        있습니다. 개발하는 것이 보람있고 즐겁습니다. 나영석같은 PD가 되고 싶어
-        미디어커뮤니케이션학부를 전공했으나 잘 안맞아 소프트웨어를 직접 만들 수
-        있는 개발자로 전향했습니다. 천직이라 생각합니다.
+        저는 프론트엔드 개발자입니다. 코딩 외의 기획, 디자인 등 비개발적
+        요소에도 흥미를 느낍니다. 개발하는 전반적인 과정에 참여하는 것이 즐겁고
+        보람찹니다. 무언가를 내 손으로 직접 만든다는 것이 이 직업의 가장 큰
+        매력이 아닐까 싶습니다.
       </p>
       <div className='prose prose-neutral dark:prose-invert'>
         <p>
@@ -68,7 +68,7 @@ export default function Page() {
             />
             Next.js
           </Badge>
-          {`를 즐겨 사용하고 있습니다. 아직은 대단한 가치관은 없고 그저 사람들이 내가 만든 서비스를 사용해줄 때 쾌감을 느낍니다.`}
+          {`를 즐겨 사용하고 있습니다. 사람들이 내가 만든 서비스를 사용해줄 때 쾌감을 느낍니다.`}
         </p>
       </div>
       <div className='gap-4 my-8 columns-2 sm:columns-3'>
@@ -115,8 +115,20 @@ export default function Page() {
       </div>
       <div className='prose prose-neutral dark:prose-invert'>
         <p>
+          나영석같은 PD가 되고 싶어 미디어커뮤니케이션학부를 전공했으나 잘
+          안맞아 소프트웨어를 직접 만들 수 있는 개발자로 전향했습니다. 제 천직인
+          것 같습니다. 나이들어서는 뭐하고 있을지 모르겠지만 지금은 개발만 하고
+          싶습니다🧑🏻‍💻
+        </p>
+        <p>
+          철학이나 가치관이 뚜렷한 사람을 좋아합니다. 그런 사람들이 모인 집단에
+          기여하고 싶습니다. 개인적으로는 건강한 신체가 좋은 경험의 전제가
+          된다는 체덕지(體德智) 교육 사상을 좋아합니다.
+        </p>
+        <p>
           개발 외에는 핑거스타일 기타 연주, 게임, 축구, 맨몸운동, 러닝 등 각종
-          운동을 좋아합니다.
+          운동을 좋아합니다. 최근에는 롤 마스터 티어를 향한 라스트 댄싱
+          중입니다🕺🏻
         </p>
       </div>
       <ul className='flex flex-col mt-8 space-x-0 space-y-2 md:flex-row md:space-x-4 md:space-y-0 font-sm text-neutral-600 dark:text-neutral-300'>
