@@ -120,6 +120,6 @@ let incrementViews = cache(increment);
 
 async function Views({ slug }: { slug: string }) {
   let views = await getViewsCount();
-  incrementViews(slug);
+  process.env.IS_LOCAL !== '1' && incrementViews(slug);
   return <ViewCounter allViews={views} slug={slug} />;
 }

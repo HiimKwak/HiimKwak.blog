@@ -217,7 +217,7 @@ adminInstance.interceptors.response.use(
 ### 새로고침하면 날아가는 토큰
 
 <Image
-  src='/images/login/2.png'
+  src='/images/refactoring-login/2.png'
   alt='unintentional API retrial'
   caption='의도하지 않은 API 재호출'
   width={454}
@@ -265,7 +265,7 @@ adminInstance.interceptors.request.use((config) => {
 ```
 
 <Image
-  src='/images/login/3.png'
+  src='/images/refactoring-login/3.png'
   alt='problem solved'
   caption='해결된 모습'
   width={3104}
@@ -277,7 +277,7 @@ adminInstance.interceptors.request.use((config) => {
 이렇게 해결한 뒤, 다음날 무심코 같은 로그인 프로세스를 실행해보고 401(권한 없음) 에러가 무한 반복되는 문제를 마주하게 되었습니다.
 
 <Image
-  src='/images/login/5.png'
+  src='/images/refactoring-login/5.png'
   alt='infinite 401 error loop'
   caption='401 에러 무한 반복 문제'
   width={3104}
@@ -325,7 +325,7 @@ adminInstance.interceptors.response.use(
 위와 같이 조건문으로 처리하니, API가 무한 호출되지 않고 3번 호출 이후 alert와 함께 로그인 페이지로 리다이렉트되었습니다. 구현할 때 재시도 간격을 몇 초 정도 부여해야할지 고민했는데 현재로선 딱히 의미가 없다 판단해 넣지는 않았습니다.
 
 <Image
-  src='/images/login/4.png'
+  src='/images/refactoring-login/4.png'
   alt='stopped retrying when retryCounter touches its limit'
   caption='3번 재시도 후 의도대로 멈춘 모습'
   width={3104}
