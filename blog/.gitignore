@@ -36,3 +36,6 @@ next-env.d.ts
 
 # draft
 /content/draft
+
+# temporary ignore
+/app/about
