@@ -1,9 +1,6 @@
 import { getBlogPosts } from '../db/post';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-// import { Suspense } from 'react';
-// import ViewCounter from './view-counter';
-// import { getViewsCount } from 'app/db/queries';
 
 export const metadata = {
   title: '포스트',
