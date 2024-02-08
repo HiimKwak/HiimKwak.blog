@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 export const metadata = {
   title: '포스트',
-  description: '소프트웨어 개발, 인생에 대한 제 생각들입니다.',
+  description: '소프트웨어 개발, 인생에 대한 제 생각들입니다',
 };
 
 export default function Post() {
