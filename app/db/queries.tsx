@@ -1,7 +1,7 @@
-'use server';
+"use server";
 
-import { sql } from '@vercel/postgres';
-import { unstable_noStore as noStore } from 'next/cache';
+import { sql } from "@vercel/postgres";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function getBlogViews() {
   if (!process.env.POSTGRES_URL) {
@@ -9,7 +9,7 @@ export async function getBlogViews() {
   }
 
   noStore();
-  let data = await sql`
+  const data = await sql`
     SELECT count
     FROM views
   `;
@@ -23,7 +23,7 @@ export async function getViewsCount() {
   }
 
   noStore();
-  let data = await sql`
+  const data = await sql`
     SELECT slug, count
     FROM views
   `;
@@ -37,7 +37,7 @@ export async function getGuestbookEntries() {
   }
 
   noStore();
-  let entries = await sql`
+  const entries = await sql`
     SELECT id, body, created_by, updated_at
     FROM guestbook
     ORDER BY created_at DESC

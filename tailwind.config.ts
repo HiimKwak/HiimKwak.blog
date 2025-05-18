@@ -1,44 +1,47 @@
-import type { Config } from 'tailwindcss';
-import typography from '@tailwindcss/typography';
+import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 export default {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-pretendard)'],
+        sans: ["var(--font-pretendard)"],
       },
       colors: {
         neutral: {
-          50: '#fafafa',
-          100: '#f5f5f5',
-          150: '#ededed',
-          200: '#e5e5e5',
-          250: '#dedede',
-          300: '#d4d4d4',
-          350: '#b5b5b5',
-          400: '#a3a3a3',
-          450: '#8a8a8a',
-          470: '#808080',
-          500: '#737373',
-          600: '#525252',
-          700: '#404040',
-          750: '#363636',
-          800: '#262626',
-          900: '#171717',
+          50: "#fafafa",
+          100: "#f5f5f5",
+          150: "#ededed",
+          200: "#e5e5e5",
+          250: "#dedede",
+          300: "#d4d4d4",
+          350: "#b5b5b5",
+          400: "#a3a3a3",
+          450: "#8a8a8a",
+          470: "#808080",
+          500: "#737373",
+          600: "#525252",
+          700: "#404040",
+          750: "#363636",
+          800: "#262626",
+          900: "#171717",
         },
-        sunglow: '#E4AF08',
-        ghostwhite: '#F2F2F7',
-        platinum: '#e5e5e5',
+        sunglow: "#E4AF08",
+        ghostwhite: "#F2F2F7",
+        platinum: "#e5e5e5",
+        midnightBlue: "#006bff",
+        sky: "#f0f7ff",
+        "sky-border": "#cae7ff",
       },
     },
   },
   variants: {
-    typography: ['dark'],
+    typography: ["dark"],
   },
   plugins: [typography],
 } satisfies Config;

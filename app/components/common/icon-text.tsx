@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from "react";
 
-import { $ } from 'app/libs/core';
+import { $ } from "app/libs/core";
 
 export interface IconTextProps {
   Icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
@@ -18,7 +18,7 @@ export default function IconText({
   fill,
 }: IconTextProps) {
   return (
-    <div className={$('flex items-center', className ?? 'gap-1 text-xs')}>
+    <div className={$("flex items-center", className ?? "gap-1 text-xs")}>
       <Icon width={IconSize} height={IconSize} className={fill} />
       <span>{text}</span>
     </div>

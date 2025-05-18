@@ -16,10 +16,10 @@ const navItems = {
       name: "홈",
     },
     "/post": {
-      name: "포스트",
+      name: "일상",
     },
     "/series": {
-      name: "시리즈",
+      name: "공책",
     },
   },
   right: {
@@ -80,9 +80,9 @@ function NavItem({ path, name }: { path: string; name: string }) {
   if (pathname.includes("/post/")) {
     pathname = "/post";
   }
-  let isActive = path === pathname;
+  const isActive = path === pathname;
 
-  let isGithub = path === "/github";
+  const isGithub = path === "/github";
   const linkPath = isGithub ? "https://github.com/HiimKwak" : path;
 
   return (
@@ -110,7 +110,7 @@ function NavItem({ path, name }: { path: string; name: string }) {
         )}
         {path === pathname ? (
           <motion.div
-            className="absolute h-[1px] top-7 mx-2 inset-0 bg-sunglow dark:bg-gradient-to-r from-transparent to-sunglow"
+            className="absolute h-[1px] top-7 mx-2 inset-0 bg-midnightBlue dark:bg-gradient-to-r from-transparent to-midnightBlue"
             layoutId="sidebar"
             transition={{
               type: "spring",
