@@ -1,0 +1,38 @@
+---
+title: "0409"
+publishedAt: 2024-04-09
+image: 
+tags: 
+personal: "0"
+---
+
+내가 맡아 작업한 eslint 태스크가 프로덕션까지 나간 이후에 문제가 발생했다
+특정 페이지에서 다른 페이지로 이동하려하면 페이지가 멈춰버리는 것(말그대로 멈춤. 터지진 않음)
+
+**콘솔을 까보니 `Maximum Update Depth Exceeded` 에러가 1초에 한 번씩 누적되고 있었다**
+에러 로그를 파고보니 `useManagerFormContext.tsx`와 그것과 연결된 `index.tsx` 파일에서 에러를 뿜고 있었고, 해당 파일에서 사용된 `useEffect`를 살펴보니 문제는 다음과 같았다.
+
+```tsx
+useEffect(() => {
+	if (!partnerList) return;
+	
+	const partnerSelectOptions = partnerList
+		? partnerList.data.map((item) => ({
+			value: item.id,
+			label: item.name,
+		  })) 
+		: [];
+	onChangePartnerOptions(partnerSelectOptions);
+}, [partnerList, onChangePartnerOptions]);
+```
+
+`onChangePartnerOptions` 가 의존성에 없었다가 들어가게 되었는데 이게 문제를 발생시킨 것.
+
+해당 함수는 `useManagerFormContext` 컴포넌트에서 `partnerOptions` 라는 상태를 바꿔주는 `setState` 메소드를 래핑한 함수였고, 서버에서 최초 데이터를 호출한 이후와 검색 문구가 바뀔 때마다 서버에서 검색 문구에 해당하는 옵션을 새롭게 패치한 데이터를 `partnerOptions` 에 업데이트할 때 호출하는 함수였다.
+기존에는 `partnerList` 데이터를 패치하는 리액트 쿼리 함수의 `isFetching` 플래그가 꺼져있을 때만(다시 말해 패치 이후) 동작하게 되어, 이펙트 동작이 `isFetching`에만 의존했다.
+
+근데 eslint 룰을 적용하게 되어 반응형 값을 의존성에 모두 작성하도록 바꿔주었더니, `onChangePartnerOptions` 함수가 FormContext 안에서 선언된 함수라 외부에서 불러와 사용될 때는 매번 새로운 함수로 인식되어 리렌더를 촉발시킨 것. 그래서 이 `setState`를 포함하고 있는 함수가 `useEffect`안에 있고 의존성으로 기입돼있으니, 무한 루프에 빠질 수밖에 없었다. 
+
+그래서 우선 임시방편으로 의존성에서 제거한 뒤 `eslint-disable-next-line react-hooks/exhaustive-deps`를 추가해주었다.
+
+onChange함수

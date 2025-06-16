@@ -1,0 +1,35 @@
+---
+title: "0917"
+publishedAt: 2024-09-17
+image: 
+tags: 
+personal: "0"
+---
+null과 undefined의 차이
+null은 빈 값을 할당한 상태(의도적, `typeof null === object` )
+undefined는 자료형이 없는 상태(값이 할당되지 않음)
+JSON에서 undefined는 지원하지 않는 타입.
+
+JS || (OR operator) vs ?? (null-coalescing operator)
+OR 연산자는 falsey 여부로 우측 값을 할당하고, null 중첩 연산자는 null이거나 undefined인지를 확인한다. OR 연산자가 null 중첩 연산자에 비해 좀 더 포괄적.
+
+```javascript
+    // OR operator can coerce 'defined' values
+    "value"   || null;    // "value"
+    0         || null;    // null
+    false     || null;    // null
+    ""        || null;    // null
+    undefined || null;    // null
+    
+    // The null-coalescing operator will only coerce undefined or null
+    "value"   ?? null;    // "value"
+    0         ?? null;    // 0
+    false     ?? null;    // false
+    ""        ?? null;    // ""
+    undefined ?? null;    // null
+```
+
+중첩 객체 비교할 때 ~~bullshit~~이다
+
+의문점: 타입스크립트 Partial같은 유틸타입에서는 옵셔널할 경우 undefined를 붙여주는데, 의미적으로 null과 undefined는 엄연히 다르다. 서버에서 null로 값이 박혀 내려오는 경우에 대해 정확하게 대응해야하는가? 타입스크립트적으로 null인 필드는 임의적으로 필드 자체를 없애버려도 되는가?
+-> null 살리려고 해봤는데 너무 ㅈ같다 그냥 null이면 undefined로 치환해버리는게 제일 문제가 없는 것 같다. 서버로 다시 보낼 때도 undefined이면 서버에서 알아서 null로 알아먹는 것 같고.

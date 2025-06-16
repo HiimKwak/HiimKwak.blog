@@ -1,0 +1,23 @@
+---
+title: "0812"
+publishedAt: 2024-08-12
+image: 
+tags: 
+personal: "0"
+---
+![[note/2024/8월/Pasted image 20240812100609.png]]
+(좌 portlogics-grid에서 참조하는 `@types/react`, 우 @silevis/reactgrid에서 참조하는 `@types/react`)
+- 왜 package.json에 같은 버전으로 설치해줬는데 참조하는 타입의 버전이 다른걸까?
+- 어떤 쪽이 더 오래된걸까?
+- 패키지매니저의 차이인가?\
+![[note/2024/8월/Pasted image 20240812100825.png]]
+`React.Component` 클래스로 만들어진 ReactGrid 컴포넌트의 타입이 잘못 추론되어 타입에러가 발생한 모습
+- `npm link`로 끌어왔기 때문에 의존성 참조를 의도와 다르게 할 수 있나?
+![[note/2024/8월/Pasted image 20240812105941.png]]
+두 개의 `package-lock.json`에서 `@types/react`를 찾아보니 실제로 버전이 아주 살짝 다르다
+근데 버전이 크게 다른 것도 아니고 마이너 버전 몇 차이나는건데 그걸로 타입에러가 나나?
+https://velog.io/@hjkdw95/React18-Type-is-not-assignable-to-type-ReactNode-%ED%95%B4%EA%B2%B0
+왠지 npm에 배포해서 `npm install`로 가져오면 괜찮을 것 같기도...
+https://sentry.io/answers/type-is-not-assignable-to-type-reactnode/
+
+실제로 배포하니 아무 문제 없다 ㅋㅋ

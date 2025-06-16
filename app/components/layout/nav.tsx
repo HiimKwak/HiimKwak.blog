@@ -18,7 +18,7 @@ const navItems = {
     "/post": {
       name: "일상",
     },
-    "/series": {
+    "/notes": {
       name: "공책",
     },
   },

@@ -1,0 +1,12 @@
+---
+title: "0121"
+publishedAt: 2025-01-21
+image: 
+tags: 
+personal: "0"
+---
+console.log()의 비밀
+
+console.log() 인자에 들어가는 변수들은 '살아있는 변수'들이다. 다른 말로 하면 참조 주소로 새 값이 바뀌면 console.log() 호출 순서와 상관없이 마지막 참조값을 로깅해준다는 뜻이다
+
+그래서 console.log()를 호출한   시점의 데이터가 궁금하면 JSON.stringify()로 참조를 끊어주자.

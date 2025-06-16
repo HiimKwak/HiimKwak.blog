@@ -1,3 +1,4 @@
+import { CONTENT_LOCATION } from "app/constants";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -59,9 +60,9 @@ function getMDXData(dir: string) {
 }
 
 export function getDiaryPosts() {
-  return getMDXData(path.join(process.cwd(), "content/diary"));
+  return getMDXData(path.join(process.cwd(), CONTENT_LOCATION.diary));
 }
 
 export function getNotePosts() {
-  return getMDXData(path.join(process.cwd(), "content/note"));
+  return getMDXData(path.join(process.cwd(), CONTENT_LOCATION.note));
 }

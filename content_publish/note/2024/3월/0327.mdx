@@ -1,0 +1,19 @@
+---
+title: "0327"
+publishedAt: 2024-03-27
+image: 
+tags: 
+personal: "0"
+---
+
+eslint 교정작업
+useAsyncEffect 개선하기
+- Promise가 무엇인가?
+	- JS에서 비동기 작업의 결과를 총괄하는 객체
+	- pending / fulfilled / rejected 3개 상태가 존재할 수 있음
+	- Promise 객체 자체를 적나라하게 쓸 수 있고, 또는 fetch()같은 메소드의 반환값이 Promise 객체로 감싸진 반환값이 될 수도 있다
+	- 
+- useEffect 말고 useAsyncEffect를 굳이 써야하는 이유는?
+	- 가령 useEffect 안에서 API fetch와 같은 동작을 수행해야할 때가 있을 것이다
+	- 우리 회사의 코드에서도 위 경우에 해당한다(쿠키에 accessToken이 생기면 그 토큰이 유효한 토큰인지 확인하는 API 호출이 필요함)
+	- 

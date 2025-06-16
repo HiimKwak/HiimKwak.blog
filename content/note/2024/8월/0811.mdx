@@ -1,0 +1,19 @@
+---
+title: "0811"
+publishedAt: 2024-08-11
+image: 
+tags: 
+personal: "0"
+---
+`import React from "react";` 와 `import { useState } from "react";` 는 빌드 결과에서 다르다
+
+두 개를 혼합 사용하게 되면 빌드 결과물(`.d.ts`)에서 각 타입이 가리키는 React의 버전이 달라질 수 있음
+
+보기에는 React 앱인거 아는데 굳이 `React.Component` 이렇게 쓰는게 불필요하다 생각할 수 있지만 프로덕션 빌드에서 일관된 타입 추론을 제공해줘야하기 때문에 컨벤션 통일은 중요하다
+
+`import * as React from "react";` 랑 `import React from "react";` 도 다르다..
+`import React from "react";` => `import React__default from 'react';`
+`import * as React from "react";` => `import * as React$1 from "react";`
+`import { useState } from "react";` => `declare abstract class PointerEvent_2 ...`
+
++) 의존성 버전 업데이트도 최대한 보수적으로.. 업데이트 각이 보여도 기존 것들을 최대한 유지한 가운데 버전을 점차 올리는게 현실적이지 아예 통째로 빌드툴(CRA + Rollup -> Vite), 타입스크립트 버전 등등을 한꺼번에 바꿔버리면 디버깅하기가 정말 어렵다

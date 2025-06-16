@@ -35,7 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 # draft
-/content/draft
+/content
 
 # temporary ignore
 /app/about

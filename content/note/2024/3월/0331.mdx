@@ -1,0 +1,64 @@
+---
+title: "0331"
+publishedAt: 2024-03-31
+image: 
+tags: 
+personal: "0"
+---
+    docs: packages/portlogics 린트 스크립트 수정    
+    refactor: packages/portlogics import 룰 교정
+	docs: lint 관련 스크립트 수정
+	fix: vercel/style-guide와 겹치는 next/web-core-vitals 삭제
+	fix: no-console 삭제, no-explicit-any 비활성화
+	fix: 저장 시 prettier과 eslint 충돌 이슈 해결
+	chore: 누락된 react-hooks/rules-of-hooks plugin 설정 추가
+
+	docs: eslint 규칙 추가, 정리
+
+	chore: commitlint - husky commit-msg 연결
+	chore: lint-staged - husky pre-commit 연결
+
+	build: 누락된 eslint-plugin-prettier 설치
+	build: commitlint 설치
+	build: eslint plugin 설치
+	build: lint-staged 설치
+
+회사 모노레포 eslint 세팅하면서 맞이한 에러들
+1. no-extranous-dependencies
+	- 현재 공통적으로 사용되고 있는 의존성들은 모두 루트 디렉토리에 설치되고 있음
+	- 아마 pnpm의 symlink 기능 덕분에 괜찮은 듯
+	- 이 에러는 vercel/style-guide/eslint 를 제거하니 사라짐. 사용하기에는 너무 엄격하다 느낌
+2. Unable to resolve path to module
+	 - 레퍼런스처럼 설정해줬는데 에러가 발생
+		 - eslint-config/base.js에서 `project: [apps/*/tsconfig.json, packages/*/tsconfig.json]` 설정도 함
+		 - eslint-config/next.js도 문제 없음
+		 - 해결: eslint-config/next.js 에 `const project = resolve(process.cwd(), "tsconfig.json");` 추가 후 직접 import/resolver 설정해줌(base.js와 겹침)
+3. import/no-named-as-default-member
+	- 특정 init 코드에서 발견되는 패턴. e.g. `i18next.use()`, `https.createServer()`
+	- 위 경우 named export로 바꾸면 오히려 직관성이 떨어진다 판단, eslint-disable 처리
+4. react-hooks/exhaustive-deps
+	- `warning  React Hook useMemo has an unnecessary dependency: 'SHIP_PHOTO'. Either exclude it or remove the dependency array. Outer scope values like 'SHIP_PHOTO' aren't valid dependencies because mutating them doesn't re-render the component  react-hooks/exhaustive-deps`
+5. @typescript-eslint/no-explicit-any
+	- Excel 코드나 내부 모듈(e.g. http-helper)에서 인자의 타입을 확정할 수 없는 경우 any 사용이 불가피함
+	- 따라서 이런 예외 코드들은 eslint-disable 처리
+6. `/* @ts-ignore */`
+	- http-helper나 useContainersContext에서 주로 사용됨
+	- http-helper의 경우 타입을 추론해 해결, useContainersContext에선 
+7. AntDesign
+	1. Form > DatePicker.RangePicker prop type : a 생성으로 해결
+8. reduce acc type
+```
+...fareCostsNames.reduce(
+	(acc, name) => {
+		const fareCost = item.fareCosts.find(
+			(fareCost) => fareCost.name === name,
+		);
+		acc[name] = fareCost ? fareCost.amount.toLocaleString() : "";
+		return acc;
+	},
+	{} as Record<string, string>,
+),
+```
+
+8. type에 빈 객체 불가한 문제(`CommonResponse<{}>`)
+	- Record<string, never>로 대체

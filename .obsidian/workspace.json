@@ -1,0 +1,228 @@
+{
+  "main": {
+    "id": "249fb5d40c656a74",
+    "type": "split",
+    "children": [
+      {
+        "id": "f063f467039d51bb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "16a9a41b7ae41d28",
+            "type": "leaf",
+            "state": {
+              "type": "split-diff-view",
+              "state": {
+                "aFile": ".obsidian/workspace.json",
+                "bFile": ".obsidian/workspace.json",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: workspace.json"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "2ce95042f33a9624",
+    "type": "split",
+    "children": [
+      {
+        "id": "f53983340cf2b3ba",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "27b6be284f6d9905",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "dcf39043161192c2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "1a443110e18ba917",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "ee7cbdf415c2d42e",
+    "type": "split",
+    "children": [
+      {
+        "id": "2a5519e883f48308",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "58dd13aaf1762131",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "백링크"
+            }
+          },
+          {
+            "id": "229a4fc5ee5dd3bb",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "나가는 링크"
+            }
+          },
+          {
+            "id": "c990814bf116d44f",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "a26c45a696890990",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "개요"
+            }
+          },
+          {
+            "id": "9fc093b19fda826a",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "obsidian-git:Open Git source control": false,
+      "vscode-editor:Create Code File": false
+    }
+  },
+  "active": "16a9a41b7ae41d28",
+  "lastOpenFiles": [
+    "content/note/2024/5월/0529.mdx",
+    "app/notes/page.tsx",
+    "app/notes",
+    "app/constants.ts",
+    "content_publish/diary/2022.mdx",
+    "content_publish/diary/ajax-and-promise.mdx",
+    "content_publish/diary/july-to-november.mdx",
+    "content_publish/diary/first-time-having-users.mdx",
+    "content_publish/diary/blog-ver2-release.mdx",
+    "content_publish/diary/the-very-first-post.mdx",
+    "content_publish/note/2024/5월/Pasted image 20240521094048.png",
+    "content_publish/note/2024/5월/Pasted image 20240504183951.png",
+    "content_publish/note/2024/5월/Pasted image 20240504183721.png",
+    "content_publish/note/2024/5월/Pasted image 20240504183904.png",
+    "content_publish/note/2024/5월/Pasted image 20240530093157.png",
+    "content_publish/note/2024/5월/Pasted image 20240504183814.png",
+    "content_publish/note/2024/6월/Pasted image 20240627101408.png",
+    "content_publish/note/2024/6월/Pasted image 20240627101421.png",
+    "content_publish/note/2024/6월/Pasted image 20240627101318.png",
+    "content_publish/note/2024/6월/Pasted image 20240627101519.png",
+    "content/template/note template.md",
+    "content/template/diary template.md",
+    "content/note/2025/6월/0612.md",
+    "content/note/2025/6월/0611-2.md",
+    "content/note/2025/6월/0611-1.md",
+    "content/note/2025/6월/0609.md",
+    "content/note/2025/5월/0523.md",
+    "content/note/2025/5월/0519.md",
+    "content/note/2025/5월/0516.md",
+    "content_local_db/note/2025/6월/0612.md",
+    "content_local_db/note/2025/6월/0611-2.md",
+    "content_local_db/note/2025/6월/0611-1.md",
+    "content_local_db/note/2025/6월/0609.md",
+    "content_local_db/note/2025/5월/0523.md",
+    "content_local_db/note/2025/5월/0519.md",
+    "content_local_db/note/2025/5월/0516.md",
+    "content_local_db/template/note template.md",
+    "content_local_db/template/diary template.md",
+    "content_backup_20250616_122322/template/note template.md",
+    "content_backup_20250616_122322/template/diary template.md",
+    "content_backup_20250616_122322/note/2025/5월/0519.md",
+    "content_backup_20250616_122322/note/2025/5월/0523.md",
+    "content_backup_20250616_122322/note/2025/5월/0516.md",
+    "content_backup_20250616_122322/note/2025/6월/0612.md",
+    "content_backup_20250616_122322/note/2025/6월/0611-2.md"
+  ]
+}

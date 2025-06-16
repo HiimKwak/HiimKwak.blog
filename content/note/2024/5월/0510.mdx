@@ -1,0 +1,26 @@
+---
+title: "0510"
+publishedAt: 2024-05-10
+image: 
+tags: 
+personal: "1"
+---
+
+충돌 잡아야할 것
+
+`/(operation-management)` -> `/(international)`
+- `NavbarPathname.operationManagement` -> `NavbarPathname.international`
+- `/(international)/order-management`
+	- `t(OrderManagement.` -> `t(InternationalOrderManagement.`
+	- `t(OrderManagementRegister.` -> `t(InternationalOrderManagementRegister.`
+	- `t(OrderManagementDetail.` -> `t(InternationalOrderManagementDetail.` 
+	- 번역 추가된 것들은 모아서 따로 key 추가해주기
+`/api/order`
+- `/(operation-management)/` 하위 코드들 모두 `/api/order/index.ts`, `/queries/order/index.ts` 내용물 사용 중
+- main에 있는 `/api/order/index.ts`, `/queries/order/index.ts` 에서 `InternationalOrderApi`에 없는 애들만 골라서 옮겨주기.
+- `from "@/queries/order";` -> `from "@/queries/order/international";`
+- `from "@/api/order/type";` -> `from "@/api/order/international/type";`
+- `from "@/api/order";` -> `from "@/api/order/international";`
+
+
+로컬 서버 develop으로 해놓은거 staging으로 꼭 원복시켜놓기 >

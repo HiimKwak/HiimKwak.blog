@@ -1,0 +1,12 @@
+---
+title: "0424"
+publishedAt: 2024-04-24
+image: 
+tags: 
+personal: "0"
+---
+
+i18n 더 깔끔하게 유지하는 법:
+- 수출입/인랜드 오더마다 파일을 다르게 생성할 필요 없다
+- 두 타입의 오더를 한 파일에 두고 각각 International, Inland 접두사를 붙여 한 파일에서 2개 enum을 export하면 된다
+- 그리고 resources.d.ts에서 불러와서 각각 export해주면 됨
