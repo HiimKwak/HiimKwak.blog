@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/build-content.js && next build",
+    "build": "next build",
     "reload": "next build && next dev",
     "start": "next start",
     "lint": "next lint"
