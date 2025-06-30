@@ -12,9 +12,10 @@ import Link from "next/link";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata | undefined> {
-  const post = getDiaryPosts().find((post) => post.slug === params.slug);
+  const { slug } = await params;
+  const post = getDiaryPosts().find((post) => post.slug === slug);
   if (!post) {
     return;
   }
@@ -82,14 +83,20 @@ function formatDate(date: string) {
   return `${fullDate} (${formattedDate})`;
 }
 
-export default function Post({ params }: { params: { slug: string } }) {
+export default async function Post({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
   const allPosts = getDiaryPosts().sort(
     (a, b) =>
       new Date(a.metadata.publishedAt).getTime() -
       new Date(b.metadata.publishedAt).getTime()
   );
 
-  const postIdx = allPosts.findIndex((post) => post.slug === params.slug);
+  const postIdx = allPosts.findIndex((post) => post.slug === slug);
   const post = allPosts[postIdx];
   const prev = postIdx === 0 ? null : allPosts[postIdx - 1];
   const next = postIdx === allPosts.length ? null : allPosts[postIdx + 1];

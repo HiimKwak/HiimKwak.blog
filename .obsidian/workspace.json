@@ -179,6 +179,7 @@
   },
   "active": "16a9a41b7ae41d28",
   "lastOpenFiles": [
+    "node_modules/@giscus",
     "scripts/build-content.js",
     "scripts",
     "vercel.json",
@@ -191,7 +192,6 @@
     "content/note/2024/5월/0529.mdx",
     "ssh_key_manager.sh",
     "app/notes/page.tsx",
-    "app/notes",
     "content_publish/note/2024/5월/Pasted image 20240521094048.png",
     "content_publish/note/2024/5월/Pasted image 20240504183951.png",
     "content_publish/note/2024/5월/Pasted image 20240504183721.png",
