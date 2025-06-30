@@ -15,7 +15,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build-content.js && next build",
     "reload": "next build && next dev",
     "start": "next start",
     "lint": "next lint"
@@ -33,7 +33,7 @@
     "clsx": "^2.0.0",
     "dayjs": "^1.11.9",
     "framer-motion": "^10.16.14",
-    "next": "^14.0.3",
+    "next": "15.4.0-canary.103",
     "next-auth": "^5.0.0-beta.4",
     "next-mdx-remote": "^4.4.1",
     "postcss": "8.4.25",
