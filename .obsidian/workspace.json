@@ -11,14 +11,14 @@
             "id": "16a9a41b7ae41d28",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "content/note/2025/6월/0619.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json"
+              "icon": "lucide-file",
+              "title": "0619"
             }
           }
         ]
@@ -179,16 +179,19 @@
   },
   "active": "16a9a41b7ae41d28",
   "lastOpenFiles": [
+    "scripts/copy-content.js",
+    "scripts",
+    "vercel.json",
+    "scripts/initialize-views.js",
+    "app/api/initialize-views/route.ts",
+    "app/api/initialize-views",
+    "content/note/2025/6월/0618.md",
+    "content/note/2025/6월/0619.md",
     "content/note/2024/5월/0529.mdx",
+    "ssh_key_manager.sh",
     "app/notes/page.tsx",
     "app/notes",
     "app/constants.ts",
-    "content_publish/diary/2022.mdx",
-    "content_publish/diary/ajax-and-promise.mdx",
-    "content_publish/diary/july-to-november.mdx",
-    "content_publish/diary/first-time-having-users.mdx",
-    "content_publish/diary/blog-ver2-release.mdx",
-    "content_publish/diary/the-very-first-post.mdx",
     "content_publish/note/2024/5월/Pasted image 20240521094048.png",
     "content_publish/note/2024/5월/Pasted image 20240504183951.png",
     "content_publish/note/2024/5월/Pasted image 20240504183721.png",
@@ -221,8 +224,6 @@
     "content_backup_20250616_122322/template/diary template.md",
     "content_backup_20250616_122322/note/2025/5월/0519.md",
     "content_backup_20250616_122322/note/2025/5월/0523.md",
-    "content_backup_20250616_122322/note/2025/5월/0516.md",
-    "content_backup_20250616_122322/note/2025/6월/0612.md",
-    "content_backup_20250616_122322/note/2025/6월/0611-2.md"
+    "content_backup_20250616_122322/note/2025/5월/0516.md"
   ]
 }
