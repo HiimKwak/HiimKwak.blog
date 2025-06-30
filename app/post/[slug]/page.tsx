@@ -130,7 +130,7 @@ const incrementViews = cache(increment);
 
 async function Views({ slug }: { slug: string }) {
   const views = await getViewsCount();
-  process.env.DEV !== "1" && incrementViews(slug);
+  process.env.NODE_ENV === "production" && incrementViews(slug);
   return <ViewCounter allViews={views} slug={slug} />;
 }
 
