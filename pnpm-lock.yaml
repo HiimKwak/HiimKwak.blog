@@ -9,13 +9,13 @@ importers:
   .:
     dependencies:
       '@giscus/react':
-        specifier: ^2.3.0
+        specifier: ^2.4.0
         version: 2.4.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@neondatabase/serverless':
         specifier: ^1.0.1
         version: 1.0.1
       '@tailwindcss/typography':
-        specifier: ^0.5.10
+        specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.3.2)
       '@types/node':
         specifier: 20.4.1
@@ -27,7 +27,7 @@ importers:
         specifier: 19.1.6
         version: 19.1.6(@types/react@19.1.8)
       '@vercel/analytics':
-        specifier: ^1.1.1
+        specifier: ^1.5.0
         version: 1.5.0(next@15.4.0-canary.103(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       '@vercel/postgres':
         specifier: ^0.5.1
@@ -36,10 +36,10 @@ importers:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.25)
       clsx:
-        specifier: ^2.0.0
+        specifier: ^2.1.1
         version: 2.1.1
       dayjs:
-        specifier: ^1.11.9
+        specifier: ^1.11.13
         version: 1.11.13
       motion:
         specifier: ^12.19.2
@@ -48,7 +48,7 @@ importers:
         specifier: 15.4.0-canary.103
         version: 15.4.0-canary.103(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-auth:
-        specifier: ^5.0.0-beta.4
+        specifier: 5.0.0-beta.28
         version: 5.0.0-beta.28(next@15.4.0-canary.103(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       next-mdx-remote:
         specifier: ^4.4.1
@@ -63,10 +63,10 @@ importers:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
       react-tweet:
-        specifier: ^3.1.1
+        specifier: ^3.2.2
         version: 3.2.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sharp:
-        specifier: ^0.33.0
+        specifier: ^0.33.5
         version: 0.33.5
       sugar-high:
         specifier: ^0.5.6
