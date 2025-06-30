@@ -3,7 +3,7 @@ import type React from "react";
 import { $ } from "app/libs/core";
 
 export interface IconTextProps {
-  Icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  Icon: (props: React.SVGProps<SVGSVGElement>) => React.JSX.Element;
   IconSize?: number;
   text?: React.ReactNode;
   className?: string;
