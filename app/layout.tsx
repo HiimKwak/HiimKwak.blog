@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Navbar from "app/components/layout/nav";
 import { Analytics } from "@vercel/analytics/react";
 import localFont from "next/font/local";
-import { $ } from "./libs/core";
+import { cn } from "./lib/core";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://hiimkwak.blog"),
@@ -51,7 +51,7 @@ export default function RootLayout({
   return (
     <html
       lang="ko"
-      className={$(
+      className={cn(
         "text-black dark:text-white bg-white dark:bg-[#111010] antialiased",
         `${pretendard.variable}`
       )}

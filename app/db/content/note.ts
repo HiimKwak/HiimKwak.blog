@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { checkMDXExt, extractDataFromDir, MDXData } from "./utils";
 
-type TreeNode = (string | TreeNode | MDXData)[];
+export type NoteTree = { folderName: string; notes: MDXData[]; children: NoteTree[]};
 
 // const buildNoteTree = (currDir: string): TreeNode => {
 //   const node: TreeNode = [];
@@ -25,7 +25,7 @@ type TreeNode = (string | TreeNode | MDXData)[];
 
 const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
 
-const buildNoteTree = (currDir: string, depth: number = 0): TreeNode => {
+const buildNoteTree = (currDir: string, depth: number = 0): NoteTree => {
   const branches = fs.readdirSync(currDir);
 
   const filteredBranches = branches.filter((branch) => {
@@ -54,16 +54,26 @@ const buildNoteTree = (currDir: string, depth: number = 0): TreeNode => {
   };
 
   const sortedBranches = filteredBranches.sort(sortBranches);
+  
+  const notes: MDXData[] = [];
+  const children: NoteTree[] = [];
+  const folderName = path.basename(currDir);
 
-  return sortedBranches.map((branch) => {
+  for (const branch of sortedBranches) {
     const branchPath = path.join(currDir, branch);
 
     if (fs.statSync(branchPath).isDirectory()) {
-      return [branch, buildNoteTree(branchPath, depth + 1)];
+      children.push(buildNoteTree(branchPath, depth + 1));
     } else if (checkMDXExt(branch)) {
-      return extractDataFromDir(branchPath);
-    } else return branch;
-  });
+      notes.push(extractDataFromDir(branchPath));
+    }
+  }
+
+  return {
+    folderName,
+    notes,
+    children
+  };
 };
 
 export function getNotes() {

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import useIntersectionObserver from "app/hooks/useIntersectionObserver";
-import { $ } from "app/libs/core";
+import { cn } from "@/lib/core";
 import Image from "next/image";
 
 const navItems = {
@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <aside
-      className={$(
+      className={cn(
         "-ml-[8px] tracking-tight px-2 py-4 md:px-0",
         !isIntersected &&
           "bg-transparent border-b border-neutral-300 dark:border-gray-600 backdrop-blur-xl"
@@ -89,7 +89,7 @@ function NavItem({ path, name }: { path: string; name: string }) {
     <Link
       key={path}
       href={linkPath}
-      className={$(
+      className={cn(
         "transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle",
         {
           "text-neutral-500": !isActive,

@@ -1,4 +1,4 @@
-import { $ } from 'app/libs/core';
+import { cn } from "@/lib/core";
 
 export default function ViewCounter({
   slug,
@@ -17,7 +17,7 @@ export default function ViewCounter({
   const number = new Number(viewsForSlug?.count || 0);
 
   return (
-    <p className={$('text-neutral-600 dark:text-neutral-400', className)}>
+    <p className={cn("text-neutral-600 dark:text-neutral-400", className)}>
       {`${number.toLocaleString()} views`}
     </p>
   );
