@@ -1,0 +1,20 @@
+---
+title: 0618 Tanstack Query == Context API
+publishedAt: 2025-06-18
+image: 
+tags: 
+personal: "0"
+---
+상황:
+A 디렉토리엔 a id 값이 prop으로 연결돼있음
+A-a-1 컴포넌트에서 B 도메인과 연결된 기능이 새로 생겼음
+A-a-1 컴포넌트에서 데이터를 불러오려면 B 도메인의 API를 써야함, B 도메인 api는 b id라는 쿼리파라미터가 필요
+결국 A-a-1 컴포넌트에서 A 도메인과 상관없는 b id를 알아야 데이터 패칭이 가능한 상황
+A 도메인 상위에서 a id로 호출하는 API 중에 b id가 포함된 `/info` API가 존재하는 중
+
+시도:
+Context API를 처음에 제안함. 한정된 범위에서 특정 정보를 공유할 수 있으니까
+하지만 Tanstack Query를 사용하고 있는만큼 Context API를 사용해 안정성을 해치지 않고도(의도와 다르게 비대해질 가능성 있음) Context API의 역할을 그대로 수행할 수 있었음
+Tanstack Query의 성질: 한 번 fetch되면 caching됨. 인위적으로 invalidate 혹은 refetch 시키지 않는 이상 staleTime 안에는 같은 url, queryKey의 데이터는 보존됨
+그래서 한 번 패치되고 난 뒤 다른 위치에서 쿼리 훅을 호출해도 네트워크 요청이 늘어나는게 아님. 오히려 일정 시간동안 유지되는 Context가 생긴 것
+따라서 Context API를 추가하는 대신, a id로 `/info` 쿼리 훅을 호출해 b id를 취득하고 - 그렇게 얻은 b id로 B 도메인의 API를 호출해 데이터를 패치함

@@ -18,7 +18,8 @@
     "build": "next build",
     "reload": "next build && next dev",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "publish_content": "bash ./convert_to_mdx.sh && ./filter_personal_content.sh"
   },
   "dependencies": {
     "@giscus/react": "^2.4.0",
