@@ -44,6 +44,11 @@ img {
 html {
   min-width: 360px;
 }
+
+.prose {
+  max-width: 100%;
+}
+
 .prose .anchor {
   @apply absolute invisible no-underline;
 

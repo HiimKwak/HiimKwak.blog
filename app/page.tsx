@@ -34,16 +34,13 @@ function ArrowIcon() {
 
 export default function Page() {
   return (
-    <section className="mx-auto">
-      <h1 className="mb-8 text-2xl font-medium tracking-tighter">
+    <section className="mx-auto max-w-2xl px-4 md:px-0">
+      <h1 className="pt-4 mb-8 text-2xl font-medium tracking-tighter">
         곽민규의 블로그
       </h1>
       <p className="prose prose-neutral dark:prose-invert break-keep">
-        저는 주니어 프론트엔드 개발자입니다. 사람들의 불편함을 해소하는 멋진
-        무언가를 만드는 것에 재미를 느낍니다. 무작정 키보드를 두들기기보다
-        사용자들과 깊게 소통해 실마리를 먼저 찾아내려 노력하고 있습니다.
-        기술에만 치우치지 않고 세상과 잘 어우러질 수 있는 사람이 먼저 되고자
-        합니다.
+        주니어 프론트엔드 개발자 곽민규입니다. 기술에 치우치는 것을 경계하고
+        개발의 본질인 사용자의 니즈 해결에 집중하려 노력합니다.
       </p>
       <div className="prose prose-neutral dark:prose-invert">
         <p className="break-keep">
@@ -117,18 +114,19 @@ export default function Page() {
         </div>
       </div>
       <div className="prose prose-neutral dark:prose-invert">
+        <h4>TMI</h4>
         <p>
-          나영석같은 PD가 되고 싶어 미디어커뮤니케이션학부를 전공으로 선택했으나
-          결국엔 개발자가 되었습니다. 현재 포트로직스라는 디지털 포워더 회사에서
-          프론트엔드 개발자로 일하고 있습니다. 아날로그 방식의 업무 방식을
-          똑똑하고 효율적인 디지털 기술로 수행할 수 있는 방법을 개발하고
-          있습니다. 감사하게도 정말 좋은 팀원들과 함께 일하고 있으며 행복한
-          회사생활을 유지하고 있습니다 :)
+          나영석같은 PD가 되고 싶어 미디어커뮤니케이션학부를 전공했으나 더
+          잘맞는 길을 찾아 개발자가 되었습니다. 현재 포트로직스라는 디지털
+          포워더 회사에서 프론트엔드 개발자로 일하고 있습니다. 아날로그 방식의
+          업무 방식을 디지털라이즈할 수 있는 방법을 개발하고 있습니다.
+          감사하게도 좋은 팀원들과 함께 일하고 있으며 행복한 회사생활을 유지하고
+          있습니다.
         </p>
         <p>
-          흔들리지 않는 사람이 되고자 합니다. 경거망동하지 않으려 노력하지만
-          가슴이 뛰는 일에는 과감하게 도전하기도 합니다. 건강한 신체가 좋은
-          경험의 전제가 된다는 체덕지(體德智) 사상을 중요하게 여깁니다.
+          흔들리지 않는 사람이 되고자 합니다. 경거망동하지 않으려 하지만 가슴이
+          뛰는 일에는 과감하게 도전합니다. 건강한 신체가 좋은 경험의 전제가
+          된다는 체덕지(體德智) 사상을 중요하게 생각합니다.
         </p>
         <p>
           개발 외에는 핑거스타일 기타 연주, 게임, 축구, 바디빌딩, 러닝, 수영 등

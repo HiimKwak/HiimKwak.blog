@@ -17,7 +17,7 @@ export default function Post() {
     .reverse();
 
   return (
-    <div className="py-4">
+    <div className="mx-auto max-w-2xl px-4 md:px-0">
       <div className="flex flex-col divide-y rounded-lg divide-slate-200 dark:divide-gray-700">
         {allPosts.map((post) => (
           <PostCard {...post} key={post.slug} />

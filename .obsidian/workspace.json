@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/note/2025/6월/0619.md",
+                "file": "content/note/2025/7월/0709 이 함수가 알아야할까?.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "0619"
+              "title": "0709 이 함수가 알아야할까?"
             }
           }
         ]
@@ -179,6 +179,12 @@
   },
   "active": "16a9a41b7ae41d28",
   "lastOpenFiles": [
+    "content/note/2025/7월/0708 파편화돼있는 권한.md",
+    "content/note/2025/7월/0701 수다.md",
+    "content/note/2025/7월/0707 신체와 정신.md",
+    "content/note/2025/7월/0709 이 함수가 알아야할까?.md",
+    "content/note/2025/6월/0619.md",
+    "content/note/2025/7월",
     "node_modules/@giscus",
     "scripts/build-content.js",
     "scripts",
@@ -188,10 +194,7 @@
     "app/api/initialize-views/route.ts",
     "app/api/initialize-views",
     "content/note/2025/6월/0618.md",
-    "content/note/2025/6월/0619.md",
     "content/note/2024/5월/0529.mdx",
-    "ssh_key_manager.sh",
-    "app/notes/page.tsx",
     "content_publish/note/2024/5월/Pasted image 20240521094048.png",
     "content_publish/note/2024/5월/Pasted image 20240504183951.png",
     "content_publish/note/2024/5월/Pasted image 20240504183721.png",
@@ -221,9 +224,6 @@
     "content_local_db/template/note template.md",
     "content_local_db/template/diary template.md",
     "content_backup_20250616_122322/template/note template.md",
-    "content_backup_20250616_122322/template/diary template.md",
-    "content_backup_20250616_122322/note/2025/5월/0519.md",
-    "content_backup_20250616_122322/note/2025/5월/0523.md",
-    "content_backup_20250616_122322/note/2025/5월/0516.md"
+    "content_backup_20250616_122322/template/diary template.md"
   ]
 }
