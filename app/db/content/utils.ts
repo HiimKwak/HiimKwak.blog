@@ -1,4 +1,3 @@
-import { CONTENT_LOCATION } from "app/constants";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -8,6 +7,12 @@ type Metadata = {
   summary: string;
   image?: string;
   personal: string;
+};
+
+export type MDXData = {
+  metadata: Metadata;
+  slug: string;
+  content: string;
 };
 
 function parseFrontmatter(fileContent: string) {
@@ -31,39 +36,23 @@ function parseFrontmatter(fileContent: string) {
   return { metadata: metadata as Metadata, content };
 }
 
-function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
-}
-
 function readMDXFile(filePath: string) {
   const rawContent = fs.readFileSync(filePath, "utf-8");
   return parseFrontmatter(rawContent);
 }
 
-function extractTweetIds(content) {
-  const tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
-  return tweetMatches?.map((tweet) => tweet.match(/[0-9]+/g)[0]) || [];
+export function checkMDXExt(file: string): boolean {
+  const ext = path.extname(file).toLowerCase();
+  return ext === ".mdx";
 }
 
-function getMDXData(dir: string) {
-  const mdxFiles = getMDXFiles(dir);
-  return mdxFiles.map((file) => {
-    const { metadata, content } = readMDXFile(path.join(dir, file));
-    const slug = path.basename(file, path.extname(file));
-    const tweetIds = extractTweetIds(content);
-    return {
-      metadata,
-      slug,
-      tweetIds,
-      content,
-    };
-  });
-}
+export function extractDataFromDir(filePath: string): MDXData {
+  const { metadata, content } = readMDXFile(filePath);
+  const slug = path.basename(filePath, path.extname(filePath));
 
-export function getDiaryPosts() {
-  return getMDXData(path.join(process.cwd(), CONTENT_LOCATION.diary));
-}
-
-export function getNotePosts() {
-  return getMDXData(path.join(process.cwd(), CONTENT_LOCATION.note));
+  return {
+    metadata,
+    slug,
+    content,
+  };
 }

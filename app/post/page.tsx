@@ -1,4 +1,4 @@
-import { getDiaryPosts } from "../db/post";
+import { getDiaryPosts } from "../db/content/post";
 import Link from "next/link";
 import dayjs from "dayjs";
 

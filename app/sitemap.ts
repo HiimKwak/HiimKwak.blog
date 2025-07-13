@@ -1,4 +1,4 @@
-import { getDiaryPosts } from "app/db/post";
+import { getDiaryPosts } from "app/db/content/post";
 
 export default async function sitemap() {
   const posts = getDiaryPosts().map((post) => ({

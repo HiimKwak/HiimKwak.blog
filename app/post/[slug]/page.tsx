@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getDiaryPosts } from "app/db/post";
+import { getDiaryPosts } from "app/db/content/post";
 import { notFound } from "next/navigation";
 import { Suspense, cache } from "react";
 import { CustomMDX } from "app/components/common/mdx";
