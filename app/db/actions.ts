@@ -1,14 +1,14 @@
 "use server";
 
-import { auth } from "app/auth";
-import type { Session } from "next-auth";
 import { sql } from "@vercel/postgres";
-import { revalidatePath, unstable_noStore as noStore } from "next/cache";
+import { auth } from "app/auth";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import type { Session } from "next-auth";
 
 export async function increment(slug: string) {
-  console.log(slug);
-  noStore();
-  await sql`
+	console.log(slug);
+	noStore();
+	await sql`
     INSERT INTO views (slug, count)
     VALUES (${slug}, 1)
     ON CONFLICT (slug)
@@ -17,67 +17,67 @@ export async function increment(slug: string) {
 }
 
 async function getSession(): Promise<Session> {
-  const session = await auth();
-  if (!session || !session.user) {
-    throw new Error("Unauthorized");
-  }
+	const session = await auth();
+	if (!session || !session.user) {
+		throw new Error("Unauthorized");
+	}
 
-  return session;
+	return session;
 }
 
 export async function saveGuestbookEntry(formData: FormData) {
-  const session = await getSession();
-  const email = session.user?.email as string;
-  const created_by = session.user?.name as string;
+	const session = await getSession();
+	const email = session.user?.email as string;
+	const created_by = session.user?.name as string;
 
-  if (!session.user) {
-    throw new Error("Unauthorized");
-  }
+	if (!session.user) {
+		throw new Error("Unauthorized");
+	}
 
-  const entry = formData.get("entry")?.toString() || "";
-  const body = entry.slice(0, 500);
+	const entry = formData.get("entry")?.toString() || "";
+	const body = entry.slice(0, 500);
 
-  await sql`
+	await sql`
     INSERT INTO guestbook (email, body, created_by, created_at)
     VALUES (${email}, ${body}, ${created_by}, NOW())
   `;
 
-  revalidatePath("/guestbook");
+	revalidatePath("/guestbook");
 
-  const data = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_SECRET}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: "guestbook@leerob.io",
-      to: "me@leerob.io",
-      subject: "New Guestbook Entry",
-      html: `<p>Email: ${email}</p><p>Message: ${body}</p>`,
-    }),
-  });
+	const data = await fetch("https://api.resend.com/emails", {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${process.env.RESEND_SECRET}`,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			from: "guestbook@leerob.io",
+			to: "me@leerob.io",
+			subject: "New Guestbook Entry",
+			html: `<p>Email: ${email}</p><p>Message: ${body}</p>`,
+		}),
+	});
 
-  const response = await data.json();
-  console.log("Email sent", response);
+	const response = await data.json();
+	console.log("Email sent", response);
 }
 
 export async function deleteGuestbookEntries(selectedEntries: string[]) {
-  const session = await getSession();
-  const email = session.user?.email as string;
+	const session = await getSession();
+	const email = session.user?.email as string;
 
-  if (email !== "me@leerob.io") {
-    throw new Error("Unauthorized");
-  }
+	if (email !== "me@leerob.io") {
+		throw new Error("Unauthorized");
+	}
 
-  const selectedEntriesAsNumbers = selectedEntries.map(Number);
-  const arrayLiteral = `{${selectedEntriesAsNumbers.join(",")}}`;
+	const selectedEntriesAsNumbers = selectedEntries.map(Number);
+	const arrayLiteral = `{${selectedEntriesAsNumbers.join(",")}}`;
 
-  await sql`
+	await sql`
     DELETE FROM guestbook
     WHERE id = ANY(${arrayLiteral}::int[])
   `;
 
-  revalidatePath("/admin");
-  revalidatePath("/guestbook");
+	revalidatePath("/admin");
+	revalidatePath("/guestbook");
 }

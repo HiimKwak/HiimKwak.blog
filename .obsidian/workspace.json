@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/note/2025/6월/0609.mdx",
+                "file": "content/note/2025/7월/0709 이 함수가 알아야하는 정보일까?.mdx",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "0609"
+              "title": "0709 이 함수가 알아야하는 정보일까?"
             }
           }
         ]
@@ -177,19 +177,27 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "27b6be284f6d9905",
+  "active": "171de99ea5df1613",
   "lastOpenFiles": [
+    "public/images/first-time-having-users/3.webp",
+    "public/images/first-time-having-users/1.webp",
+    "public/images/first-time-having-users/2.webp",
+    "public/images/first-time-having-users/4.webp",
+    "public/images/first-time-having-users/2 2.webp",
+    "public/images/first-time-having-users/1 2.webp",
+    "public/images/first-time-having-users/3 2.webp",
+    "public/images/first-time-having-users/4 2.webp",
+    "biome.json",
+    "node_modules/@biomejs",
+    "public/images/note/2025/7월/0709 이 함수가 알아야할까?-1.png",
+    "content/note/2025/7월/0709 이 함수가 알아야하는 정보일까?.mdx",
+    "public/images/note/2025/7월",
+    "public/images/note/2025",
+    "public/images/note",
+    "content/note/2025/6월/0609.mdx",
+    "content/note/2025/7월/0713.mdx",
     "app/notes/layout.tsx",
     "app/components/ui/breadcrumb.tsx",
-    "app/components/ui/collapsible.tsx",
-    "app/components/ui/skeleton.tsx",
-    "app/components/ui/input.tsx",
-    "app/components/ui/tooltip.tsx",
-    "app/components/ui/sheet.tsx",
-    "app/components/ui/separator.tsx",
-    "app/components/ui/sidebar.tsx",
-    "app/components/ui/button.tsx",
-    "app/components/ui",
     "content/note/2025/7월/0713.md",
     "content/template/note template.md",
     "content/template/diary template.md",
@@ -208,14 +216,6 @@
     "content/note/2025/6월/0611-1.md",
     "content/note/2025/6월/0609.md",
     "content_publish/note/2024/5월/Pasted image 20240521094048.png",
-    "content_publish/note/2024/5월/Pasted image 20240504183951.png",
-    "content_publish/note/2024/5월/Pasted image 20240504183721.png",
-    "content_publish/note/2024/5월/Pasted image 20240504183904.png",
-    "content_publish/note/2024/5월/Pasted image 20240530093157.png",
-    "content_publish/note/2024/5월/Pasted image 20240504183814.png",
-    "content_publish/note/2024/6월/Pasted image 20240627101408.png",
-    "content_publish/note/2024/6월/Pasted image 20240627101421.png",
-    "content_publish/note/2024/6월/Pasted image 20240627101318.png",
     "content/note/2025/5월/0523.md",
     "content/note/2025/5월/0519.md",
     "content/note/2025/5월/0516.md",

@@ -1,4 +1,4 @@
 {
-  "template": "content/template/diary template.mdx",
-  "folder": "content/diary"
+	"template": "content/template/diary template.mdx",
+	"folder": "content/diary"
 }

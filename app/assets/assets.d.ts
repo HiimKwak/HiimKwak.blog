@@ -4,10 +4,10 @@ declare module "*.jpeg";
 declare module "*.gif";
 
 declare module "*.svg" {
-  import React = require("react");
+	import React = require("react");
 
-  export const ReactComponent: React.ComponentProps<"svg">;
+	export const ReactComponent: React.ComponentProps<"svg">;
 
-  const src: string;
-  export default src;
+	const src: string;
+	export default src;
 }

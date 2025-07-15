@@ -18,7 +18,7 @@
     "build": "next build",
     "reload": "next build && next dev",
     "start": "next start",
-    "lint": "next lint",
+    "check": "pnpm exec biome check --write app/*",
     "publish_content": "bash ./convert_to_mdx.sh && ./filter_personal_content.sh"
   },
   "dependencies": {
@@ -55,5 +55,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.1.6"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "devDependencies": {
+    "@biomejs/biome": "2.1.1"
+  }
 }

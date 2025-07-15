@@ -1,4 +1,4 @@
 {
-  "template_folder": "app/components/mdx.tsx",
-  "auto_refresh": true
+	"template_folder": "app/components/mdx.tsx",
+	"auto_refresh": true
 }
