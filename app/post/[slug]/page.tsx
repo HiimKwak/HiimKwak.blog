@@ -106,7 +106,7 @@ export default async function Post({
 	}
 
 	return (
-		<section className="flex flex-col justify-center mx-auto max-w-2xl px-4 md:px-0">
+		<section className="mx-auto max-w-2xl px-4 md:px-0">
 			<h1 className="font-medium text-2xl tracking-tighter w-full break-keep pt-4">
 				{post.metadata.title}
 			</h1>

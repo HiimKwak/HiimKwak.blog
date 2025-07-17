@@ -43,6 +43,25 @@ img {
 
 html {
 	min-width: 360px;
+	/* 스크롤바 숨김 */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Webkit 브라우저용 스크롤바 숨김 */
+html::-webkit-scrollbar {
+	display: none;
+}
+
+body {
+	/* 스크롤바 숨김 */
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Webkit 브라우저용 스크롤바 숨김 */
+body::-webkit-scrollbar {
+	display: none;
 }
 
 .prose {

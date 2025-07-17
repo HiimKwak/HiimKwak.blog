@@ -49,7 +49,7 @@ function Tree({ item }: { item: NoteTree }) {
 				<Collapsible.Content>
 					<Sidebar.MenuSub>
 						{/* 노트 파일들 */}
-						{item.notes.map((note, index) => (
+						{item.notes.map((note) => (
 							<Sidebar.MenuButton
 								key={note.slug}
 								isActive={note.slug === "button"}
@@ -60,8 +60,8 @@ function Tree({ item }: { item: NoteTree }) {
 							</Sidebar.MenuButton>
 						))}
 						{/* 하위 폴더들 */}
-						{item.children.map((child, index) => (
-							<Tree key={`child-${index}`} item={child} />
+						{item.children.map((child) => (
+							<Tree key={child.folderName} item={child} />
 						))}
 					</Sidebar.MenuSub>
 				</Collapsible.Content>
