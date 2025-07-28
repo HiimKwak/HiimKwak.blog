@@ -1,12 +1,12 @@
 {
-	"folderSpecificTemplates": [
-		{
-			"folderPath": "content/note",
-			"templateName": "note template"
-		},
-		{
-			"folderPath": "content/diary",
-			"templateName": "diary template"
-		}
-	]
+  "folderSpecificTemplates": [
+    {
+      "folderPath": "content/notes",
+      "templateName": "note template"
+    },
+    {
+      "folderPath": "content/diary",
+      "templateName": "diary template"
+    }
+  ]
 }

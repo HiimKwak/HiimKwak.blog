@@ -11,7 +11,7 @@ import { cn } from "@/lib/core";
 const navItems = {
 	left: {
 		"/": {
-			name: "홈",
+			name: "소개",
 		},
 		"/post": {
 			name: "일상",
@@ -20,14 +20,14 @@ const navItems = {
 			name: "공책",
 		},
 	},
-	right: {
-		"/about": {
-			name: "프로필",
-		},
-		"/github": {
-			name: "github",
-		},
-	},
+	// right: {
+	// 	"/about": {
+	// 		name: "프로필",
+	// 	},
+	// 	"/github": {
+	// 		name: "github",
+	// 	},
+	// },
 };
 
 export default function Navbar() {
@@ -59,11 +59,11 @@ export default function Navbar() {
 										<NavItem key={path} path={path} name={name} />
 									))}
 								</div>
-								<div className="flex space-x-0">
+								{/* <div className="flex space-x-0">
 									{Object.entries(navItems.right).map(([path, { name }]) => (
 										<NavItem key={path} path={path} name={name} />
 									))}
-								</div>
+								</div> */}
 							</Suspense>
 						</div>
 					</nav>
@@ -108,7 +108,7 @@ function NavItem({ path, name }: { path: string; name: string }) {
 				)}
 				{path === pathname ? (
 					<motion.div
-						className="absolute h-[1px] top-7 mx-2 inset-0 bg-midnightBlue dark:bg-gradient-to-r from-transparent to-midnightBlue"
+						className="absolute h-[1px] top-7 mx-2 inset-0 bg-slate-700 dark:bg-gradient-to-r from-transparent to-slate-400"
 						layoutId="sidebar"
 						transition={{
 							type: "spring",

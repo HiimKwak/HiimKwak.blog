@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/note/2025/7월/0709 이 함수가 알아야하는 정보일까?.mdx",
+                "file": "content/notes/2025/07/0701.mdx",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "0709 이 함수가 알아야하는 정보일까?"
+              "title": "0701"
             }
           }
         ]
@@ -179,25 +179,27 @@
   },
   "active": "171de99ea5df1613",
   "lastOpenFiles": [
-    "public/images/first-time-having-users/3.webp",
-    "public/images/first-time-having-users/1.webp",
-    "public/images/first-time-having-users/2.webp",
-    "public/images/first-time-having-users/4.webp",
-    "public/images/first-time-having-users/2 2.webp",
-    "public/images/first-time-having-users/1 2.webp",
-    "public/images/first-time-having-users/3 2.webp",
-    "public/images/first-time-having-users/4 2.webp",
-    "biome.json",
-    "node_modules/@biomejs",
-    "public/images/note/2025/7월/0709 이 함수가 알아야할까?-1.png",
-    "content/note/2025/7월/0709 이 함수가 알아야하는 정보일까?.mdx",
-    "public/images/note/2025/7월",
-    "public/images/note/2025",
-    "public/images/note",
-    "content/note/2025/6월/0609.mdx",
-    "content/note/2025/7월/0713.mdx",
-    "app/notes/layout.tsx",
-    "app/components/ui/breadcrumb.tsx",
+    "content/notes/2025/07/0728.md",
+    "content_publish/notes/2024/06/Pasted image 20240627101408.png",
+    "content_publish/notes/2024/06/Pasted image 20240627101421.png",
+    "content_publish/notes/2024/06/Pasted image 20240627101318.png",
+    "content_publish/notes/2024/06/Pasted image 20240627101519.png",
+    "content_publish/notes/2024/06/Pasted image 20240627105027.png",
+    "content_publish/notes/2024/06/Pasted image 20240627105004.png",
+    "content_publish/notes/2024/06/Pasted image 20240620133100.png",
+    "content_publish/notes/2024/06/Pasted image 20240627100633.png",
+    "content_publish/notes/2024/06/Pasted image 20240627100521.png",
+    "content_publish/notes/2024/06/Pasted image 20240620133358.png",
+    "content_publish/notes/2024/12/1217.mdx",
+    "content_publish/notes/2024/12/1203.mdx",
+    "content_publish/notes/2024/12/1202.mdx",
+    "content_publish/notes/2024/12",
+    "content_publish/notes/2024/06/0620.mdx",
+    "content_publish/notes/2024/06/0627.mdx",
+    "content_publish/notes/2024/06/0618.mdx",
+    "content_publish/notes/2024/06/0628.mdx",
+    "content_publish/notes/2024/06/0625.mdx",
+    "content_publish/notes/2024/06/0619.mdx",
     "content/note/2025/7월/0713.md",
     "content/template/note template.md",
     "content/template/diary template.md",
@@ -212,18 +214,15 @@
     "content/note/2025/6월/0619.md",
     "content/note/2025/6월/0612.md",
     "content/note/2025/6월/0611-2.md",
-    "content/note/2025/6월/0611-2.png",
     "content/note/2025/6월/0611-1.md",
     "content/note/2025/6월/0609.md",
-    "content_publish/note/2024/5월/Pasted image 20240521094048.png",
     "content/note/2025/5월/0523.md",
     "content/note/2025/5월/0519.md",
-    "content/note/2025/5월/0516.md",
+    "content/notes/2025/05/0516.md",
     "content_local_db/note/2025/6월/0612.md",
     "content_local_db/note/2025/6월/0611-2.md",
     "content_local_db/note/2025/6월/0611-1.md",
     "content_local_db/note/2025/6월/0609.md",
-    "content_local_db/note/2025/5월/0523.md",
-    "content_local_db/note/2025/5월/0519.md"
+    "content_local_db/note/2025/5월/0523.md"
   ]
 }

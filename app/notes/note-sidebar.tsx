@@ -1,6 +1,8 @@
 "use client";
 
-import { ChevronRightIcon, FileIcon, FolderIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
+import { useSelectedLayoutSegment } from "next/navigation";
 import type { ComponentProps } from "react";
 import { Collapsible } from "@/components/ui/collapsible";
 import { Sidebar } from "@/components/ui/sidebar";
@@ -18,7 +20,7 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
 					<Sidebar.GroupContent>
 						<Sidebar.Menu>
-							<Tree item={data} />
+							<Tree tree={data} />
 						</Sidebar.Menu>
 					</Sidebar.GroupContent>
 				</Sidebar.Group>
@@ -27,45 +29,87 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 	);
 }
 
-function Tree({ item }: { item: NoteTree }) {
+function Tree({
+	tree,
+	currentPath = [],
+}: {
+	tree: NoteTree;
+	currentPath?: string[];
+}) {
 	const thisYear = new Date().getFullYear().toString();
-	const thisMonth = (new Date().getMonth() + 1).toString();
+	const defaultOpen = (folderName: string) =>
+		folderName === "notes" || folderName === thisYear;
+
+	const fullPath = [...currentPath, tree.folderName];
 
 	return (
 		<Sidebar.MenuItem>
 			<Collapsible
 				className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
-				defaultOpen={
-					item.folderName === thisYear || item.folderName === thisMonth
-				}
+				defaultOpen={defaultOpen(tree.folderName)}
 			>
 				<Collapsible.Trigger asChild>
 					<Sidebar.MenuButton>
 						<ChevronRightIcon className="transition-transform w-4 h-4" />
-						<FolderIcon className="w-4 h-4" />
-						{item.folderName}
+						{localeMonth(tree.folderName)}
 					</Sidebar.MenuButton>
 				</Collapsible.Trigger>
 				<Collapsible.Content>
 					<Sidebar.MenuSub>
 						{/* 노트 파일들 */}
-						{item.notes.map((note) => (
-							<Sidebar.MenuButton
-								key={note.slug}
-								isActive={note.slug === "button"}
-								className="data-[active=true]:bg-transparent"
-							>
-								<FileIcon className="w-4 h-4" />
-								{note.slug}
-							</Sidebar.MenuButton>
+						{tree.notes.map((note) => (
+							<NoteLink key={note.slug} slug={note.slug} fullPath={fullPath} />
 						))}
 						{/* 하위 폴더들 */}
-						{item.children.map((child) => (
-							<Tree key={child.folderName} item={child} />
+						{tree.children.map((child) => (
+							<Tree
+								key={child.folderName}
+								tree={child}
+								currentPath={fullPath}
+							/>
 						))}
 					</Sidebar.MenuSub>
 				</Collapsible.Content>
 			</Collapsible>
 		</Sidebar.MenuItem>
 	);
+}
+
+function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
+	const segment = useSelectedLayoutSegment();
+	const isActive = slug === segment;
+
+	const href = `/${fullPath.join("/")}/${slug}`;
+
+	return (
+		<Sidebar.MenuButton
+			key={slug}
+			asChild
+			isActive={isActive}
+			className="data-[active=true]:bg-neutral-100 dark:data-[active=true]:bg-neutral-800 w-full text-left"
+		>
+			<Link href={href}>{slug}</Link>
+		</Sidebar.MenuButton>
+	);
+}
+
+// 한글 월 폴더명을 숫자로 매핑
+const monthMapping: Record<string, string> = {
+	"01": "1월",
+	"02": "2월",
+	"03": "3월",
+	"04": "4월",
+	"05": "5월",
+	"06": "6월",
+	"07": "7월",
+	"08": "8월",
+	"09": "9월",
+	"10": "10월",
+	"11": "11월",
+	"12": "12월",
+};
+
+// 폴더명을 URL용으로 변환
+function localeMonth(folderName: string): string {
+	return monthMapping[folderName] || folderName;
 }

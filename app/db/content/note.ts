@@ -9,24 +9,6 @@ export type NoteTree = {
 	children: NoteTree[];
 };
 
-// const buildNoteTree = (currDir: string): TreeNode => {
-//   const node: TreeNode = [];
-//   const branches = fs.readdirSync(currDir);
-
-//   for (const branch of branches) {
-//     const branchPath = path.join(currDir, branch);
-
-//     node.push(branch);
-
-//     if (fs.statSync(branchPath).isDirectory()) {
-//       const subTree = buildNoteTree(branchPath);
-//       node.push(subTree);
-//     }
-//   }
-
-//   return node;
-// };
-
 const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
 
 const buildNoteTree = (currDir: string, depth: number = 0): NoteTree => {
@@ -44,10 +26,8 @@ const buildNoteTree = (currDir: string, depth: number = 0): NoteTree => {
 				// 첫 번째 겹: 연도 숫자 내림차순 (2025, 2024, ...)
 				return parseInt(b) - parseInt(a);
 			case 1: {
-				// 두 번째 겹: x월 형태 올림차순 (1월, 2월, ..., 12월)
-				const aMonth = parseInt(a.replace("월", ""));
-				const bMonth = parseInt(b.replace("월", ""));
-				return aMonth - bMonth;
+				// 두 번째 겹: x월 형태 내림차순 (12, 11, ..., 01)
+				return b.localeCompare(a);
 			}
 			case 2:
 				// 세 번째 겹: MMDD 형태 오름차순
@@ -85,4 +65,30 @@ export function getNotes() {
 	const noteDir = path.join(process.cwd(), CONTENT_LOCATION.note);
 
 	return buildNoteTree(noteDir);
+}
+
+export function getNoteByPath(pathSegments: string[]): MDXData | null {
+	const noteDir = path.join(process.cwd(), CONTENT_LOCATION.note);
+
+	// 경로 배열을 파일 시스템 경로로 변환
+	const filePath = path.join(noteDir, ...pathSegments);
+	const mdxPath = `${filePath}.mdx`;
+
+	// 디버깅용 로그
+	console.log("getNoteByPath - pathSegments:", pathSegments);
+
+	// 파일이 존재하는지 확인
+	if (!fs.existsSync(mdxPath)) {
+		console.log("getNoteByPath - file not found");
+		return null;
+	}
+
+	// MDX 파일인지 확인
+	if (!checkMDXExt(path.basename(mdxPath))) {
+		console.log("getNoteByPath - not an MDX file");
+		return null;
+	}
+
+	console.log("getNoteByPath - file found, extracting data");
+	return extractDataFromDir(mdxPath);
 }

@@ -58,10 +58,7 @@ export default function RootLayout({
 		>
 			<body>
 				<div id="header-flag" />
-				<header className="fixed top-0 left-0 right-0 z-10">
-					<Navbar />
-				</header>
-				<main className="my-16">
+				<main>
 					{children}
 					<Analytics />
 				</main>
