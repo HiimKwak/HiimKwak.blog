@@ -18,6 +18,7 @@ export default async function NotePage({
 		notFound();
 	}
 
+	// todo: View 추가
 	return (
 		<div className="h-screen w-full max-w-xl mx-auto">
 			<NoteHeader />
