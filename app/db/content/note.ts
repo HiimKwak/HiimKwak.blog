@@ -30,8 +30,8 @@ const buildNoteTree = (currDir: string, depth: number = 0): NoteTree => {
 				return b.localeCompare(a);
 			}
 			case 2:
-				// 세 번째 겹: MMDD 형태 오름차순
-				return a.localeCompare(b);
+				// 세 번째 겹: MMDD 형태 내림차순
+				return b.localeCompare(a);
 			default:
 				// 기본 정렬: 알파벳 순
 				return a.localeCompare(b);
