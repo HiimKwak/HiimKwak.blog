@@ -1,8 +1,9 @@
 [
-	"obsidian-git",
-	"obsidian-paste-image-rename",
-	"mdx-as-md-obsidian",
-	"obsidian-react-components",
-	"vscode-editor",
-	"auto-template-trigger"
+  "obsidian-git",
+  "obsidian-paste-image-rename",
+  "vscode-editor",
+  "auto-template-trigger",
+  "mdx",
+  "mdx-as-md-obsidian",
+  "unicode-search"
 ]

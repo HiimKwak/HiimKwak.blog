@@ -1,0 +1,83 @@
+---
+title: 0516 올바른 AI 사용법
+publishedAt: 2025-05-16
+image: public/images/notes/2025/05/16
+tags: 
+personal: "0"
+---
+문제상황: 날짜를 고를 수 있는 DatePicker에 초기화 버튼을 숨겨야하는 기능이 필요하게 되었다
+
+첫 시도: 기존 코드에서 X버튼 노출 조건에 선택값 초기화 후 핸들러인 onClear 선언 유무를 추가해 X버튼 노출을 컨트롤하고자 함
+```ts
+const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
+	{
+		onClear, // onClear?: () => void;
+	}, 
+	ref
+) => {
+	return (
+		<Popover>
+			<Popover.Trigger>
+				...
+				<div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+					{value && !disabled && onClear && (
+						<Button>
+							<XIcon />
+						</Button>
+					)}
+				</div>
+			</Popover.Trigger>
+		</Popover>
+	)
+}
+```
+
+이 시도의 문제점:
+- onClear는 X버튼 클릭 이후 수행되어야할 로직을 담는 목적의 그릇인데, 그릇이 비어있다고 X버튼을 안보여주는게 넌센스였음
+- 모든 DatePicker 구현부에서 의미없는 onClear를 선언해줘야만 X버튼을 노출시킬 수 있는데, X버튼을 숨겨야하는 곳보다 써야하는 곳이 압도적으로 많아 불필요한 코드 양산을 야기함
+- 코드 외적으로 꼭 지우지 못하게 선택권을 빼앗아야할까? 에 대한 근본적인 고민이 선행돼야했음
+
+<Image src="/images/notes/2025/05/16/1.png" alt="" width={1000} height={1000} />
+이 리뷰를 받고 처음에 말 뜻을 이해하지 못해서 이해하지 못한 포인트들을 콕 집어서 되물어봄
+
+<Image src="/images/notes/2025/05/16/2.png" alt="" width={1000} height={1000} />
+<Image src="/images/notes/2025/05/16/3.png" alt="" width={1000} height={1000} />
+AI 덕분에 제대로 이해할 수 있게 됨
+
+그래서 아래와 같이 방향을 틀었다
+```ts
+const DatePicker = forwardRef<HTMLButtonElement, DatePickerProps>(
+	{
+		onClear,
+		hideClear = false, // hideClear?: boolean;
+	}, 
+	ref
+) => {
+	return (
+		<Popover>
+			<Popover.Trigger>
+				...
+				<div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+					{value && !disabled && !hideClear && (
+						<Button>
+							<XIcon />
+						</Button>
+					)}
+				</div>
+			</Popover.Trigger>
+		</Popover>
+	)
+}
+```
+- hideClear 속성을 추가해 정말 X버튼을 끄고 싶은 경우에만 명시적으로 off해줄 수 있게 함
+
+효과:
+- 50여개의 파일 수정에서 2개 파일 수정으로 영향 범위 축소
+- 훨씬 직관적인 변경, 미래 유지보수 포인트도 응집되고 간결해짐
+
+얻은 교훈:
+- 다시 한 번 UI 컴포넌트는 순수하게(외부 요구사항에 관계없이) 목적에 맞는 기능을 제공하도록 지켜줘야 함
+- 특수 상황에 대한 처리(예를 들면 필수값)는 
+	- UI 컴포넌트가 아니라 이를 활용하고 있는 사용처(예를 들면 form 레벨)에서 
+	- 각자 제어하도록(날짜가 필수값이라면 submit하기 전 validating 단계에서 필수값 확인 및 제어) 하여
+	- 레이어간 경계가 허물어지고 서로 침범하게 놔두면 안됨

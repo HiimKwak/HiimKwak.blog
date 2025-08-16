@@ -1,6 +1,9 @@
 {
-	"promptDelete": false,
-	"alwaysUpdateLinks": true,
-	"userIgnoreFilters": ["app/", "node_modules/"],
-	"newFileLocation": "current"
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "userIgnoreFilters": [
+    "app/",
+    "node_modules/"
+  ],
+  "newFileLocation": "current"
 }

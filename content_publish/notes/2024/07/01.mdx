@@ -1,0 +1,141 @@
+---
+title: "0701"
+publishedAt: 2024-07-01
+image: public/images/notes/2024/07/01
+tags: 
+personal: "0"
+---
+AEO 맡은 부분 작업
+### 3회 로그인 실패시 블락
+- 로그인 실패시 실패 횟수를 message로 알려줌
+- 3회 실패시 해당 계정은 잠김
+- 실패된 계정으로 로그인해서 사용중이더라도 error status 뱉음 (사용 중지 status 및 사용 중지 사유 필요)
+- 고객센터에서 비밀번호 초기화로 사용가능
+	- 비밀번호 초기화 기능은 후술
+	- pms의 계정관리에서 현재 계정의 status와 사유 보임
+
+- 3회 실패 카운트는 서버에서 관리
+- 클라이언트에서는 3회 카운트되면 error status에 맞춰서 로그인차단모달 오픈
+- 비밀번호 90일 변경 모달은 close버튼 없음 → **새로고침해도 여전히 떠있어야 함**
+
+- 로그인 실패 시 기존엔 403이었는데 401로 바뀜
+- ~~그에 따라 미들웨어에서 401일 경우 로그인 페이지로 강제 리디렉트시켜주는 로직을 수정해야함~~ 바꿀 필요 없음 왜냐하면 미들웨어에서 401 403 분기처리해주는건 엑세스토큰 발급 이후 경우이므로 로그인 실패랑 관련없음 오히려 http-helper쪽 문제
+### error body 모두 바뀔 예정
+- 기존:
+```ts
+export const interceptError = (error: AppError, url?: string): Result<null> => {
+	if (error instanceof BadRequestError) error.body = ErrorMessage.BadRequest;
+	if (error instanceof UnauthorizedError) {
+		/* "failed to fetch" error in case of not managed CORS policy */
+		error.body = ErrorMessage.Unauthorized;
+		const cookies = new Cookies();
+		cookies.remove("accessToken");
+		if (!url?.includes("/token/valid")) {
+			const i18nextLng = cookies.get("i18next");
+			message.error("유효 시간이 만료되었습니다. 다시 로그인 해 주세요.");
+			setTimeout(() => {
+				window.location.replace(
+					`${window.location.origin}/${i18nextLng}/login`,
+				);
+			}, 0);
+		}
+	}
+	if (error instanceof ForbiddenError) error.body = ErrorMessage.Forbidden;
+	if (error instanceof NotFoundError) error.body = ErrorMessage.NotFound;
+	if (error instanceof InternalServerError)
+		error.body = ErrorMessage.InternalServerError;
+	/* Delete technical error details in case of an AppError (not as a base class) */
+	if (error.constructor === AppError) error.body = ErrorMessage.Technical;
+	console.error(error);
+	return new Result(false, null, error);
+};
+
+export class Result<T = any> {
+	constructor(succeeded: boolean, payload?: T, error?: AppError) {
+		this.succeeded = succeeded;
+		this.payload = payload;
+		this.error = error;
+	}
+	public succeeded: boolean;
+	public payload: T | undefined;
+	/* Check using instanceof to get status */
+	public error: AppError | undefined;
+}
+
+...
+
+static async getAsync<T = any>({
+	url,
+	query,
+	headers,
+	needAuth = true,
+	}: {
+		url: string;
+		query?: any;
+		headers?: any;
+		needAuth?: boolean;
+	}): Promise<Result<T | null>> {
+		try {
+			const response = await this.query(url, needAuth, query, headers);
+			return new Result<T>(true, response.body);
+		} catch (error: any) {
+			return interceptError(error, url);
+	}
+}
+```
+HTTP method 함수에서 `response`가 있으면 response.succeeded를 true로 켜주고 response.body를 전달함. `response`가 없으면 `interceptError`함수를 거쳐 401 처리를 거친 뒤 false인 succeeded와 함께 error.body를 enum string으로 변환해서 내려주고 있었음
+- 신규:
+```ts
+export const interceptError = (error: AppError, url?: string): Result<null> => {
+	if (error instanceof UnauthorizedError) {
+		/* "failed to fetch" error in case of not managed CORS policy */
+		const cookies = new Cookies();
+		cookies.remove("accessToken");
+		if (!url?.includes("/token/valid")) {
+			const i18nextLng = cookies.get("i18next");
+			message.error("유효 시간이 만료되었습니다. 다시 로그인 해 주세요.");
+			setTimeout(() => {
+				window.location.replace(
+					`${window.location.origin}/${i18nextLng}/login`,
+				);
+			}, 0);
+		}
+	}
+	
+	console.error(error);
+	return new Result(false, null, error);
+};
+
+export class Result<T = any> {
+	constructor(succeeded: boolean, payload?: T, error?: AppError) {
+		this.succeeded = succeeded;
+		this.payload = payload;
+		this.error = error;
+	}
+	public succeeded: boolean;
+	public payload: T | undefined;
+	/* Check using instanceof to get status */
+	public error: AppError | undefined;
+}
+
+...
+
+static async getAsync<T = any>({
+	url,
+	query,
+	headers,
+	needAuth = true,
+	}: {
+		url: string;
+		query?: any;
+		headers?: any;
+		needAuth?: boolean;
+	}): Promise<Result<T | null>> {
+		try {
+			const response = await this.query(url, needAuth, query, headers);
+			return new Result<T>(true, response.body);
+		} catch (error: any) {
+			return interceptError(error, url);
+	}
+}
+```

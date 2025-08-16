@@ -19,7 +19,7 @@
     "reload": "next build && next dev",
     "start": "next start",
     "check": "pnpm exec biome check --write app/*",
-    "publish_content": "bash ./convert_to_mdx.sh && ./filter_personal_content.sh"
+    "publish_content": "bash ./convert_to_mdx.sh"
   },
   "dependencies": {
     "@giscus/react": "^2.4.0",
@@ -57,6 +57,7 @@
   },
   "packageManager": "pnpm@9.15.0",
   "devDependencies": {
-    "@biomejs/biome": "2.1.1"
+    "@biomejs/biome": "2.2.0",
+    "@biomejs/cli-darwin-arm64": "1.9.4"
   }
 }

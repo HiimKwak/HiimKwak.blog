@@ -1,0 +1,29 @@
+---
+title: "1029"
+publishedAt: 2024-10-29
+image: public/images/notes/2024/10/29
+tags: 
+personal: "0"
+---
+AG-Grid에서 rowSelection 기능을 도입하니 무한렌더가 발생하는 문제가 생김
+
+원인: 
+- originalMemorizer에 서버시점 데이터를 집어넣고 defaultColDef에서 셀 값을 가져다가 비교하며 clean/dirty css 클래스를 동적으로 결정하는 로직
+- column 변경을 발생시켜 onGridColumnChanged 핸들러를 작동시킴
+- 핸들러 안에서 setOriginalMemorizer를 동작시킴
+- originalMemorizer가 초기화되면서 무한반복
+대안:
+- defaultColDef를 정적으로 유지하고 셀 변경되는 시점에 하이라이트 CSS를 직접 주입해주자
+	- 장: 가장 자연스럽게 defaultColDef, onGridColumnChanged 등 유지 가능, 가장 직관적
+	- 단: 셀 변경 시 서버시점 데이터와 비교하는 로직이 사라질 수는 없음.
+	- 한계: CSS 관리를 columnDef에서 하도록 라이브러리가 강제하고 있기 때문에 셀에 직접 변경을 가하는 방식 구현 못함
+		- 그러면 flashCells API를 사용하는건 어떨까
+			- flashCells는 자체적으로 바로 이전 값과의 비교만 진행함
+			- 하이라이팅을 위한 셀 모음 변수를 따로 둘 경우 어쨌든 originalMemorizer가 변경되면 셀 모음 변수도 간접적으로 originalMemorizer에 의존하고 있기 때문에 재계산되어야함
+		- 아니면 외부에서 defaultColDef를 조합해서 쓸 수 있게 버튼을 열어주는건 어떨까
+			- turnCellReadOnlyOff, turnCellHighlightOff 옵션
+			- 아예 없음/ReadOnly만(정적)/(동적)CellHighlight만/둘 다
+- defaultColDef는 그대로 두고, onGridColumnChanged 안에 이전 Column과 비교해 setOriginalMemorizer를 실행시킬지 미리 결정할 수 있게 필터를 걸어주자
+	- 장: 셀 하이라이팅 로직에 손대지 않아도 됨
+	- 단: 컬럼 변화를 추적하기 위한 로직을 고민해야 함, 조건을 제대로 걸어주지 않으면 셀 스타일이 반영되지 않음, 근본적인 해결책이 아님(originalMemorizer를 꼭 써야하는 상황에선 어쩔 수 없긴 함)
+

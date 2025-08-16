@@ -1,0 +1,35 @@
+---
+title: 0424 생성자 선언 vs 메소드만 갖다쓰기
+publishedAt: 2025-04-24
+image: public/images/notes/2025/04/24
+tags: 
+personal: "0"
+---
+
+한줄 요약: 메소드만 갖다쓰면 매번 객체 생성해서 메모리 낭비 심함. 객체 선언을 해줘야 재활용이 가능
+
+### 1. Intl vs .toLocaleString()
+
+- 크게보면 둘다 브라우저 제공 API임
+    
+- 근데 엄밀히 말하자면,
+    
+    - toLocaleString()은 js 원시 타입 객체의 method이고,
+    - Intl은 브라우저 제공 Class임
+- toLocaleString()이 실행되면
+    
+    - 내부적으로 Intl 객체가 생성되어
+    - Intl의 NumberFormat()를 호출한 결과가 반환되는 것
+- 결국 LocaleString 기능의 핵심은 Intl 객체.
+    
+
+### 2. 객체 생성 귀찮은데, 그냥 toLocaleString() 쓰면 되는 거 아님?
+
+- 아님.
+- 모든 원시 데이터에 대해 .toLocaleString()을 매번 실행하면 Intl 객체가 실행 횟수만큼 생성됨
+- 객체 생성된 만큼 heap 메모리를 차지하게 됨.
+- 우리는 한 테이블 내에서 동일한 local, option정보로 string처리할 data가 엄청 많음.
+    - 그런데 data 개수만큼 중복되는 Intl을 생성하면 엄청 비효율인것.
+    - 동일한 로직(local, option)으로 처리할 data라면 Intl를 캐싱해놓고 쓰는 것이 성능 측면에서 유리!
+- 말하자면 Intl.formatter는 ax+b이고, local, option은 a와 b를 특정하는 계수가 되며, 생성되는 Intl.formatter 객체는 이 특정된 ax+b가 되는것!
+    - 어차피 a,b가 같고, x만 달라지는 거니까, 이 계산식을 저장해놓고 캐싱해두고 쓰는 것이 효율적이라는 것.

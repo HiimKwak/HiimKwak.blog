@@ -1,0 +1,17 @@
+---
+title: "0414"
+publishedAt: 2025-04-14
+image: public/images/notes/2025/04/14
+tags: 
+personal: "0"
+---
+ky beforeRetry에 401 토큰 갱신 로직을 넣어놨는데 발동되지 않는 문제 발생
+retry 설정에 methods도 다 넣어주고 statusCodes도 401 추가해줬는데 왜 동작조차 안하지..??
+
+쁨버지 솔루션: http 라이브러리에서 마음대로 재시도하는게 맞나?
+tanstack query에서 쿼리 호출 자체를 시도하지 않는다면 http 라이브러리의 beforeRetry 로직은 호출되지 않는게 맞음
+tanstack query에서 mutation은 기본적으로 재시도하지 않음(예: 로그인 뮤테이션-실패했다고 자동으로 로그인을 시도하지 않는 것처럼)
+
+tanstack query와 ky의 관계를 생각할 필요가 있다
+네트워크 요청 주체 = tanstack query
+네트워크 요청 관리 = ky

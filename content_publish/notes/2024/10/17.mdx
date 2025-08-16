@@ -1,0 +1,20 @@
+---
+title: "1017"
+publishedAt: 2024-10-17
+image: public/images/notes/2024/10/17
+tags: 
+personal: "0"
+---
+- i18n
+	- 기존: `t(InternationalOrderMangement.temporalKey)`
+	- 개선: `t(K["한국어키"])`
+	- 장점: 기존 대비 import해오는 모듈 수가 4개에서 1개로 줄어들음(useTranslation, useParams, DefaultPageParamsType, i18n 키 팩 => useI18nText). 
+	- 불필요한 코드 수 감소 = 가독성 증가, 코드치는 시간 감소
+	- 키이름 한국어로 직관적임 = 더이상 키네이밍으로 안싸워도 됨
+
+- 팀개념
+	- 팀별 권한 설정
+		- 현재: 계정별 페이지 접근 권한만 미들웨어에서 제한해줌
+		- 개선: 팀별 권한 생기면 → 페이지 접근 권한 뿐만 아니라 API 자체에도 미들웨어 통해 사용 제한
+		- 백엔드) 
+	- 수출입 → 인랜드 오더 연결

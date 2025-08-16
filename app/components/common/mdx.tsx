@@ -33,6 +33,32 @@ function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
 	);
 }
 
+function Youtube({ url, caption }: { url: string; caption?: string }) {
+	const videoId = url.match(/[?&]v=([^&]+)/)?.[1] || url.split('/').pop();
+	
+	if (!videoId) {
+		return <div className="text-red-500">유효하지 않은 유튜브 URL입니다: {url}</div>;
+	}
+
+	return (
+		<div className="flex flex-col items-center justify-center gap-4 my-4 not-prose">
+			<div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+				<iframe
+					className="absolute top-0 left-0 w-full h-full rounded-lg"
+					src={`https://www.youtube.com/embed/${videoId}`}
+					title="YouTube video player"
+					frameBorder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowFullScreen
+				/>
+			</div>
+			{caption && (
+				<span className="text-sm italic opacity-80">{caption}</span>
+			)}
+		</div>
+	);
+}
+
 function CustomLink({ href, ...props }: ComponentPropsWithRef<"a">) {
 	if (href) {
 		if (href.startsWith("/")) {
@@ -173,6 +199,7 @@ const components = {
 	ConsCard,
 	code: Code,
 	Table,
+	Youtube,
 };
 
 export function CustomMDX(props) {

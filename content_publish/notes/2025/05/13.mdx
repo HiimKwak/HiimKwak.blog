@@ -1,0 +1,152 @@
+---
+title: "0513"
+publishedAt: 2025-05-13
+image: public/images/notes/2025/05/13
+tags: 
+personal: "0"
+---
+api 레이어가 가져다주는 장점보다
+- 똑같은 url이면 똑같은 입출력 타입 보장
+단점이 더 많아
+- 불필요한 코드 생성
+- api 레이어 타입의 역류 참조로 레이어 간 불필요한 의존성 생성
+- api 응답과 컴포넌트 레이어에서 필요한 데이터 타입 차이 유연하게 수정 불가
+api 레이어를 제거하기로 했음
+
+이전:
+```ts
+// /api/fareCategories
+class FareCategoriesApi extends BaseApi {
+		async searchFareCategories(
+		query: SearchFareCategoriesRequest
+	): Promise<SearchFareCategoriesResponse> {
+		const res = await Http.getAsync<SearchFareCategoriesResponse>({
+			url: `${this._baseUrl}/${DOMAIN}/search`,
+			query,
+			throwError: true,
+		});
+		return res.payload as SearchFareCategoriesResponse;
+	}
+}
+
+// /queries/fareCategories
+export const useFareCategories = (params: SearchFareCategoriesRequest) => {
+	return useQuery({
+		queryKey: getFareCategoriesQueryKey("FARE_CATEGORIES", params),
+		queryFn: () => FareCategoriesApi.searchFareCategories(params), // 제거
+		placeholderData: keepPreviousData,
+	});
+};
+```
+
+현재:
+```ts
+// /queries/fareCategories
+export const useFareCategories = (searchText?: string) => {
+	return useQuery({
+		queryKey: getFareCategoriesQueryKey("FARE_CATEGORIES", { searchText }),
+		queryFn: async () => {
+			const res = await http.get<SearchFareCategoriesResponse>(
+				`${DOMAIN}/search`,
+				{
+					searchText,
+				}
+			);
+
+			return res.data;
+		},
+		select: (data) => data.fareCategories,
+		placeholderData: keepPreviousData,
+  });
+};
+```
+
+제거하던 중 컴포넌트 레이어에서 순수하게 query만 쓰는게 아니라 api 모듈도 가져다쓰는 부분을 발견
+```ts
+// /app/.../CostGrid.tsx
+...
+const fetchFareCategoryOptions = async (
+  searchText?: string
+): Promise<GridDropdownItem[]> => {
+  const res = await FareCategoriesApi.searchFareCategories({
+    searchText,
+  });
+  return res.data.fareCategories.map((fare) => ({
+		value: fare.id,
+		label: `[${fare.code}] ${fare.name}`,
+	}));
+};
+```
+
+useFareCategories의 queryFn을 가져다쓰거나/추출하는 방법을 생각해보았지만
+- queryFn을 추출하는 방식은 api 레이어를 제거하는 의미를 퇴색시키는 행위이고, 
+- queryFn을 가져다쓰려면 useFareCategories를 호출해야하는데 이 때 불필요하고 의도되지 않은 네트워크 통신을 야기할 것임 
+```ts
+// pseudo code
+
+const fetchFareCategoryOptions = async() => {
+	const res = await useFareCategories.queryFn() // 의도하지 않은 네트워크 통신
+}
+// or
+export const searchFareCategories = async (searchText) => { // 이러면 api의 부활 아닌가?
+	const res = await http.get('~~');
+	return res.data;
+}
+```
+
+대안으로는
+1. 동일한 url의 useMutation 함수를 만들어 mutationFn을 가져다 쓰는 방식
+```ts
+export const useFareCategories = () => {
+	return useQuery({...})
+}
+
+export const useFareCategoriesMutation = () => {
+	return useMutation({
+		mutationFn: async (searchText?: string) => {
+			const res = await http.get<SearchFareCategoriesResponse>('~~');
+		
+			return res.data;	
+		}
+	})
+}
+
+// 컴포넌트
+const fetchFareCategoryOptions = async (
+	searchText?: string
+): Promise<GridDropdownItem[]> => {
+	const fareCategoryMutation = useFareCategoriesMutation();
+
+	const res = await fareCategoryMutation.mutateAsync(searchText);
+
+	return res.data.map(...)
+}
+```
+주목할 점:
+- useQuery는 동일한 queryKey이면 결과를 캐싱해주는 fetch hook. 유의할 점은 호출돼있으면 mount 시점에 fetch된다는 점
+- useMutation은 useQuery와 달리 캐싱이 안되는 일회성 CRUD hook
+
+따라서 특정 시점에만 네트워크 통신을 해야하는 니즈(예: 클릭 시 데이터 가져오기)에는 useMutation이 적합하다
+다만 queries 코드 안에서 가독성이 떨어질 수 있는 우려 존재
+
+2. 컴포넌트에 직접 raw한 http 코드를 작성하기
+```ts
+// 컴포넌트
+const fetchFareCategoryOptions = async (
+	searchText?: string
+): Promise<GridDropdownItem[]> => {
+	const res = await http.get<{
+		// /queries/type 가져다써서 오염시키지 않기
+		fieldA: string;
+		fieldB: number;
+	}>('~~');
+		
+	return res.data.map(...)
+}
+```
+주목할 점:
+- /queries/type의 타입을 가져다쓰게 되면 보이지 않는 레이어간 결합이 생겨 api 레이어를 제거하는 목적이 퇴색됨
+- url이 같기 때문에 응답 스펙을 통일하고 싶은 유혹이 드는건 사실이나 사용 목적이 다르기 때문에 엄연히 타입 선언은 독립적이어야 함
+- query 레이어와의 의존성이 생기지 않는다는 장점이 있으나 반대로 네트워크 통신 관리 지점이 늘어나 놓칠 수 있다는 우려 존재
+
+### 결론: 1번 선택
