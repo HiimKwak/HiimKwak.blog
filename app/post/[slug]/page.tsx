@@ -22,9 +22,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
 	params,
 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }): Promise<Metadata | undefined> {
-	const { slug } = params;
+	const { slug } = await params;
 	const post = getDiaryPosts().find((post) => post.slug === slug);
 	if (!post) {
 		return;
