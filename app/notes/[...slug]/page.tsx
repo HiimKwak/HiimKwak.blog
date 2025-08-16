@@ -8,6 +8,7 @@ import { PostNavigator } from "@/components/common/post-navigator";
 import { NAV_PATH } from "@/constants";
 import { getNotes, type NoteTree } from "@/db/content/note";
 import { MDXData } from "@/db/content/utils";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 function flattenNotes(noteTree: NoteTree, currentPath: string[] = []): Array<{
 	note: MDXData;
@@ -86,7 +87,7 @@ export default async function NotePage({
 
 	return (
 		<div className="w-full">
-			<Navbar />
+			<Navbar sidebarTrigger={<SidebarTrigger />} />
 
 			<section className="max-w-3xl mx-auto">
 				<article className="prose prose-neutral dark:prose-invert max-w-none p-4">

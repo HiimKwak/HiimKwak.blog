@@ -29,9 +29,9 @@ const navItems = {
 	// 		name: "github",
 	// 	},
 	// },
-};
+} as const
 
-export function Navbar() {
+export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode }) {
 	const [setTargetElement, isIntersected] = useIntersectionObserver({});
 	useEffect(() => {
 		const target = document.getElementById("header-flag");
@@ -41,10 +41,10 @@ export function Navbar() {
 	return (
 		<aside
 			className={cn(
-				"-ml-[8px] tracking-tight px-2 py-4 md:px-0",
+				"tracking-tight px-2 py-4 md:px-0",
+				"md:sticky md:top-0 md:w-full md:z-10 border-b border-neutral-300",
 				!isIntersected &&
-				"bg-transparent border-b border-neutral-300 dark:border-gray-600 backdrop-blur-xl",
-				"sticky top-0 w-full z-10"
+				"bg-transparent  dark:border-gray-600 backdrop-blur-xl",
 			)}
 		>
 			<div className="max-w-2xl md:mx-auto">
@@ -53,7 +53,12 @@ export function Navbar() {
 						className="flex px-4 pb-0 fade md:overflow-auto scroll-pr-6 md:relative md:px-0"
 						id="nav"
 					>
-						<div className="flex w-full justify-between">
+						<div className="flex w-full justify-between -ml-[8px]">
+							{sidebarTrigger && (
+								<div className="flex items-center">
+									{sidebarTrigger}
+								</div>
+							)}
 							<Suspense fallback={null}>
 								<div className="flex space-x-0">
 									{Object.entries(navItems.left).map(([path, { name }]) => (
@@ -75,11 +80,13 @@ export function Navbar() {
 }
 
 function NavItem({ path, name }: { path: string; name: string }) {
-	let pathname = usePathname() || "/";
-	if (pathname.includes("/post/")) {
-		pathname = "/post";
-	}
-	const isActive = path === pathname;
+	const pathname = usePathname() || "/";
+
+	// '/' 경로는 정확히 일치할 때만 활성화
+	// 다른 경로는 startsWith로 확인
+	const isActive = path === "/"
+		? pathname === "/"
+		: pathname.startsWith(path);
 
 	const isGithub = path === "/github";
 	const linkPath = isGithub ? "https://github.com/HiimKwak" : path;
@@ -107,7 +114,7 @@ function NavItem({ path, name }: { path: string; name: string }) {
 				) : (
 					name
 				)}
-				{path === pathname ? (
+				{isActive ? (
 					<motion.div
 						className="absolute h-[1px] top-7 mx-2 inset-0 bg-slate-700 dark:bg-gradient-to-r from-transparent to-slate-400"
 						layoutId="sidebar"
