@@ -10,10 +10,10 @@ personal: "0"
 	2. 문자열("아무거나")
 	3. 불리언형(true/false)
 	따라서 아래와 같은 형태는 parse할 때 에러가 난다
-	```
-	{
-		"code": 401001,
-		"error": UNAUTHORIZED, // SyntaxError: Unexpected token 'U', ..." "error": UNAUTHORIZ"... is not valid JSON
-		"message": "문자열"
-	}
+```
+{
+	"code": 401001,
+	"error": UNAUTHORIZED, // SyntaxError: Unexpected token 'U', ..." "error": UNAUTHORIZED"... is not valid JSON
+	"message": "문자열"
+}
 ```
