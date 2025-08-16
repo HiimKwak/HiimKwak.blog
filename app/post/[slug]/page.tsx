@@ -90,9 +90,9 @@ function formatDate(date: string) {
 export default async function Post({
 	params,
 }: {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 }) {
-	const { slug } = params;
+	const { slug } = await params;
 
 	const allPosts = getDiaryPosts().sort(
 		(a, b) =>
