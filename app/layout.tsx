@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import Navbar from "app/components/layout/nav";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { cn } from "./lib/core";

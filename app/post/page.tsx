@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import Link from "next/link";
-import Navbar from "@/components/layout/nav";
+import { Navbar } from "@/components/layout/nav";
 import { getDiaryPosts } from "../db/content/post";
 
 export const metadata = {
@@ -20,6 +20,7 @@ export default function Post() {
 	return (
 		<>
 			<Navbar />
+
 			<div className="mx-auto max-w-2xl px-4 md:px-0">
 				<div className="flex flex-col rounded-lg">
 					{allPosts.map((post) => (

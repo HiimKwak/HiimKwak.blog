@@ -7,16 +7,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import { cn } from "@/lib/core";
+import { NAV_PATH } from "@/constants";
 
 const navItems = {
 	left: {
-		"/": {
+		[NAV_PATH.home]: {
 			name: "소개",
 		},
-		"/post": {
+		[NAV_PATH.post]: {
 			name: "일상",
 		},
-		"/notes": {
+		[NAV_PATH.notes]: {
 			name: "공책",
 		},
 	},
@@ -30,9 +31,8 @@ const navItems = {
 	// },
 };
 
-export default function Navbar() {
+export function Navbar() {
 	const [setTargetElement, isIntersected] = useIntersectionObserver({});
-
 	useEffect(() => {
 		const target = document.getElementById("header-flag");
 		setTargetElement(target);
@@ -43,7 +43,8 @@ export default function Navbar() {
 			className={cn(
 				"-ml-[8px] tracking-tight px-2 py-4 md:px-0",
 				!isIntersected &&
-					"bg-transparent border-b border-neutral-300 dark:border-gray-600 backdrop-blur-xl",
+				"bg-transparent border-b border-neutral-300 dark:border-gray-600 backdrop-blur-xl",
+				"sticky top-0 w-full z-10"
 			)}
 		>
 			<div className="max-w-2xl md:mx-auto">

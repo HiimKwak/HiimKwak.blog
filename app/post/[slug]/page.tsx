@@ -1,13 +1,15 @@
 import { CustomMDX } from "app/components/common/mdx";
-import { increment } from "app/db/actions";
 import { getDiaryPosts } from "app/db/content/post";
-import { getViewsCount } from "app/db/queries";
 import type { Metadata } from "next";
-import Link from "next/link";
+
 import { notFound } from "next/navigation";
-import { cache, Suspense } from "react";
-import ViewCounter from "../view-counter";
-import Comment from "./comment";
+import { Suspense } from "react";
+
+import { Comment } from "@/components/common/comment";
+import { Navbar } from "@/components/layout/nav";
+import { Views } from "@/components/common/views";
+import { PostNavigator } from "@/components/common/post-navigator";
+import { NAV_PATH } from "@/constants";
 
 export async function generateMetadata({
 	params,
@@ -45,12 +47,6 @@ export async function generateMetadata({
 				},
 			],
 		},
-		// twitter: {
-		//   card: 'summary_large_image',
-		//   title,
-		//   description,
-		//   images: [ogImage],
-		// },
 	};
 }
 
@@ -106,107 +102,34 @@ export default async function Post({
 	}
 
 	return (
-		<section className="mx-auto max-w-2xl px-4 md:px-0">
-			<h1 className="font-medium text-2xl tracking-tighter w-full break-keep pt-4">
-				{post.metadata.title}
-			</h1>
-			<div className="flex justify-between items-center mt-2 mb-8 text-sm w-full">
-				<p className="text-sm text-neutral-600 dark:text-neutral-400">
-					{formatDate(post.metadata.publishedAt)}
-				</p>
-				<Suspense fallback={<p className="h-5" />}>
-					<Views slug={post.slug} />
-				</Suspense>
-			</div>
+		<>
+			<Navbar />
 
-			<article className="prose prose-quoteless prose-neutral dark:prose-invert w-full">
-				<CustomMDX source={post.content} />
-			</article>
+			<section className="mx-auto max-w-2xl px-4 md:px-0">
 
-			<footer className="mt-8 w-full border-t border-neutral-300 dark:border-gray-600 py-4">
-				<div className="my-4">
-					<Comment />
+				<h1 className="font-medium text-2xl tracking-tighter w-full break-keep pt-4">
+					{post.metadata.title}
+				</h1>
+				<div className="flex justify-between items-center mt-2 mb-8 text-sm w-full">
+					<p className="text-sm text-neutral-600 dark:text-neutral-400">
+						{formatDate(post.metadata.publishedAt)}
+					</p>
+					<Suspense fallback={<p className="h-5" />}>
+						<Views slug={post.slug} />
+					</Suspense>
 				</div>
-				<Navigator prev={prev} next={next} />
-			</footer>
-		</section>
-	);
-}
 
-const incrementViews = cache(increment);
+				<article className="prose prose-quoteless prose-neutral dark:prose-invert w-full">
+					<CustomMDX source={post.content} />
+				</article>
 
-async function Views({ slug }: { slug: string }) {
-	const views = await getViewsCount();
-	process.env.NODE_ENV === "production" && incrementViews(slug);
-	return <ViewCounter allViews={views} slug={slug} />;
-}
-
-function Navigator({
-	prev,
-	next,
-}: {
-	prev: null | ReturnType<typeof getDiaryPosts>[0];
-	next: null | ReturnType<typeof getDiaryPosts>[0];
-}) {
-	return (
-		<div className="flex justify-between my-8 text-sm">
-			{prev?.metadata.title ? (
-				<Link href={`/post/${prev.slug}`} className="flex items-center gap-1">
-					<CaretLeft />
-					{prev.metadata.title}
-				</Link>
-			) : (
-				<span className="text-gray-700">이전 글이 없습니다.</span>
-			)}
-
-			{next?.metadata.title ? (
-				<Link href={`/post/${next.slug}`} className="flex items-center gap-1">
-					{next.metadata.title}
-					<CaretRight />
-				</Link>
-			) : (
-				<span className="text-gray-500">다음 글이 없습니다.</span>
-			)}
-		</div>
-	);
-}
-
-function CaretLeft() {
-	return (
-		<svg
-			width="15"
-			height="15"
-			viewBox="0 0 15 15"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<title>왼쪽 화살표</title>
-			<path
-				d="M8.84182 3.13514C9.04327 3.32401 9.05348 3.64042 8.86462 3.84188L5.43521 7.49991L8.86462 11.1579C9.05348 11.3594 9.04327 11.6758 8.84182 11.8647C8.64036 12.0535 8.32394 12.0433 8.13508 11.8419L4.38508 7.84188C4.20477 7.64955 4.20477 7.35027 4.38508 7.15794L8.13508 3.15794C8.32394 2.95648 8.64036 2.94628 8.84182 3.13514Z"
-				fill="currentColor"
-				fillRule="evenodd"
-				clipRule="evenodd"
-			/>
-		</svg>
-	);
-}
-
-function CaretRight() {
-	return (
-		<svg
-			width="15"
-			height="15"
-			viewBox="0 0 15 15"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
-			<title>오른쪽 화살표</title>
-			<path
-				d="M6.1584 3.13508C6.35985 2.94621 6.67627 2.95642 6.86514 3.15788L10.6151 7.15788C10.7954 7.3502 10.7954 7.64949 10.6151 7.84182L6.86514 11.8418C6.67627 12.0433 6.35985 12.0535 6.1584 11.8646C5.95694 11.6757 5.94673 11.3593 6.1356 11.1579L9.565 7.49985L6.1356 3.84182C5.94673 3.64036 5.95694 3.32394 6.1584 3.13508Z"
-				fill="currentColor"
-				fillRule="evenodd"
-				clipRule="evenodd"
-			/>
-		</svg>
+				<footer className="mt-8 w-full border-t border-neutral-300 dark:border-gray-600 py-4">
+					<div className="my-4">
+						<Comment />
+					</div>
+					<PostNavigator basePath={NAV_PATH.post} prev={prev} next={next} />
+				</footer>
+			</section>
+		</>
 	);
 }

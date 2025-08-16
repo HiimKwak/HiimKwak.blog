@@ -74,21 +74,15 @@ export function getNoteByPath(pathSegments: string[]): MDXData | null {
 	const filePath = path.join(noteDir, ...pathSegments);
 	const mdxPath = `${filePath}.mdx`;
 
-	// 디버깅용 로그
-	console.log("getNoteByPath - pathSegments:", pathSegments);
-
 	// 파일이 존재하는지 확인
 	if (!fs.existsSync(mdxPath)) {
-		console.log("getNoteByPath - file not found");
 		return null;
 	}
 
 	// MDX 파일인지 확인
 	if (!checkMDXExt(path.basename(mdxPath))) {
-		console.log("getNoteByPath - not an MDX file");
 		return null;
 	}
 
-	console.log("getNoteByPath - file found, extracting data");
 	return extractDataFromDir(mdxPath);
 }

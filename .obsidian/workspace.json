@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/notes/2024/07/20.mdx",
+                "file": "content/notes/2025/01/06.mdx",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20"
+              "title": "06"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/notes/2024/07/20.mdx",
+                "file": "content/notes/2025/01/06.mdx",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "20 의 백링크"
+              "title": "06 의 백링크"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/notes/2024/07/20.mdx",
+                "file": "content/notes/2025/01/06.mdx",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "20 의 나가는 링크"
+              "title": "06 의 나가는 링크"
             }
           },
           {
@@ -181,17 +181,17 @@
   },
   "active": "d17c42f558ebeea3",
   "lastOpenFiles": [
+    "content/notes/2025/01/15.mdx",
+    "content/notes/2025/01/21.mdx",
+    "content/notes/2024/07/20.mdx",
+    "app/components/common/post-navigator.tsx",
+    "app/components/common/views.tsx",
+    "app/components/common/view.tsx",
+    "app/components/common/comment.tsx",
     "content/notes/2025/08/15.mdx",
     "content_publish/notes/2024/12/27.mdx",
     "content_publish/notes/2024/12/17.mdx",
     "content_publish/notes/2024/12/03.mdx",
-    "content_publish/notes/2024/12/02.mdx",
-    "content_publish/notes/2024/12",
-    "content_publish/notes/2024/06/28.mdx",
-    "content_publish/notes/2024/06/27.mdx",
-    "content_publish/notes/2024/06/25.mdx",
-    "content_publish/notes/2024/06/17.mdx",
-    "content_publish/notes/2024/06/20.mdx",
     "public/images/notes/2025/05/19/1.jpeg",
     "public/images/notes/2025/05/19/1.png",
     "content/template/diary template.md",

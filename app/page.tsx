@@ -3,7 +3,7 @@ import Link from "next/link";
 import hackathon from "public/images/home/hackathon.webp";
 import profile2 from "public/images/home/profile2.webp";
 import type { ComponentProps } from "react";
-import Navbar from "./components/layout/nav";
+import { Navbar } from "./components/layout/nav";
 
 function Badge(props: ComponentProps<"a">) {
 	return (
@@ -54,15 +54,15 @@ export default function Page() {
 						<Link href="https://www.neowiz.com/media/story/17">최지원</Link>)
 					</p>
 					<h4>체덕지(體德智)</h4>
-					<p>
-						<h4>좋아하는 것:</h4>
+					<>
+						<strong>좋아하는 것:</strong>
 						<ul>
 							<li>핑거스타일 기타 연주</li>
 							<li>게임</li>
 							<li>운동(축구, 헬스, 복싱, 러닝, 수영, 맨몸운동)</li>
 							<li>명작 뜯고씹고맛보고즐기기</li>
 						</ul>
-					</p>
+					</>
 				</div>
 				<div className="gap-4 my-8 px-auto columns-2 ">
 					<div className="relative h-40 mb-4 sm:h-[21rem] sm:mb-0">
