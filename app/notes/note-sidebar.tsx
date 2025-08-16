@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useSelectedLayoutSegment } from "next/navigation";
 import type { ComponentProps } from "react";
 import { Collapsible } from "@/components/ui/collapsible";
-import { Sidebar } from "@/components/ui/sidebar";
+import { Sidebar, useSidebar } from "@/components/ui/sidebar";
 import type { NoteTree } from "@/db/content/note";
 import { NAV_PATH } from "@/constants";
 
@@ -96,6 +96,8 @@ function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
 	const href = `/${fullPath.join("/")}/${slug}`;
 	const isActive = segment ? href.includes(segment) : false;
 
+	const { setOpenMobile } = useSidebar();
+
 	return (
 		<Sidebar.MenuButton
 			key={slug}
@@ -103,7 +105,7 @@ function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
 			isActive={isActive}
 			className="data-[active=true]:bg-neutral-100 dark:data-[active=true]:bg-neutral-800 w-full text-left"
 		>
-			<Link href={href}>{slug}.mdx</Link>
+			<Link href={href} onClick={() => setOpenMobile(false)}>{slug}.mdx</Link>
 		</Sidebar.MenuButton>
 	);
 }

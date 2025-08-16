@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import { cn } from "@/lib/core";
 import { NAV_PATH } from "@/constants";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = {
 	left: {
@@ -38,6 +39,8 @@ export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode })
 		setTargetElement(target);
 	}, [setTargetElement]);
 
+	const isMobile = useIsMobile();
+
 	return (
 		<aside
 			className={cn(
@@ -54,7 +57,7 @@ export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode })
 						id="nav"
 					>
 						<div className="flex w-full justify-between -ml-[8px]">
-							{sidebarTrigger && (
+							{sidebarTrigger && isMobile && (
 								<div className="flex items-center">
 									{sidebarTrigger}
 								</div>
