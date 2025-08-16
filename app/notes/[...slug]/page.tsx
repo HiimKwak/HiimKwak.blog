@@ -80,9 +80,10 @@ export async function generateStaticParams() {
 export default async function NotePage({
 	params,
 }: {
-	params: Promise<{ slug: string[] }>;
+	params: { slug: string[] };
 }) {
-	const { slug } = await params;
+	// await 제거
+	const { slug } = params;
 
 	// URL 디코딩 처리
 	const decodedSlug = slug.map((segment) => decodeURIComponent(segment));

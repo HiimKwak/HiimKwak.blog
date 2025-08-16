@@ -11,12 +11,20 @@ import { Views } from "@/components/common/views";
 import { PostNavigator } from "@/components/common/post-navigator";
 import { NAV_PATH } from "@/constants";
 
+// 빌드 타임에 모든 포스트 경로 생성
+export async function generateStaticParams() {
+	const posts = getDiaryPosts();
+	return posts.map((post) => ({
+		slug: post.slug,
+	}));
+}
+
 export async function generateMetadata({
 	params,
 }: {
-	params: Promise<{ slug: string }>;
+	params: { slug: string };
 }): Promise<Metadata | undefined> {
-	const { slug } = await params;
+	const { slug } = params;
 	const post = getDiaryPosts().find((post) => post.slug === slug);
 	if (!post) {
 		return;
@@ -82,20 +90,20 @@ function formatDate(date: string) {
 export default async function Post({
 	params,
 }: {
-	params: Promise<{ slug: string }>;
+	params: { slug: string };
 }) {
-	const { slug } = await params;
+	const { slug } = params;
 
 	const allPosts = getDiaryPosts().sort(
 		(a, b) =>
 			new Date(a.metadata.publishedAt).getTime() -
-			new Date(b.metadata.publishedAt).getTime(),
+			new Date(a.metadata.publishedAt).getTime(),
 	);
 
 	const postIdx = allPosts.findIndex((post) => post.slug === slug);
 	const post = allPosts[postIdx];
 	const prev = postIdx === 0 ? null : allPosts[postIdx - 1];
-	const next = postIdx === allPosts.length ? null : allPosts[postIdx + 1];
+	const next = postIdx === allPosts.length - 1 ? null : allPosts[postIdx + 1];
 
 	if (!post) {
 		notFound();
@@ -106,7 +114,6 @@ export default async function Post({
 			<Navbar />
 
 			<section className="mx-auto max-w-2xl px-4 md:px-0">
-
 				<h1 className="font-medium text-2xl tracking-tighter w-full break-keep pt-4">
 					{post.metadata.title}
 				</h1>
