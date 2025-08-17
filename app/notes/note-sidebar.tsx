@@ -2,7 +2,7 @@
 
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSelectedLayoutSegment } from "next/navigation";
+import { usePathname } from "next/navigation";
 import type { ComponentProps } from "react";
 import { Collapsible } from "@/components/ui/collapsible";
 import { Sidebar, useSidebar } from "@/components/ui/sidebar";
@@ -14,10 +14,11 @@ type NoteSidebarProps = ComponentProps<typeof Sidebar> & {
 };
 
 export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
-	// 현재 URL에서 노트 경로 추출
 	const pathname = usePathname();
+
+	// 매번 pathname에서 직접 계산
 	const openedNotePath = pathname.startsWith(NAV_PATH.notes)
-		? pathname.split('/')
+		? pathname.split('/').filter(Boolean)
 		: [];
 
 	return (
@@ -27,7 +28,7 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
 					<Sidebar.GroupContent>
 						<Sidebar.Menu>
-							<Tree tree={data} openedNotePath={openedNotePath} />
+							<Tree key={pathname} tree={data} openedNotePath={openedNotePath} />
 						</Sidebar.Menu>
 					</Sidebar.GroupContent>
 				</Sidebar.Group>
@@ -38,21 +39,28 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 
 function Tree({
 	tree,
-	currentPath = [],
-	openedNotePath,
+	currentPath = [], // [notes, 2025, 08] 순으로 쌓이는 디렉토리 배열
+	openedNotePath, // 현재 내가 열람하고 있는 노트의 디렉토리 배열 [notes, 2025, 08, 15]
 }: {
 	tree: NoteTree;
 	currentPath?: string[];
 	openedNotePath: string[]
 }) {
-	const thisYear = new Date().getFullYear().toString();
 	const defaultOpen = (folderName: string) => {
-		if (folderName === "notes" || folderName === thisYear)
+		if (folderName === "notes")
 			return true;
 
-		// 현재 노트 경로에 포함된 폴더라면 열기
-		return openedNotePath.includes(folderName);
-	}
+		// 현재 트리의 뎁스 계산 (currentPath.length로 깊이 파악)
+		const currentDepth = currentPath.length;
+
+		// openedNotePath의 해당 뎁스 인덱스와 현재 folderName 비교
+		// currentPath = ['notes'] → depth = 1 → openedNotePath[1]과 비교 (연도)
+		// currentPath = ['notes', '2025'] → depth = 2 → openedNotePath[2]과 비교 (월)
+		const targetSegment = openedNotePath[currentDepth];
+
+		// 현재 폴더명이 openedNotePath의 해당 뎁스와 일치하면 열기
+		return folderName === targetSegment;
+	};
 
 	const fullPath = [...currentPath, tree.folderName];
 
@@ -72,7 +80,12 @@ function Tree({
 					<Sidebar.MenuSub>
 						{/* 노트 파일들 */}
 						{tree.notes.map((note) => (
-							<NoteLink key={note.slug} slug={note.slug} fullPath={fullPath} />
+							<NoteLink
+								key={note.slug}
+								slug={note.slug}
+								fullPath={fullPath}
+								openedNotePath={openedNotePath}
+							/>
 						))}
 						{/* 하위 폴더들 */}
 						{tree.children.map((child) => (
@@ -90,11 +103,23 @@ function Tree({
 	);
 }
 
-function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
-	const segment = useSelectedLayoutSegment();
-
+function NoteLink({
+	slug,
+	fullPath,
+	openedNotePath
+}: {
+	slug: string;
+	fullPath: string[];
+	openedNotePath: string[];
+}) {
+	const pathname = usePathname();
 	const href = `/${fullPath.join("/")}/${slug}`;
-	const isActive = segment ? href.includes(segment) : false;
+
+	// 현재 노트인지 확인 (전체 경로 비교)
+	const isCurrentNote = pathname === href;
+
+	// 현재 노트가 속한 폴더의 노트들을 펼치기 위해 부모 폴더 열기
+	const shouldExpandParent = isCurrentNote;
 
 	const { setOpenMobile } = useSidebar();
 
@@ -102,10 +127,16 @@ function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
 		<Sidebar.MenuButton
 			key={slug}
 			asChild
-			isActive={isActive}
+			isActive={isCurrentNote}
 			className="data-[active=true]:bg-neutral-100 dark:data-[active=true]:bg-neutral-800 w-full text-left"
 		>
-			<Link href={href} onClick={() => setOpenMobile(false)}>{slug}.mdx</Link>
+			<Link
+				href={href}
+				onClick={() => setOpenMobile(false)}
+				className={isCurrentNote ? "font-semibold" : ""}
+			>
+				{slug}.mdx
+			</Link>
 		</Sidebar.MenuButton>
 	);
 }
