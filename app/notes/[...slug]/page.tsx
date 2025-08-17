@@ -68,15 +68,6 @@ function findAdjacentNotes(
 	return { prev, next };
 }
 
-export async function generateStaticParams() {
-	const noteTree = getNotes();
-	const allNotes = flattenNotes(noteTree);
-
-	return allNotes.map((item) => ({
-		slug: item.fullPath,
-	}));
-}
-
 export default async function NotePage({
 	params,
 }: {

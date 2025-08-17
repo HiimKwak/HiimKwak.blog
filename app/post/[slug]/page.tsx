@@ -11,14 +11,6 @@ import { Views } from "@/components/common/views";
 import { PostNavigator } from "@/components/common/post-navigator";
 import { NAV_PATH } from "@/constants";
 
-// 빌드 타임에 모든 포스트 경로 생성
-export async function generateStaticParams() {
-	const posts = getDiaryPosts();
-	return posts.map((post) => ({
-		slug: post.slug,
-	}));
-}
-
 export async function generateMetadata({
 	params,
 }: {
