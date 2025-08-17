@@ -2,9 +2,9 @@
 const nextConfig = {
 	// Configure pageExtensions to include md and mdx
 	pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-	outputFileTracingIncludes: {
-		"/post/[slug]": ["./content_publish/**/*"],
-		"/notes/[...slug]": ["./content_publish/**/*"],
+	outputFileTracingExcludes: {
+		"/post/*": ["./content_publish/**/*"],
+		"/notes/*": ["./content_publish/**/*"],
 	},
 };
 
