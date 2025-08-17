@@ -1,9 +1,9 @@
 {
   "functions": {
-    "post/**": {
+    "app/post/**": {
       "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
     },
-    "notes/**": {
+    "app/notes/**": {
       "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
     }
   }

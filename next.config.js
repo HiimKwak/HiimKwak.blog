@@ -4,8 +4,7 @@ const nextConfig = {
 	pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
 	outputFileTracingExcludes: {
 		"/post/*": ["./content_publish/**/*"],
-		"/notes/*": ["./content_publish/**/*"],
-		"*": ['.pnpm-store/v3/files']
+		"/notes/*": ["./content_publish/**/*"]
 	},
 };
 
