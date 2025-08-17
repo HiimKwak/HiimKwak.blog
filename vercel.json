@@ -1,6 +1,9 @@
 {
   "functions": {
-    "app/api/**": {
+    "post/**": {
+      "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
+    },
+    "notes/**": {
       "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
     }
   }
