@@ -5,6 +5,7 @@ const nextConfig = {
 	outputFileTracingExcludes: {
 		"/post/*": ["./content_publish/**/*"],
 		"/notes/*": ["./content_publish/**/*"],
+		"*": ['.pnpm-store/v3/files']
 	},
 };
 
