@@ -1,6 +1,6 @@
 {
-  "imageNamePattern": "{{imageNameKey}}/{{fileName}}",
-  "dupNumberAtStart": true,
+  "imageNamePattern": "{{imageNameKey}}/img",
+  "dupNumberAtStart": false,
   "dupNumberDelimiter": "-",
   "dupNumberAlways": true,
   "autoRename": true,
