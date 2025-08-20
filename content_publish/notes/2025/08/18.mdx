@@ -1,0 +1,53 @@
+---
+title: 0818 Event Loop
+publishedAt: 2025-08-18
+imageNameKey: public/images/notes/2025/08/18
+tags: 
+personal: "0"
+---
+1. JS는 싱글스레드(Call Stack), 브라우저는 멀티스레드(Web APIs - 네트워크 스레드, 타이머 스레드 등)
+2. Web APIs 예시
+	1. DOM API(동기)
+	2. XMLHttpRequest API
+	3. Timer API
+	4. Console API(동기)
+	5. Canvas API
+	6. Geolocation API
+3. 모든 Web API가 비동기는 아님.
+4. Callback Queue 종류
+	1. Microtask Queue(1순위): Promise, MutationObserver, queueMicroTask 등
+	2. Task Queue(2순위): setTimeout, requestAnimationFrame, fetch, I/O, UI 렌더링 등
+5. requestAnimationFrame은 Animation frames(Queue)에 별도 적재되어 처리됨(그렇지 않게되면 setInterval같이 Callback Queue 싱글스레드에 포함되어 화면이 버벅이게 될 것).
+	1. requestAnimationFrame은 백그라운드 전환됐을 때 동작을 멈춤(다른 Web API들은 그렇지 않음)
+	2. Microtask Queue는 가장 우선순위가 높다. Animation frames보다도
+	<Image src="/images/notes/2025/08/18/img.png" alt="" width={1000} height={1000} />
+6. setTimeout이 비동기 함수인 까닭은 콜백 함수의 호출이 비동기로 동작하기 때문이다. setTimeout 자체가 콜스택에 올라가자마자 실행되지 않고 Web APIs로 빠져나가는 것이 아니라, setTimeout 함수를 호출하면 콜백 함수를 호출 스케줄링한 다음, 타이머 id를 반환하고 즉시 종료된다. **즉 setTimeout은 동기적으로 실행되지만 setTimeout의 콜백함수가 비동기적으로 실행된다는 뜻**
+7. setTimeout의 콜백 함수에서 상위 스코프 변수에 값을 할당하는 것은 무의미함(setTimeout 자체는 타이머 id를 반환하고 종료되고, 콜백 함수는 처리 결과를 외부로 반환하거나 상위 스코프의 변수에 할당하지 못한다.)
+8. 명심할 것: Task Queue에 쌓인 Callback들은 Call Stack이 비어졌을 때 Call Stack으로 푸시되어 실행되는 것이다
+9. 실행 컨텍스트에서 await 키워드를 만나면 콜스택이 멈추는게 아니라, await 이후의 코드들이 콜백 Promise로 반환되고 콜스택에서 제거됨. 이후 콜스택이 비어지면(현재 실행 컨텍스트가 완료된 후) 태스크 큐의 콜백이 실행되는 것!
+10. 브라우저는 task 하나를 처리할 때마다 microtask 전부를 처리하고 렌더링을 수행한다. 그래서 microtask가 모두 처리되기 전까지는 UI 렌더링이나 네트워크 요청은 절대 일어날 수 없다.
+11. Promise의 executor 함수는 microtask queue에 적재되는 것이 아니라 그 즉시 실행된다. `.then()`이 microtask queue에 쌓이는 것
+
+9번 참고:
+```tsx
+async function a() {
+    console.log('a 시작');
+    
+    // await는 함수를 일시 중단시키지 않음
+    await someAsyncOperation();
+    
+    console.log('a 계속');
+    return '완료';
+}
+
+async function a() {
+    console.log('a 시작');
+    
+    // await someAsyncOperation()는 실제로는:
+	someAsyncOperation().then(result => {
+	    // await 이후의 코드가 여기로 이동
+	    console.log('a 계속');
+	    return '완료';
+	});
+}
+```

@@ -1,9 +1,10 @@
 {
-  "promptDelete": false,
+  "promptDelete": true,
   "alwaysUpdateLinks": true,
   "userIgnoreFilters": [
     "app/",
     "node_modules/"
   ],
-  "newFileLocation": "current"
+  "newFileLocation": "current",
+  "attachmentFolderPath": "/"
 }
