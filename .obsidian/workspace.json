@@ -11,10 +11,14 @@
             "id": "d17c42f558ebeea3",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "content/notes/2025/08/18.mdx",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "새 탭"
+              "title": "18"
             }
           }
         ]
@@ -90,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/notes/2025/08/20.md",
+                "file": "content/notes/2025/08/18.mdx",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "20 의 백링크"
+              "title": "18 의 백링크"
             }
           },
           {
@@ -109,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/notes/2025/08/20.md",
+                "file": "content/notes/2025/08/18.mdx",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "20 의 나가는 링크"
+              "title": "18 의 나가는 링크"
             }
           },
           {
@@ -178,27 +182,18 @@
   },
   "active": "d17c42f558ebeea3",
   "lastOpenFiles": [
-    "content/notes/2025/08/26.md",
-    "content_publish/review/assassins-creed-origin.mdx",
-    "content_publish/review",
-    "content_publish/notes/2025/08/20.mdx",
-    "content_publish/notes/2025/08/26.mdx",
-    "content/review/assassins-creed-origin.mdx",
-    "content/notes/2025/08/20.mdx",
-    "content/notes/2025/08/26.mdx",
-    "content/notes/2025/08/18.mdx",
-    "content/notes/2025/08/18.md",
-    "content/notes/2025/08/20.md",
-    "content/notes/2025/07/28.mdx",
-    "content/notes/2025/07/09.mdx",
-    "content/notes/2025/08/PromiseFulfillReactions.md",
-    "content/review/assassins-creed-origin.md",
-    "content/template/review template.md",
-    "content/template/note template.md",
-    "content/template/diary template.md",
-    "content/template/components.md",
-    "public/images/notes/2025/08/20/img.png",
+    "content_publish/notes/2025/08/18.mdx",
     "public/images/notes/2025/08/18/img.png",
+    "content/diary/the-very-first-post.mdx",
+    "content_publish/diary/the-information-flood-era.mdx",
+    "content_publish/diary/mbti.mdx",
+    "content/notes/2025/08/18.md",
+    "content/notes/2025/08/18.mdx",
+    "content/diary/the-information-flood-era.mdx",
+    "content/diary/nuphy-halo-75-review.mdx",
+    "content/diary/mbti.mdx",
+    "content/diary/mutsa-hackathon-review.mdx",
+    "content/diary/monster.mdx",
     "public/images/notes/2025/08/18/img 1.png",
     "public/images/notes/2025/08/18/file-20250818104222408.png",
     "public/images/notes/2025/08/18/file-20250818104247757.png",
@@ -207,6 +202,9 @@
     "Pasted image 20250818102052.png",
     "Pasted image 20250818102248.png",
     "Pasted image 20250818102439.png",
+    "Pasted image 20250818102012.png",
+    "content/template/diary template.md",
+    "content/template/components.md",
     "content/notes/2024/06/3.md",
     "content/notes/2025/05/16.md",
     "public/images/notes/2025/06/11/1.md",
