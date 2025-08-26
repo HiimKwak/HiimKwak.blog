@@ -1,0 +1,317 @@
+---
+title: Promise.then()은 언제 microtask queue에 쌓이나요?
+publishedAt: 2025-08-26
+image: public/images/notes/2025/08/26
+tags:
+personal: "0"
+---
+Promise가 객체고, fulfilled - rejected - pending 상태를 가지며 then() 콜백이 microtask queue에 적재되며 JS 엔진의 call stack이 전부 비워지면 microtask queue부터 순차적으로 실행된다는 것까지는 알고 있었다
+
+근데 가장 중요한 Promise.then()이 microtask queue에 적재되는 시점은 그 어디에서도 설명이 나와있지 않았다. 심지어 Promise MDN 공식문서에서도 명확하게 나와있지 않았고 빌어먹을 "일시 중단"된다는 모호한 설명밖에 없었다. "일시 중단"이라는 단어로는 실행 컨텍스트에서 Promise를 마주쳤을 때 Call stack이 어떻게 관리되고 비동기 작업들이 정확히 어떤 순서대로 실행되는지 설명할 수 없었다. 가장 큰 문제는 Promise에 관한 90%의 글은 이 과정을 "일시 중단"으로 뭉개버리고 앵무새마냥 참고한 글들을 반복하기 바빴다.
+
+그래서 이 글은 회사 업무를 진행하면서 Promise와 await을 마주쳤을 때 이후 코드가 어떤 순서대로 실행되는지에 관한 글임.
+
+## 문제
+
+```tsx
+  const handleSave = async () => {
+	try {
+	  setIsAPICalled(true);
+	  const rows = await grid.getRows();
+	  await onSubmit({
+		cashFlows: rows.map(convertGridRowToCashFlow),
+	  });
+	} catch (error) {
+	  console.error(error);
+	} finally {
+	  setIsAPICalled(false);
+	}
+  };
+    ```
+그리드에서 수정 중에 셀 포커스를 풀지 않은 채로 저장버튼을 눌렀을 때 수정이 모두 반영된 후의 값이 `onSubmit()`으로 넘겨져 서버에 날아가야하는데, 화면에는 반영된 값이 업데이트되었지만 계속 반영 전의 값이 `onSubmit()`에 태워져 수정 전 값으로 뒤집어 씌워지는 현상이 반복됐음
+
+## 시나리오
+
+- 시나리오를 위한 기초지식
+    1. 이벤트루프: `Promise`는 microtask queue, `Timer API`는 (macro)task queue
+    2. 실행컨텍스트: JS 엔진 call stack에 쌓이고 위부터 비워짐
+    3. (micro)task queue는 call stack이 비었을 때 하나씩 불러져 처리된다(micro - macro 순)
+    4. `async` 함수는 함수내용을 `Promise`로 랩핑하여 새 `Promise` 객체를 반환한다
+    5. 흔히 `await`가 `async` 함수의 실행을 ‘일시 중단’한다고 표현하는데, 이 ‘일시 중단’은 이벤트루프를 중단시키고 `await` 이후를 실행한다는 뜻이 아니라 `await` 이후 코드를 새로운 자식 `Promise`로 생성해 저장하고 `await`에 걸려있는 `Promise` 이후에 실행될 수 있도록 순서를 보장해준다는 차원에서 ‘일시 중단’된 것처럼 보인다는 뜻
+    6. **`await` 키워드 혹은 `Promise` 이후의 코드는 새로운 `Promise`로 감싸져 PromiseFulfillReactions 슬롯에 자식 `Promise`로 저장되고, 부모 `Promise`가 `resolve` 되었을 때 microtask queue에 비로소 적재된다**
+    7. `Promise` 실행순서
+        1. `Promise` 생성자의 매개변수인 executor 함수는 즉시 콜스택에 적재되고 즉시 실행된다
+        2. **`then()` 메서드는 `Promise` 객체에서 호출돼 새로운 `Promise`를 반환한다.** `then()`이 가진 callback은 새로 생성된 `Promise`에 내장돼있으며, 실행되지 않고 일단 기다린다. 또한 `then()`을 실행한 `Promise` 객체(부모)는 자신의 **PromiseFulfillReactions** 슬롯에 `then()`으로 생성한 자식 `promise`를 저장한다.
+        3. executor가 이행(`resolve` or `reject`)되면 `Promise`의 상태는 `settled`(`fulfilled` or `rejected`)로 설정된다. 이후 부모 `Promise`는 PromiseFulfill/RejectReactions에 등록한 리액션들을 차례대로 실행한다. 이때 이 `Promise`의 완료를 기다리는 자식 `Promise`는 microtask queue에 자신의 callback을 전달한다.
+        4. b ~ c 단계는 여러번 반복될 수 있고, 이것을 Promise chaining이라 한다. 에러가 발생할 경우 보통 가장 마지막에 위치한 `catch`문에 전파되어 핸들링된다.
+        5. call stack에 있는 작업들이 모두 수행돼 비워졌다면 이벤트 루프는 microtask queue에 있는 작업을 가져와 수행시킨다. 이 때 `Promise`의 callback이 `resolve`될 수 있으며 그 즉시 이 `Promise`가 이행되길 기다리던 연결된 `Promise` 객체가 자신의 callback을 microtask queue에 전달한다.
+        6. call stack이 비워지고, microtask queue의 작업이 call stack으로 올라와 순차적으로 수행되는 과정이 반복된다.
+        7. microtask queue에 있는 모든 작업이 완료되면 해당 `async` 함수가 값을 반환하면서 `Promise`가 `resolve`된다.
+
+1. 저장버튼 클릭 → `handleSave` 호출. `async` 함수이므로 그 즉시 `Promise` 객체를 반환하며, 이 `Promise`의 callback인 `async` 함수 내부는 즉시 실행된다
+    
+    ```tsx
+      const handleSave = async () => {
+        try {
+          setIsAPICalled(true);
+          const rows = await grid.getRows();
+    			// 아래 코드들은 새로운 Promise로 감싸져 grid.getRows() 실행 후 이어 실행된다
+          await onSubmit({
+            cashFlows: rows.map(convertGridRowToCashFlow),
+          });
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsAPICalled(false);
+        }
+      };
+    ```
+	
+2. `await grid.getRows()`을 만남. `grid.getRows()`도 `async` 함수이므로 executor를 즉시 실행하고 `await` 이후 코드는 `then()`처럼 취급해 새로운 `Promise`로 감싸 `PromiseFulfillReactions`에 저장해둔다.
+    
+3. `getRows()` 내부 실행. `stopEditing()` → Grid Event에 의해 `onCellValueChanged()` 호출
+    
+    ```tsx
+      const getRows = useCallback(async () => {
+        /**
+         * editing 모드일 수도 있기땜시롱 getRows 시점에 editing 모드를 종료해준다 (수정 중 그리드 밖 클릭 등)
+         * 수정 된 값이 반영되기를 기대할 것
+         */
+        const editingCells = apiInstance?.getEditingCells();
+    
+        if (editingCells?.length) {
+          apiInstance?.stopEditing();
+        }
+    ```
+    
+4. `onCellValueChanged()`는 `changeQueues`에 변경 셀 푸시, `setTimeout` Timer 브라우저 API 호출하고 종료된다. `setTimeout`의 콜백인 `() => processQueue({ api: e.api })` 함수는 부모 실행컨텍스트 실행하는 동안 비동기적으로 0~0.5초 후 (macro)task queue에 쌓임.
+    
+    ```tsx
+    	const onCellValueChanged = useCallback(
+    	  (e: CellValueChangedEvent<T>) => {
+    	    const source = e.source || "unknown";
+    	
+    	    // 큐에 변경 추가
+    	    changeQueues.current.push({
+    	      rowIndex: e.rowIndex ?? -1,
+    	      field: uncoverFieldName(e.colDef.field || "") as Extract<
+    	        keyof T["cells"],
+    	        string
+    	      >,
+    	      value: e.newValue,
+    	      source,
+    	      timestamp: Date.now(),
+    	    });
+    	
+    	    // 타이머 초기화 (디바운싱)
+    	    if (queueTimeoutRef.current) {
+    	      clearTimeout(queueTimeoutRef.current);
+    	    }
+    	
+    	    // 일정 시간 후 큐 처리
+    	    queueTimeoutRef.current = setTimeout(
+    	      () => {
+    	        processQueue({ api: e.api }); // 0~0.5초 후 (macro)task queue에 쌓임
+    	      },
+    	      source === "paste" ? 500 : 0
+    	    );
+    	  },
+    	  [processQueue]
+    	);
+    ```
+    
+5. 다시 `getRows()` 컨텍스트로 돌아와서 `await processQueueListenerPromise()` 실행. `processQueueListenerPromise`는 `Promise`를 반환하는 함수. executor는 즉시 실행되고 `await` 이후 코드는 마찬가지로 `processQueueListenerPromise.PromiseFulfillReactions`에 새로운 `Promise`로 랩핑돼 저장됨.
+    
+    ```tsx
+      const getRows = useCallback(async () => {
+        /**
+         * editing 모드일 수도 있기땜시롱 getRows 시점에 editing 모드를 종료해준다 (수정 중 그리드 밖 클릭 등)
+         * 수정 된 값이 반영되기를 기대할 것
+         */
+        const editingCells = apiInstance?.getEditingCells();
+    
+        if (editingCells?.length) {
+          apiInstance?.stopEditing();
+        }
+    
+        await processQueueListenerPromise(gridId);
+    ```
+    
+6. 내부 코드 실행. `processQueueRunningByGridId`를 확인해 동작하고 있는 queue가 있다면 다음 내용을 수행하고 queue가 비어있다면 `resolve`하고 `Promise` 종료
+    
+    ```tsx
+    const processQueueListenerPromise = (gridId: string) =>
+      new Promise<void>((resolve) => {
+        const isRunning = processQueueRunningByGridId.get(gridId);
+        if (!isRunning) {
+          resolve();
+          return;
+        }
+        
+        const handler = (e: Event) => {
+          const customEvent = e as CustomEvent<GridEventMap[GridEventType]>;
+          if (customEvent.detail.gridId === gridId) {
+            cleanup();
+            resolve();
+          }
+        };
+    
+        const completedRef = addGridEventListener(
+          GridEvents.PROCESS_QUEUE_COMPLETED,
+          handler
+        );
+        const cancelledRef = addGridEventListener(
+          GridEvents.PROCESS_QUEUE_CANCELLED,
+          handler
+        );
+    
+        const cleanup = () => {
+          removeGridEventListener(GridEvents.PROCESS_QUEUE_COMPLETED, completedRef);
+          removeGridEventListener(GridEvents.PROCESS_QUEUE_CANCELLED, cancelledRef);
+        };
+    
+        // setTimeout cleanup도 필요
+        // processQueue에서 문제 발생한 경우 무한 대기 타임아웃 안전장치
+        setTimeout(() => {
+          cleanup();
+          resolve();
+        }, 10000);
+      });
+    ```
+    
+
+- `isRunning` 조건문이 있다면
+    7. 동작중인 `grid`가 없어(`processQueue()`가 아직 task queue에 머물러있으므로) 즉시 `resolve`시킴. `resolve`되었으므로 `Promise`가 종료되었다고 판단해 `PromiseFulfillReactions`에 저장돼있던 자식 `Promise`을 실행시킴. 아직 macrotask queue에 있는 `processQueue()`는 call stack이 비어있지 않아 실행되지 않은 상태. 변경사항이 미반영된 `node.data`를 `rows`에 담아 반환해줌
+        
+        ```tsx
+        	const rows: T[] = [];
+          apiInstance?.forEachNodeAfterFilterAndSort((node) => {
+            if (!node.data) return;
+            rows.push(node.data);
+          });
+        
+          return rows;
+        }
+        ```
+        
+    8. `getRows()`가 `rows`를 반환하면서 `resolve`되어 `getRows()`의 자식 `Promise`가 실행됨.
+        
+    9. 미반영된 값들을 `onSubmit()`에 담아 제출. `await onSubmit()`이 실행되고 내부에서 `fetch`를 만나면 이후 코드가 `Promise`로 묶이면서(`fetch`는 `Promise`를 반환하므로) call stack이 드디어 비게 됨(`fetch`가 브라우저 API를 통해 비동기적으로 실행되기 때문에). 이 때 task queue에 있던 `processQueue()`가 실행되는 것임
+        
+- `isRunning` 조건문이 없다면
+    7. `isRunning` 조건문이 없다면 `handler`가 각각 `COMPLETED` / `CANCELLED` 그리드 이벤트 리스너에 붙고, `setTimeout`이 호출되면서(10초동안 실행되고 끝난 후에 콜백은 task queue에 적재) `processQueueListenerPromise`의 executor가 종료됨.
+        
+    8. `Promise`가 완결되지 않은 상태로 call stack에서 제거되어(`Promise`는 남아있는 상태, `resolve`되지 않아 microtask queue에는 적재되지 않은 상태) 남아있는 태스크가 없으므로 task queue에 쌓여있던 태스크들이 하나씩 소비됨. 드디어 `processQueue({ api: e.api })` 가 실행됨
+        
+    9. `processQueue`가 호출되고 마찬가지로 `async` 함수이므로 즉시 `Promise` 객체를 반환하고, executor 함수를 실행함.
+        
+        ```tsx
+        // 큐 처리 함수
+          const processQueue = useCallback(
+            async ({ api }: { api: GridApi<T> }) => {
+              if (changeQueues.current.length === 0) {
+                // 큐가 비어있으면 아무 작업도 하지 않음
+                return;
+              }
+        
+              // processQueue <실행 중> 플래그 설정
+              processQueueRunningByGridId.set(gridId, true);
+              emitGridEvent(GridEvents.PROCESSING_STARTED, { gridId });
+        
+              try {
+                ...
+                for (const item of changeQueues.current) {
+                ...
+        	        const changes: Partial<ExtractRowValues<T>> =
+        	          (await changeEffects[item.field]?.(
+        		          rowValues,
+        		          row,
+        		          item.source
+        	          )) ?? {};
+                }
+        	        ...
+                changeQueues.current = [];
+        
+                // changeQueues 비워진 이후 completed 커스텀 이벤트 발생
+                processQueueRunningByGridId.set(gridId, false);
+                emitGridEvent(GridEvents.PROCESS_QUEUE_COMPLETED, { gridId });
+              } catch (error) {
+                console.error("[GRID - processQueue] Failed to process queue:", error);
+        
+                // 큐 비우기
+                changeQueues.current = [];
+        
+                processQueueRunningByGridId.set(gridId, false);
+                emitGridEvent(GridEvents.PROCESS_QUEUE_CANCELLED, { gridId });
+              }
+            },
+            [changeEffects, transforms, gridId]
+          );
+        ```
+        
+    10. `processQueue`의 비동기 작업들이 모두 끝나고 자식 `Promise`까지 모두 완료됨. 이 과정에서 우리가 심어놨던 `emitGridEvent()`에 의해 그리드 이벤트가 촉발되고, 아까 `resolve`되지 않고 남아있던 `processQueueListenerPromise`가 이벤트리스너에 의해 촉발되면서 `cleanup()` + `resolve()`가 실행됨.
+        
+    11. 드디어 `processQueueListenerPromise`가 `resolve`되면서 자식 `Promise`가 실행됨. `processQueue`를 통해 정상적으로 업데이트한 gridApi의 `node.data`를 성공적으로 반환함
+        
+    12. `getRows`가 값을 반환하면서 `resolve`되고 자식 `Promise`가 실행됨. `onSubmit`이 호출되면서 서버로 정상 업데이트 값을 전송.
+        
+
+## 원인
+
+원인은 `isRunning` 조건에 걸려있던 `processQueueRunningByGrid`
+
+```tsx
+// 큐 처리 함수
+  const processQueue = useCallback(
+    async ({ api }: { api: GridApi<T> }) => {
+      if (changeQueues.current.length === 0) {
+        // 큐가 비어있으면 아무 작업도 하지 않음
+        return;
+      }
+
+      // processQueue <실행 중> 플래그 설정
+      processQueueRunningByGridId.set(gridId, true);
+      emitGridEvent(GridEvents.PROCESSING_STARTED, { gridId });
+
+      try {
+        ...
+        changeQueues.current = [];
+
+        // changeQueues 비워진 이후 completed 커스텀 이벤트 발생
+        processQueueRunningByGridId.set(gridId, false);
+        emitGridEvent(GridEvents.PROCESS_QUEUE_COMPLETED, { gridId });
+      } catch (error) {
+        console.error("[GRID - processQueue] Failed to process queue:", error);
+
+        // 큐 비우기
+        changeQueues.current = [];
+
+        processQueueRunningByGridId.set(gridId, false);
+        emitGridEvent(GridEvents.PROCESS_QUEUE_CANCELLED, { gridId });
+      }
+    },
+    [changeEffects, transforms, gridId]
+  );
+```
+
+~~위 맵 객체는 언뜻보면 `processQueue`의 시작과 종료에 맞춰 업데이트되는 듯 보이지만, 실제로는 비동기 처리 사이클을 반영하고 있지 않아 어긋나있었음~~
+
+제대로 보니 processQueueRunningByGridId는 문제가 없었다. 단지 돌아가는 processQueue가 없으면 resolve 시켜주는 로직이 잘못된 타이밍에 호출되고 있던 것.
+
+## 결론 및 교훈
+
+Promise를 믿지 못하고 명시적으로 resolve 조건을 추가한 우리의 잘못이었다 낄낄
+
+- Promise 혹은 await을 만나면 Promise 객체가 생성되며, 해당 함수는 executor로써 즉시 콜스택에서 실행된다
+- Promise 혹은 await 이후의 코드는 전부 새 Promise로 감싸져 자식 Promise로 앞서 생성된 Promise 객체의 PromiseFulfillReactions에 '수납'된다
+- Promise 객체는 resolve(혹은 rejejct)되어야 종료된다. executor 안에서 코드들이 실행될 때 resolve가 비동기적으로 감싸져있다면(e.g. fetch, setTimeout, Promise 등) 해당 Promise는 종료되지 않고 resolve되는지 관찰하며 JS 엔진(?)에서 표류한다.
+- resolve 되었을 때 비로소 Promise 객체가 제거되면서 다음 Promise였던 자식 Promise를 실행한다. 끝날 때까지 이 과정을 반복하는거임
+
+
+---
+## 참고
+
+- [비동기처리 문법에 대한 고찰 ( callback - Promise - async/await )](https://velog.io/@uiseok0514/js-asyncronous-grammar) ★ 이 글에서 가장 도움을 많이 받음
+- [Language design question: Why do promise.then() callbacks go through the microtask queue, rather than being called as soon as their promise is fulfilled or rejected?](https://www.reddit.com/r/javascript/comments/1aeqhtp/askjs_language_design_question_why_do_promisethen/)
+- [Tasks, microtasks, queues and schedules](https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/)
+- [How is async/await implemented under the hood?](https://www.reddit.com/r/learnjavascript/comments/1f0sh4i/how_is_asyncawait_implemented_under_the_hood/?show=original)

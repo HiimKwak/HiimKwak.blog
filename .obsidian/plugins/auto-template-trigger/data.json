@@ -7,6 +7,10 @@
     {
       "folderPath": "content/notes",
       "templateName": "note template"
+    },
+    {
+      "folderPath": "content/review",
+      "templateName": "review template"
     }
   ]
 }
