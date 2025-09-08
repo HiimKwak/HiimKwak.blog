@@ -11,14 +11,10 @@
             "id": "d17c42f558ebeea3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/notes/2025/08/18.mdx",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "18"
+              "title": "새 탭"
             }
           }
         ]
@@ -94,7 +90,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/notes/2025/08/18.mdx",
+                "file": "content/notes/2025/08/20.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +100,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "18 의 백링크"
+              "title": "20 의 백링크"
             }
           },
           {
@@ -113,12 +109,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/notes/2025/08/18.mdx",
+                "file": "content/notes/2025/08/20.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "18 의 나가는 링크"
+              "title": "20 의 나가는 링크"
             }
           },
           {
@@ -182,29 +178,37 @@
   },
   "active": "d17c42f558ebeea3",
   "lastOpenFiles": [
-    "content_publish/notes/2025/08/18.mdx",
-    "public/images/notes/2025/08/18/img.png",
-    "content/diary/the-very-first-post.mdx",
-    "content_publish/diary/the-information-flood-era.mdx",
-    "content_publish/diary/mbti.mdx",
-    "content/notes/2025/08/18.md",
+    "content/notes/2025/09/08.md",
+    "content_publish/notes/2025/09/08.mdx",
+    "content_publish/notes/2025/09/03.mdx",
+    "content_publish/notes/2025/09",
+    "content/notes/2025/09/03.mdx",
+    "content/notes/2025/09/08.mdx",
+    "content/notes/2025/09/03.md",
+    "content/notes/2025/08/26.mdx",
+    "content/notes/2025/08/20.mdx",
     "content/notes/2025/08/18.mdx",
-    "content/diary/the-information-flood-era.mdx",
-    "content/diary/nuphy-halo-75-review.mdx",
-    "content/diary/mbti.mdx",
-    "content/diary/mutsa-hackathon-review.mdx",
-    "content/diary/monster.mdx",
+    "content/notes/2025/06/13.mdx",
+    "content/notes/2025/06/11.mdx",
+    "public/images/notes/2025/09/03/img.png",
+    "public/images/notes/2025/09/03/img 1.png",
+    "public/images/notes/2025/09/03/img 2.png",
+    "content/notes/2025/08/26.md",
+    "content/notes/2025/08/18.md",
+    "content/notes/2025/08/20.md",
+    "content/notes/2025/08/PromiseFulfillReactions.md",
+    "content/review/assassins-creed-origin.md",
+    "content/template/review template.md",
+    "content/template/note template.md",
+    "content/template/diary template.md",
+    "content/template/components.md",
+    "public/images/notes/2025/08/20/img.png",
+    "public/images/notes/2025/08/18/img.png",
     "public/images/notes/2025/08/18/img 1.png",
     "public/images/notes/2025/08/18/file-20250818104222408.png",
     "public/images/notes/2025/08/18/file-20250818104247757.png",
     "Pasted image 20250818101936.png",
     "Pasted image 20250818102039.png",
-    "Pasted image 20250818102052.png",
-    "Pasted image 20250818102248.png",
-    "Pasted image 20250818102439.png",
-    "Pasted image 20250818102012.png",
-    "content/template/diary template.md",
-    "content/template/components.md",
     "content/notes/2024/06/3.md",
     "content/notes/2025/05/16.md",
     "public/images/notes/2025/06/11/1.md",
@@ -218,8 +222,6 @@
     "content/note/2025/7월/무제.md",
     "content/note/2025/6월/0618.md",
     "content/note/2025/7월/0701 수다.md",
-    "content/note/2025/7월/0707 신체와 정신.md",
-    "content/note/2025/7월/0708 파편화돼있는 권한.md",
-    "content/note/2025/7월/0709 이 함수가 알아야할까?.md"
+    "content/note/2025/7월/0707 신체와 정신.md"
   ]
 }
