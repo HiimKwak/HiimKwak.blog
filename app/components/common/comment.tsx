@@ -30,14 +30,14 @@ Comment.Skeleton = function Skeleton() {
 			</div>
 			<div className="flex flex-col gap-6">
 				<h4 className="w-8 rounded-lg bg-gray-600" aria-label="로딩중" />
-				<div className="rounded-[0.25rem] border border-gray-400">
+				<div className="rounded-lg border border-gray-400">
 					<div className="w-full h-11 bg-gray-500" />
 					<div className="w-full h-32 m-2 bg-white">
-						<div className="min-h-[100px] border border-gray-400 rounded-[0.25rem] bg-gray-400" />
+						<div className="min-h-[100px] border border-gray-400 rounded-lg bg-gray-400" />
 					</div>
 					<div className="w-full h-8 m-2 bg-white">
-						<div className=" inline-flex flex-shrink-0 ms-auto">
-							<div className="rounded-[0.25rem] bg-green-700 w-32" />
+						<div className=" inline-flex shrink-0 ms-auto">
+							<div className="rounded-lg bg-green-700 w-32" />
 						</div>
 					</div>
 				</div>

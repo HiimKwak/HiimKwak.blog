@@ -1,158 +1,179 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-::selection {
-	background-color: #47a3f3;
-	color: #fefefe;
+@config '../tailwind.config.ts';
+@plugin "@tailwindcss/typography";
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-:root {
-	--sh-class: #2d5e9d;
-	--sh-identifier: #354150;
-	--sh-sign: #8996a3;
-	--sh-string: #007f7a;
-	--sh-keyword: #e02518;
-	--sh-comment: #a19595;
-	--sh-jsxliterals: #6266d1;
-}
+@layer utilities {
+  ::selection {
+    background-color: #47a3f3;
+    color: #fefefe;
+  }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--sh-class: #4c97f8;
-		--sh-identifier: white;
-		--sh-keyword: #f47067;
-		--sh-string: #0fa295;
-	}
-}
+  :root {
+    --sh-class: #2d5e9d;
+    --sh-identifier: #354150;
+    --sh-sign: #8996a3;
+    --sh-string: #007f7a;
+    --sh-keyword: #e02518;
+    --sh-comment: #a19595;
+    --sh-jsxliterals: #6266d1;
+  }
 
-html {
-	min-width: 360px;
-	/* 스크롤바 숨김 */
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
-}
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --sh-class: #4c97f8;
+      --sh-identifier: white;
+      --sh-keyword: #f47067;
+      --sh-string: #0fa295;
+    }
+  }
 
-/* Webkit 브라우저용 스크롤바 숨김 */
-html::-webkit-scrollbar {
-	display: none;
-}
+  html {
+    min-width: 360px;
+    /* 스크롤바 숨김 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
 
-body {
-	/* 스크롤바 숨김 */
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE and Edge */
-}
+  /* Webkit 브라우저용 스크롤바 숨김 */
+  html::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Webkit 브라우저용 스크롤바 숨김 */
-body::-webkit-scrollbar {
-	display: none;
-}
+  body {
+    /* 스크롤바 숨김 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
 
-.prose {
-	max-width: 100%;
-}
+  /* Webkit 브라우저용 스크롤바 숨김 */
+  body::-webkit-scrollbar {
+    display: none;
+  }
 
-.prose .anchor {
-	@apply absolute invisible no-underline;
+  .prose {
+    max-width: 100%;
+  }
 
-	margin-left: -1em;
-	padding-right: 0.5em;
-	width: 80%;
-	max-width: 700px;
-	cursor: pointer;
-}
+  .prose .anchor {
+    @apply absolute invisible no-underline;
 
-.anchor:hover {
-	@apply visible;
-}
+    margin-left: -1em;
+    padding-right: 0.5em;
+    width: 80%;
+    max-width: 700px;
+    cursor: pointer;
+  }
 
-.prose a {
-	@apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
-}
+  .anchor:hover {
+    @apply visible;
+  }
 
-.prose .anchor:after {
-	@apply text-neutral-300 dark:text-neutral-700;
-	content: "#";
-}
+  .prose a {
+    @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  }
 
-.prose *:hover > .anchor {
-	@apply visible;
-}
+  .prose .anchor:after {
+    @apply text-neutral-300 dark:text-neutral-700;
+    content: '#';
+  }
 
-.prose pre {
-	@apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900;
-}
+  .prose *:hover > .anchor {
+    @apply visible;
+  }
 
-.prose code {
-	@apply px-1 py-0.5 rounded-lg;
-}
+  .prose pre {
+    @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900;
+  }
 
-.prose pre code {
-	@apply p-0;
-	border: initial;
-	line-height: 1.5;
-}
+  .prose code {
+    @apply px-1 py-0.5 rounded-lg;
+  }
 
-.prose code span {
-	@apply font-medium;
-}
+  .prose pre code {
+    @apply p-0;
+    border: initial;
+    line-height: 1.5;
+  }
 
-.prose img {
-	/* Don't apply styles to next/image */
-	@apply m-0;
-}
+  .prose code span {
+    @apply font-medium;
+  }
 
-.prose h2,
-h3,
-h4 {
-	@apply font-medium tracking-tighter !important;
-}
+  .prose img {
+    /* Don't apply styles to next/image */
+    @apply m-0;
+  }
 
-.prose strong {
-	@apply font-medium;
-}
+  .prose h2,
+  h3,
+  h4 {
+    @apply font-medium! tracking-tighter!;
+  }
 
-.prose > :first-child {
-	/* Override removing top margin, causing layout shift */
-	margin-top: 1.25em !important;
-	margin-bottom: 1.25em !important;
-}
+  .prose strong {
+    @apply font-medium;
+  }
 
-pre::-webkit-scrollbar {
-	display: none;
-}
+  .prose > :first-child {
+    /* Override removing top margin, causing layout shift */
+    margin-top: 1.25em !important;
+    margin-bottom: 1.25em !important;
+  }
 
-pre {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-}
+  pre::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Remove Safari input shadow on mobile */
-input[type="text"],
-input[type="email"] {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-}
+  pre {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 
-.prose .tweet a {
-	text-decoration: inherit;
-	font-weight: 500;
-}
+  /* Remove Safari input shadow on mobile */
+  input[type='text'],
+  input[type='email'] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 
-table {
-	display: block;
-	width: 100%;
-	overflow-x: auto;
-}
+  .prose .tweet a {
+    text-decoration: inherit;
+    font-weight: 500;
+  }
 
-.prose .callout > p {
-	margin: 0 !important;
-}
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
 
-.title {
-	text-wrap: balance;
+  .prose .callout > p {
+    margin: 0 !important;
+  }
+
+  .title {
+    text-wrap: balance;
+  }
 }
 
 @layer base {

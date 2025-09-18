@@ -63,7 +63,7 @@ export default function Page() {
 
 				</div>
 				<div className="gap-4 my-8 px-auto columns-2 ">
-					<div className="relative h-40 mb-4 sm:h-[21rem] sm:mb-0">
+					<div className="relative h-40 mb-4 sm:h-84 sm:mb-0">
 						<Image
 							alt="11기 멋사 중앙해커톤 큐택 팀으로 참가한 당시 촬영한 인증샷"
 							src={hackathon}
@@ -73,7 +73,7 @@ export default function Page() {
 							className="object-cover rounded-lg"
 						/>
 					</div>
-					<div className="relative h-40 mb-4 sm:h-[21rem] sm:mb-0">
+					<div className="relative h-40 mb-4 sm:h-84 sm:mb-0">
 						<Image
 							alt="profile2"
 							src={profile2}

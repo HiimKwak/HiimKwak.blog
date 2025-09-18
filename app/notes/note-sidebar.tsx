@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import type { ComponentProps } from "react";
 import { Collapsible } from "@/components/ui/collapsible";
 import { Sidebar, useSidebar } from "@/components/ui/sidebar";
-import type { NoteTree } from "@/db/content/note";
 import { NAV_PATH } from "@/constants";
+import type { NoteTree } from "@/db/content/note";
 
 type NoteSidebarProps = ComponentProps<typeof Sidebar> & {
 	data: NoteTree;
@@ -18,7 +18,7 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 
 	// 매번 pathname에서 직접 계산
 	const openedNotePath = pathname.startsWith(NAV_PATH.notes)
-		? pathname.split('/').filter(Boolean)
+		? pathname.split("/").filter(Boolean)
 		: [];
 
 	return (
@@ -28,7 +28,11 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
 					<Sidebar.GroupContent>
 						<Sidebar.Menu>
-							<Tree key={pathname} tree={data} openedNotePath={openedNotePath} />
+							<Tree
+								key={pathname}
+								tree={data}
+								openedNotePath={openedNotePath}
+							/>
 						</Sidebar.Menu>
 					</Sidebar.GroupContent>
 				</Sidebar.Group>
@@ -44,11 +48,10 @@ function Tree({
 }: {
 	tree: NoteTree;
 	currentPath?: string[];
-	openedNotePath: string[]
+	openedNotePath: string[];
 }) {
 	const defaultOpen = (folderName: string) => {
-		if (folderName === "notes")
-			return true;
+		if (folderName === "notes") return true;
 
 		// 현재 트리의 뎁스 계산 (currentPath.length로 깊이 파악)
 		const currentDepth = currentPath.length;
@@ -106,7 +109,7 @@ function Tree({
 function NoteLink({
 	slug,
 	fullPath,
-	openedNotePath
+	openedNotePath,
 }: {
 	slug: string;
 	fullPath: string[];

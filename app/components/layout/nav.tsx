@@ -6,9 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect } from "react";
-import { cn } from "@/lib/core";
 import { NAV_PATH } from "@/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/core";
 
 const navItems = {
 	left: {
@@ -30,9 +30,13 @@ const navItems = {
 	// 		name: "github",
 	// 	},
 	// },
-} as const
+} as const;
 
-export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode }) {
+export function Navbar({
+	sidebarTrigger,
+}: {
+	sidebarTrigger?: React.ReactNode;
+}) {
 	const [setTargetElement, isIntersected] = useIntersectionObserver({});
 	useEffect(() => {
 		const target = document.getElementById("header-flag");
@@ -58,9 +62,7 @@ export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode })
 					>
 						<div className="flex w-full justify-between -ml-[8px]">
 							{sidebarTrigger && isMobile && (
-								<div className="flex items-center">
-									{sidebarTrigger}
-								</div>
+								<div className="flex items-center">{sidebarTrigger}</div>
 							)}
 							<Suspense fallback={null}>
 								<div className="flex space-x-0">
@@ -87,9 +89,7 @@ function NavItem({ path, name }: { path: string; name: string }) {
 
 	// '/' 경로는 정확히 일치할 때만 활성화
 	// 다른 경로는 startsWith로 확인
-	const isActive = path === "/"
-		? pathname === "/"
-		: pathname.startsWith(path);
+	const isActive = path === "/" ? pathname === "/" : pathname.startsWith(path);
 
 	const isGithub = path === "/github";
 	const linkPath = isGithub ? "https://github.com/HiimKwak" : path;
@@ -119,7 +119,7 @@ function NavItem({ path, name }: { path: string; name: string }) {
 				)}
 				{isActive ? (
 					<motion.div
-						className="absolute h-[1px] top-7 mx-2 inset-0 bg-slate-700 dark:bg-gradient-to-r from-transparent to-slate-400"
+						className="absolute h-px top-7 mx-2 inset-0 bg-slate-700 dark:bg-linear-to-r from-transparent to-slate-400"
 						layoutId="sidebar"
 						transition={{
 							type: "spring",
