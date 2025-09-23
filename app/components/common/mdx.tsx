@@ -53,7 +53,7 @@ function Youtube({ url, caption }: { url: string; caption?: string }) {
 				/>
 			</div>
 			{caption && (
-				<span className="text-sm italic opacity-80">{caption}</span>
+				<span className="text-sm italic opacity-80 text-neutral-600 dark:text-neutral-300">{caption}</span>
 			)}
 		</div>
 	);

@@ -36,7 +36,7 @@ export default function CustomImage({ caption, ...props }: CustomImage) {
 				</Dialog.Content>
 			</Dialog>
 			{caption && (
-				<span className="text-sm italic opacity-80">{caption}</span>
+				<span className="text-sm italic opacity-80 text-neutral-600 dark:text-neutral-300">{caption}</span>
 			)}
 		</div>
 	);

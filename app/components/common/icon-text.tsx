@@ -18,7 +18,7 @@ export default function IconText({
 	fill,
 }: IconTextProps) {
 	return (
-		<div className={cn("flex items-center", className ?? "gap-1 text-xs")}>
+		<div className={cn("flex items-center text-neutral-600 dark:text-neutral-300", className ?? "gap-1 text-xs")}>
 			<Icon width={IconSize} height={IconSize} className={fill} />
 			<span>{text}</span>
 		</div>
