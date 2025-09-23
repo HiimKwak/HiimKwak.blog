@@ -9,6 +9,7 @@ export default function NotesPage() {
 	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
 
+	// todo: redirect 없애고 서버사이드 렌더링으로 완전히 전환하기
 	useEffect(() => {
 		const loadNotes = async () => {
 			try {
