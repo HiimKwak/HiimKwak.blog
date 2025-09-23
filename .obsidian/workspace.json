@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/notes/2025/09/15.md",
+                "file": "content/notes/2025/09/22.mdx",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "15"
+              "title": "22"
             }
           }
         ]
@@ -182,19 +182,19 @@
   },
   "active": "d17c42f558ebeea3",
   "lastOpenFiles": [
+    "content/notes/2025/09/22.md",
+    "content_publish/notes/2025/09/22.mdx",
+    "content_publish/notes/2025/09/15.mdx",
+    "content/notes/2025/09/15.mdx",
+    "content/notes/2025/09/22.mdx",
+    "content/notes/2025/09/15.md",
     "app/api/notes/route.ts",
     "app/api/notes",
     "content/notes/2025/06/19.mdx",
-    "content/notes/2025/09/15.md",
     "content/notes/2025/06/18.mdx",
     "content/notes/2025/06/13.mdx",
     "content/notes/2025/06/11.mdx",
-    "content/notes/2025/06/09.mdx",
-    "content/notes/2025/09/03.mdx",
     "content/notes/2025/09/08.md",
-    "content_publish/notes/2025/09/08.mdx",
-    "content_publish/notes/2025/09/03.mdx",
-    "content_publish/notes/2025/09",
     "content/notes/2025/09/03.md",
     "public/images/notes/2025/09/03/img.png",
     "public/images/notes/2025/09/03/img 1.png",
@@ -226,7 +226,6 @@
     "무제.md",
     "content/diary/2025-07-13.md",
     "content/note/2025/7월/무제.md",
-    "content/note/2025/6월/0618.md",
-    "content/note/2025/7월/0701 수다.md"
+    "content/note/2025/6월/0618.md"
   ]
 }

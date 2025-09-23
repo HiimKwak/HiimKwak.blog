@@ -1,0 +1,58 @@
+---
+title: 서버 컴포넌트와 클라이언트 컴포넌트
+publishedAt: 2025-09-22
+image: public/images/notes/2025/09/22
+tags:
+personal: "0"
+---
+- 서버 컴포넌트는 **서버에서만 실행**되며 **번들 크기에 전혀 영향을 미치지 않**습니다. 코드가 클라이언트에 다운로드되지 않으므로 번들 크기를 줄이고 시작 시간을 개선하는 데 도움이 됩니다. ([참고](<Youtube url="https://youtube.com/watch?v=TQQPAU21ZUw?si=aLh1ciyom4TwaiDP))" />
+
+- 서버 컴포넌트는 점진적으로 렌더링되며 **렌더링된 UI 단위를 클라이언트에 점진적으로 스트리밍**합니다. 이를 서스펜스와 결합하면 개발자가 의도적인 로딩 상태를 만들고 페이지의 나머지 부분이 로드될 때까지 기다리는 동안 중요한 콘텐츠를 빠르게 표시할 수 있습니다.
+
+```null
+Server Side:
++-------------------------+
+| ServerComponent         |
+| (Renders to HTML + RSC) |
++-----------+-------------+
+            |
+            v
++-------------------------+          +-------------------------------+
+| RSC Payload             |          | Client Component JavaScript   |
+| (HTML + Data)           |--------->| Instructions (JS Bundles)     |
++-------------------------+          +-------------------------------+
+
+Client Side:
++-------------------------+
+| Receives HTML + JS      |
+| Renders Non-interactive |
+| Preview                 |
++-----------+-------------+
+            |
+            v
+| Executes JS Instructions to hydrate Client Components |
++------------------------------------------------------+
+```
+
+1. React 18+: 서버 컴포넌트 chunk로 쪼개서 RSC Payload로 말아줌
+> RSC Payload: 서버 컴포넌트 렌더링 결과 + 클라 컴포넌트 어디에 빵꾸뚫려있는지, JS 참조 경로, 서버 컴포넌트가 클라 컴포넌트랑 연결돼있으면 전달해야하는 props 정보
+
+2. Next.js는 RSC Payload와 자바스크립트 설명서(a.k.a. Client Component JS Instructions)를 가지고 서버에서 HTML을 굽는다
+
+3. 브라우저는 Next.js 서버로부터 받은 구멍뚫린 HTML를 바로 보여준다. RSC Payload를 바탕으로 재조정(Reconciliation) 과정을 거쳐 리액트 컴포넌트 트리가 만들어지면, 이후 자바스크립트가 실행되면서 클라 컴포넌트를 구멍에 부어주고 마침내 애플리케이션이 상호작용 가능하게 된다
+
+이걸 좀 더 이해하기 쉽게 풀어쓰자면?
+
+1. React Server가 React로 작성된 파일을 읽고 Virtual DOM을 만든 뒤 직렬화한다(RSC Payload).
+
+2. Next.js는 이걸로 만들 수 있는 HTML 뼈대를 만든다. React Server에서 만든 가상 돔에서 서버 단에서 만들 수 있는 부분들은 미리 렌더링하는 것이다.
+
+3. 서버에서 렌더링할 수 있는 부분이 더이상 없다면 렌더링 결과물과 서버용 노드들이 발라진 RSC Payload를 클라이언트(브라우저)로 던진다. 클라이언트는 직렬화된 나머지를 받아 파싱하고 익히 아는 Critical Render Path를 거쳐 나머지 렌더링을 재개하는 것이다.
+
+그럼 React Server는 어떻게 React 코드를 직렬화하는 것일까? JSON.stringify()를 쓰면 알 수 있듯 함수나 조금만 복잡한 객체는 모두 직렬화가 불가능하다는 사실을 잘 알고 있다. React 코드는 대부분이 컴포넌트나 훅과 같은 함수다.
+
+React server는 이런 것들을 만났을 때 억지로 직렬화하지 않고 번들러의 도움을 받아 해당 컴포넌트가 존재하는 파일 경로를 대신 끼워넣는다.
+
+---
+
+
