@@ -13,12 +13,24 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/notes/2025/09/22.mdx",
+                "file": "content/notes/2025/09/24.mdx",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "22"
+              "title": "24"
+            }
+          },
+          {
+            "id": "33f96ae05688ee8c",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "public/images/notes/2025/09/24/img.png"
+              },
+              "icon": "lucide-image",
+              "title": "img"
             }
           }
         ]
@@ -182,23 +194,32 @@
   },
   "active": "d17c42f558ebeea3",
   "lastOpenFiles": [
+    "content_publish/notes/2025/09/24.mdx",
+    "public/images/notes/2025/09/24img 3.png.md",
+    "content/notes/2025/09/24.mdx",
+    "public/images/notes/2025/09/24/img 2.png",
+    "public/images/notes/2025/09/24/img 1.png",
+    "public/images/notes/2025/09/24/img.png",
+    "public/images/notes/2025/08/18/img.png",
+    "public/images/notes/2025/09/03/img.png",
+    "public/images/notes/2025/09/24/img 4.png",
+    "public/images/notes/2025/09/24/img 5.png",
+    "public/images/notes/2025/09/24/img 3.png",
+    "public/clang-logo.svg",
+    "content/notes/2024/08/16.mdx",
+    "content_publish/notes/2024/05/16.mdx",
+    "content/notes/2025/09/24.md",
+    "public/images/notes/2025/09/24",
+    "public/images/notes/2025/09/24/2025/09",
+    "public/images/notes/2025/09/24/2025",
+    "public/images/notes/2025/09/24",
+    "content/notes/2024/08/14.mdx",
+    "content/notes/2024/08/12.mdx",
     "content/notes/2025/09/22.md",
-    "content_publish/notes/2025/09/22.mdx",
-    "content_publish/notes/2025/09/15.mdx",
-    "content/notes/2025/09/15.mdx",
-    "content/notes/2025/09/22.mdx",
     "content/notes/2025/09/15.md",
-    "app/api/notes/route.ts",
-    "app/api/notes",
-    "content/notes/2025/06/19.mdx",
-    "content/notes/2025/06/18.mdx",
-    "content/notes/2025/06/13.mdx",
-    "content/notes/2025/06/11.mdx",
     "content/notes/2025/09/08.md",
     "content/notes/2025/09/03.md",
-    "public/images/notes/2025/09/03/img.png",
     "public/images/notes/2025/09/03/img 1.png",
-    "public/images/notes/2025/09/03/img 2.png",
     "content/notes/2025/08/26.md",
     "content/notes/2025/08/18.md",
     "content/notes/2025/08/20.md",
@@ -208,13 +229,6 @@
     "content/template/note template.md",
     "content/template/diary template.md",
     "content/template/components.md",
-    "public/images/notes/2025/08/20/img.png",
-    "public/images/notes/2025/08/18/img.png",
-    "public/images/notes/2025/08/18/img 1.png",
-    "public/images/notes/2025/08/18/file-20250818104222408.png",
-    "public/images/notes/2025/08/18/file-20250818104247757.png",
-    "Pasted image 20250818101936.png",
-    "Pasted image 20250818102039.png",
     "content/notes/2024/06/3.md",
     "content/notes/2025/05/16.md",
     "public/images/notes/2025/06/11/1.md",
@@ -224,8 +238,6 @@
     "content/notes/2025/07/0728.md",
     "content/note/2025/7월/0713.md",
     "무제.md",
-    "content/diary/2025-07-13.md",
-    "content/note/2025/7월/무제.md",
-    "content/note/2025/6월/0618.md"
+    "content/diary/2025-07-13.md"
   ]
 }
