@@ -8,7 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "d17c42f558ebeea3",
+            "id": "33f96ae05688ee8c",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -19,18 +19,6 @@
               },
               "icon": "lucide-file",
               "title": "24"
-            }
-          },
-          {
-            "id": "33f96ae05688ee8c",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "public/images/notes/2025/09/24/img.png"
-              },
-              "icon": "lucide-image",
-              "title": "img"
             }
           }
         ]
@@ -192,34 +180,37 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "d17c42f558ebeea3",
+  "active": "33f96ae05688ee8c",
   "lastOpenFiles": [
-    "content_publish/notes/2025/09/24.mdx",
+    "public/images/notes/2025/09/24/img.png",
+    "content/notes/2025/09/26.md",
+    "content_publish/notes/2025/01/22.mdx",
+    "content_publish/notes/2025/09/26.mdx",
+    "content/notes/2025/01/22.mdx",
+    "content/notes/2025/09/26.mdx",
+    "content/notes/2025/01/22.md",
+    "content/notes/2025/01/21.mdx",
+    "public/images/notes/2025/09/28/img.png",
+    "public/images/notes/2025/09/28",
+    "public/images/notes/2025/무제.md",
+    "public/images/notes/2025/01/22",
+    "public/images/notes/2025/01",
+    "public/images/notes/2025/01/22/img.png",
+    "public/images/notes/2025/09/28/img 1.png",
+    "content/notes/2025/01/15.mdx",
+    "content/notes/2025/01/06.mdx",
+    "public/images/notes/2025/09/24/img 6.png",
+    "public/images/notes/2025/09/26/img.png",
     "public/images/notes/2025/09/24img 3.png.md",
-    "content/notes/2025/09/24.mdx",
     "public/images/notes/2025/09/24/img 2.png",
     "public/images/notes/2025/09/24/img 1.png",
-    "public/images/notes/2025/09/24/img.png",
     "public/images/notes/2025/08/18/img.png",
     "public/images/notes/2025/09/03/img.png",
-    "public/images/notes/2025/09/24/img 4.png",
-    "public/images/notes/2025/09/24/img 5.png",
-    "public/images/notes/2025/09/24/img 3.png",
-    "public/clang-logo.svg",
-    "content/notes/2024/08/16.mdx",
-    "content_publish/notes/2024/05/16.mdx",
     "content/notes/2025/09/24.md",
-    "public/images/notes/2025/09/24",
-    "public/images/notes/2025/09/24/2025/09",
-    "public/images/notes/2025/09/24/2025",
-    "public/images/notes/2025/09/24",
-    "content/notes/2024/08/14.mdx",
-    "content/notes/2024/08/12.mdx",
     "content/notes/2025/09/22.md",
     "content/notes/2025/09/15.md",
     "content/notes/2025/09/08.md",
     "content/notes/2025/09/03.md",
-    "public/images/notes/2025/09/03/img 1.png",
     "content/notes/2025/08/26.md",
     "content/notes/2025/08/18.md",
     "content/notes/2025/08/20.md",
@@ -235,9 +226,6 @@
     "\"public/images/notes/2025/06/11/1.md",
     "content/notes/2025/08/0806.md",
     "content/notes/2025/07/무제.md",
-    "content/notes/2025/07/0728.md",
-    "content/note/2025/7월/0713.md",
-    "무제.md",
-    "content/diary/2025-07-13.md"
+    "content/notes/2025/07/0728.md"
   ]
 }
