@@ -4,21 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "4d9d128c48581056",
+        "id": "6674a85b76956a77",
         "type": "tabs",
         "children": [
           {
-            "id": "33f96ae05688ee8c",
+            "id": "dcb32b6c87f3768c",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "content/notes/2025/09/22.mdx",
-                "mode": "source",
-                "source": false
+                "file": "public/images/diary/be-the-toss/img 4.png"
               },
-              "icon": "lucide-file",
-              "title": "22"
+              "icon": "lucide-image",
+              "title": "img 4"
             }
           }
         ]
@@ -165,7 +163,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -180,33 +179,34 @@
       "vscode-editor:Create Code File": false
     }
   },
-  "active": "33f96ae05688ee8c",
+  "active": "dcb32b6c87f3768c",
   "lastOpenFiles": [
+    "content_publish/diary/be-the-toss.mdx",
+    "content/diary/be-the-toss.md",
+    "content/diary/be-the-toss.mdx",
+    "public/images/diary/be-the-toss/img 4.png",
+    "public/images/diary/be-the-toss/img 3.png",
+    "public/images/diary/be-the-toss/img 2.png",
+    "public/images/diary/be-the-toss/img 1.png",
+    "public/images/2025/10/02",
+    "public/images/2025/10",
+    "public/images/2025",
+    "public/images/diary/be-the-toss/img.png",
+    "public/images/diary/be-the-toss",
+    "content/diary/무제.base",
+    "content/diary/after-my-first-job-interview.mdx",
+    "content/notes/2025/09/22.mdx",
     "middleware.ts",
     "app/middleware.ts",
-    "content/notes/2025/09/15.mdx",
-    "content/notes/2025/09/24.mdx",
-    "content/notes/2025/09/22.mdx",
-    "content/notes/2025/09/03.mdx",
-    "content/notes/2025/09/08.mdx",
-    "content/notes/2025/09/26.mdx",
     "public/images/notes/2025/09/24/img.png",
     "content/notes/2025/09/26.md",
-    "content_publish/notes/2025/01/22.mdx",
-    "content_publish/notes/2025/09/26.mdx",
-    "content/notes/2025/01/22.mdx",
     "content/notes/2025/01/22.md",
     "public/images/notes/2025/09/28/img.png",
     "public/images/notes/2025/무제.md",
     "public/images/notes/2025/01/22/img.png",
     "public/images/notes/2025/09/28/img 1.png",
     "public/images/notes/2025/09/24/img 6.png",
-    "public/images/notes/2025/09/26/img.png",
     "public/images/notes/2025/09/24img 3.png.md",
-    "public/images/notes/2025/09/24/img 2.png",
-    "public/images/notes/2025/09/24/img 1.png",
-    "public/images/notes/2025/08/18/img.png",
-    "public/images/notes/2025/09/03/img.png",
     "content/notes/2025/09/24.md",
     "content/notes/2025/09/22.md",
     "content/notes/2025/09/15.md",
@@ -226,7 +226,6 @@
     "public/images/notes/2025/06/11/1.md",
     "\"public/images/notes/2025/06/11/1.md",
     "content/notes/2025/08/0806.md",
-    "content/notes/2025/07/무제.md",
-    "content/notes/2025/07/0728.md"
+    "content/notes/2025/07/무제.md"
   ]
 }
