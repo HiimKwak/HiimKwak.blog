@@ -11,12 +11,14 @@
             "id": "dcb32b6c87f3768c",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "public/images/diary/be-the-toss/img 4.png"
+                "file": "content/diary/be-the-toss.mdx",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "img 4"
+              "icon": "lucide-file",
+              "title": "be-the-toss"
             }
           }
         ]
@@ -181,10 +183,10 @@
   },
   "active": "dcb32b6c87f3768c",
   "lastOpenFiles": [
+    "public/images/diary/be-the-toss/img 4.png",
     "content_publish/diary/be-the-toss.mdx",
     "content/diary/be-the-toss.md",
     "content/diary/be-the-toss.mdx",
-    "public/images/diary/be-the-toss/img 4.png",
     "public/images/diary/be-the-toss/img 3.png",
     "public/images/diary/be-the-toss/img 2.png",
     "public/images/diary/be-the-toss/img 1.png",
@@ -197,7 +199,6 @@
     "content/diary/after-my-first-job-interview.mdx",
     "content/notes/2025/09/22.mdx",
     "middleware.ts",
-    "app/middleware.ts",
     "public/images/notes/2025/09/24/img.png",
     "content/notes/2025/09/26.md",
     "content/notes/2025/01/22.md",

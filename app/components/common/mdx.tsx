@@ -6,6 +6,8 @@ import React, {
 	type ReactNode,
 	useId,
 } from "react";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 import { highlight } from "sugar-high";
 import CustomImage from "./image";
 
@@ -34,15 +36,17 @@ function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
 }
 
 function Youtube({ url, caption }: { url: string; caption?: string }) {
-	const videoId = url.match(/[?&]v=([^&]+)/)?.[1] || url.split('/').pop();
-	
+	const videoId = url.match(/[?&]v=([^&]+)/)?.[1] || url.split("/").pop();
+
 	if (!videoId) {
-		return <div className="text-red-500">유효하지 않은 유튜브 URL입니다: {url}</div>;
+		return (
+			<div className="text-red-500">유효하지 않은 유튜브 URL입니다: {url}</div>
+		);
 	}
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-4 my-4 not-prose">
-			<div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+			<div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
 				<iframe
 					className="absolute top-0 left-0 w-full h-full rounded-lg"
 					src={`https://www.youtube.com/embed/${videoId}`}
@@ -53,7 +57,9 @@ function Youtube({ url, caption }: { url: string; caption?: string }) {
 				/>
 			</div>
 			{caption && (
-				<span className="text-sm italic opacity-80 text-neutral-600 dark:text-neutral-300">{caption}</span>
+				<span className="text-sm italic opacity-80 text-neutral-600 dark:text-neutral-300">
+					{caption}
+				</span>
 			)}
 		</div>
 	);
@@ -207,6 +213,13 @@ export function CustomMDX(props) {
 		<MDXRemote
 			{...props}
 			components={{ ...components, ...(props.components || {}) }}
+			options={{
+				...props.options,
+				mdxOptions: {
+					remarkPlugins: [remarkMath],
+					rehypePlugins: [[rehypeKatex, { output: 'mathml' }]], // ref: https://github.com/remarkjs/remark-math/issues/108#issuecomment-2621185520
+				},
+			}}
 		/>
 	);
 }
