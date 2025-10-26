@@ -32,11 +32,7 @@ const navItems = {
 	// },
 } as const;
 
-export function Navbar({
-	sidebarTrigger,
-}: {
-	sidebarTrigger?: React.ReactNode;
-}) {
+export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode }) {
 	const [setTargetElement, isIntersected] = useIntersectionObserver({});
 	useEffect(() => {
 		const target = document.getElementById("header-flag");
@@ -50,8 +46,7 @@ export function Navbar({
 			className={cn(
 				"tracking-tight px-2 py-4 border-b border-neutral-300 z-100 bg-background",
 				"md:sticky md:top-0 md:w-full md:px-0",
-				!isIntersected &&
-				"bg-transparent dark:border-gray-600 backdrop-blur-xl",
+				!isIntersected && "bg-transparent dark:border-gray-600 backdrop-blur-xl",
 			)}
 		>
 			<div className="max-w-2xl md:mx-auto">

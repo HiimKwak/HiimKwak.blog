@@ -10,13 +10,7 @@ export interface IconTextProps {
 	fill?: string;
 }
 
-export default function IconText({
-	Icon,
-	IconSize = 14,
-	text,
-	className,
-	fill,
-}: IconTextProps) {
+export default function IconText({ Icon, IconSize = 14, text, className, fill }: IconTextProps) {
 	return (
 		<div
 			className={cn(

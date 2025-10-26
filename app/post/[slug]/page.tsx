@@ -2,6 +2,7 @@ import { CustomMDX } from "app/components/common/mdx";
 import { getDiaryPosts } from "app/db/content/post";
 import type { Metadata } from "next";
 
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -9,6 +10,14 @@ import { Comment } from "@/components/common/comment";
 import { PostNavigator } from "@/components/common/post-navigator";
 import { Views } from "@/components/common/views";
 import { NAV_PATH } from "@/constants";
+
+const CommentLazy = dynamic(
+	() => import("@/components/common/comment").then((mod) => mod.Comment),
+	{
+		ssr: false,
+		loading: () => <Comment.Skeleton />,
+	},
+);
 
 export async function generateMetadata({
 	params,
@@ -21,12 +30,7 @@ export async function generateMetadata({
 		return;
 	}
 
-	const {
-		title,
-		publishedAt: publishedTime,
-		summary: description,
-		image,
-	} = post.metadata;
+	const { title, publishedAt: publishedTime, summary: description, image } = post.metadata;
 	const ogImage = image
 		? `https://hiimkwak.blog${image}`
 		: `https://hiimkwak.blog/og?title=${title}`;
@@ -78,17 +82,12 @@ function formatDate(date: string) {
 	return `${fullDate} (${formattedDate})`;
 }
 
-export default async function Post({
-	params,
-}: {
-	params: Promise<{ slug: string }>;
-}) {
+export default async function Post({ params }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params;
 
 	const allPosts = getDiaryPosts().sort(
 		(a, _b) =>
-			new Date(a.metadata.publishedAt).getTime() -
-			new Date(a.metadata.publishedAt).getTime(),
+			new Date(a.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime(),
 	);
 
 	const postIdx = allPosts.findIndex((post) => post.slug === slug);
@@ -120,7 +119,7 @@ export default async function Post({
 
 			<footer className="mt-8 w-full border-t border-neutral-300 dark:border-gray-600 py-4">
 				<div className="my-4">
-					<Comment />
+					<CommentLazy />
 				</div>
 				<PostNavigator basePath={NAV_PATH.post} prev={prev} next={next} />
 			</footer>

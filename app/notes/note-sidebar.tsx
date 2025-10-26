@@ -28,11 +28,7 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
 					<Sidebar.GroupContent>
 						<Sidebar.Menu>
-							<Tree
-								key={pathname}
-								tree={data}
-								openedNotePath={openedNotePath}
-							/>
+							<Tree key={pathname} tree={data} openedNotePath={openedNotePath} />
 						</Sidebar.Menu>
 					</Sidebar.GroupContent>
 				</Sidebar.Group>
@@ -83,12 +79,7 @@ function Tree({
 					<Sidebar.MenuSub>
 						{/* 노트 파일들 */}
 						{tree.notes.map((note) => (
-							<NoteLink
-								key={note.slug}
-								slug={note.slug}
-								fullPath={fullPath}
-								openedNotePath={openedNotePath}
-							/>
+							<NoteLink key={note.slug} slug={note.slug} fullPath={fullPath} />
 						))}
 						{/* 하위 폴더들 */}
 						{tree.children.map((child) => (
@@ -106,15 +97,7 @@ function Tree({
 	);
 }
 
-function NoteLink({
-	slug,
-	fullPath,
-	openedNotePath,
-}: {
-	slug: string;
-	fullPath: string[];
-	openedNotePath: string[];
-}) {
+function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
 	const pathname = usePathname();
 	const href = `/${fullPath.join("/")}/${slug}`;
 

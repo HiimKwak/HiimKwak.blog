@@ -64,6 +64,7 @@ function Youtube({ url, caption }: { url: string; caption?: string }) {
 		</div>
 	);
 }
+Youtube.displayName = "Youtube";
 
 function CustomLink({ href, ...props }: ComponentPropsWithRef<"a">) {
 	if (href) {
@@ -91,6 +92,7 @@ function Callout(props: { emoji: string; children: ReactNode }) {
 		</div>
 	);
 }
+Callout.displayName = "Callout";
 
 function ProsCard({ title, pros }: { title: string; pros: string[] }) {
 	return (
@@ -121,6 +123,7 @@ function ProsCard({ title, pros }: { title: string; pros: string[] }) {
 		</div>
 	);
 }
+ProsCard.displayName = "ProsCard";
 
 function ConsCard({ title, cons }: { title: string; cons: string[] }) {
 	return (
@@ -147,6 +150,7 @@ function ConsCard({ title, cons }: { title: string; cons: string[] }) {
 		</div>
 	);
 }
+ConsCard.displayName = "ConsCard";
 
 function Code({
 	children,
@@ -189,6 +193,45 @@ function createHeading(level: number) {
 function ImageCarousel({ children }: { children: ReactNode }) {
 	return <div className="not-prose">{children}</div>;
 }
+ImageCarousel.displayName = "ImageCarousel";
+
+// MDX의 <p> 태그 커스터마이징 - 블록 레벨 요소가 있으면 Fragment로 렌더링
+function CustomParagraph({ children }: { children: ReactNode }) {
+	// 블록 레벨 컴포넌트 이름들
+	const blockLevelComponents = [
+		"Youtube",
+		"Callout",
+		"ProsCard",
+		"ConsCard",
+		"ImageCarousel",
+		"div",
+		"section",
+		"article",
+	];
+
+	// children이 블록 레벨 컴포넌트인지 확인
+	const hasBlockLevelChild = React.Children.toArray(children).some((child) => {
+		if (React.isValidElement(child)) {
+			const type = child.type;
+			// 함수 컴포넌트의 경우 displayName이나 name 확인
+			if (typeof type === "function") {
+				const name =
+					(type as { displayName?: string; name?: string }).displayName ||
+					(type as { displayName?: string; name?: string }).name;
+				return blockLevelComponents.includes(name || "");
+			}
+			// HTML 요소의 경우
+			if (typeof type === "string") {
+				return blockLevelComponents.includes(type);
+			}
+		}
+		return false;
+	});
+
+	// 블록 레벨 요소가 있으면 Fragment로, 없으면 <p>로
+	// biome-ignore lint/complexity/noUselessFragments: Fragment is needed to avoid wrapping block-level elements in <p>
+	return hasBlockLevelChild ? <>{children}</> : <p>{children}</p>;
+}
 
 const components = {
 	h1: createHeading(1),
@@ -200,6 +243,7 @@ const components = {
 	Image: CustomImage,
 	ImageCarousel: ImageCarousel,
 	a: CustomLink,
+	p: CustomParagraph,
 	Callout,
 	ProsCard,
 	ConsCard,

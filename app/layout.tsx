@@ -41,13 +41,10 @@ const pretendard = localFont({
 	src: "../public/fonts/Pretendard.woff2",
 	display: "swap",
 	variable: "--font-pretendard",
+	preload: true,
 });
 
-export default async function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html
 			lang="ko"

@@ -11,8 +11,7 @@ export default function Post() {
 	const allPosts = getDiaryPosts()
 		.sort(
 			(a, b) =>
-				new Date(a.metadata.publishedAt).getTime() -
-				new Date(b.metadata.publishedAt).getTime(),
+				new Date(a.metadata.publishedAt).getTime() - new Date(b.metadata.publishedAt).getTime(),
 		)
 		.reverse();
 
