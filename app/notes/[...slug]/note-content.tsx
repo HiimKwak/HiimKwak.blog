@@ -4,7 +4,13 @@ import { NAV_PATH } from "@/constants";
 import { getAdjacentNotes } from "@/db/content/note";
 import type { MDXData } from "@/db/content/utils";
 
-export async function NoteContent({ note, slug }: { note: MDXData; slug: string[] }) {
+export async function NoteContent({
+	note,
+	slug,
+}: {
+	note: MDXData;
+	slug: string[];
+}) {
 	const { prev, next } = getAdjacentNotes(slug);
 
 	return (
@@ -15,7 +21,9 @@ export async function NoteContent({ note, slug }: { note: MDXData; slug: string[
 					<div className="flex justify-between items-center">
 						{note.metadata.publishedAt && (
 							<time className="text-sm text-neutral-500 dark:text-neutral-400">
-								{new Date(note.metadata.publishedAt).toLocaleDateString("ko-KR")}
+								{new Date(note.metadata.publishedAt).toLocaleDateString(
+									"ko-KR",
+								)}
 							</time>
 						)}
 					</div>

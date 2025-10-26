@@ -14,7 +14,6 @@ import { NAV_PATH } from "@/constants";
 const CommentLazy = dynamic(
 	() => import("@/components/common/comment").then((mod) => mod.Comment),
 	{
-		ssr: false,
 		loading: () => <Comment.Skeleton />,
 	},
 );
@@ -31,9 +30,18 @@ export async function generateMetadata({
 	}
 
 	const { title, publishedAt: publishedTime, summary: description, image } = post.metadata;
-	const ogImage = image
-		? `https://hiimkwak.blog${image}`
-		: `https://hiimkwak.blog/og?title=${title}`;
+
+	let ogImage = `https://hiimkwak.blog/og?title=${encodeURIComponent(title)}`;
+	if (image) {
+		let imagePath = image.replace(/^public\//, "/");
+		if (!imagePath.startsWith("/")) {
+			imagePath = `/${imagePath}`;
+		}
+		if (!imagePath.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
+			imagePath = `${imagePath}/img.png`;
+		}
+		ogImage = `https://hiimkwak.blog${imagePath}`;
+	}
 
 	return {
 		title,

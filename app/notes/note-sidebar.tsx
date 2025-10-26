@@ -3,17 +3,32 @@
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { Collapsible } from "@/components/ui/collapsible";
-import { Sidebar, useSidebar } from "@/components/ui/sidebar";
+import { Sidebar, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { NAV_PATH } from "@/constants";
 import type { NoteTree } from "@/db/content/note";
+
+export function NoteSidebarClient({
+	data,
+	children,
+}: {
+	data: NoteTree;
+	children: ReactNode;
+}) {
+	return (
+		<SidebarProvider>
+			<NoteSidebar data={data} />
+			{children}
+		</SidebarProvider>
+	);
+}
 
 type NoteSidebarProps = ComponentProps<typeof Sidebar> & {
 	data: NoteTree;
 };
 
-export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
+function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 	const pathname = usePathname();
 
 	// 매번 pathname에서 직접 계산
@@ -28,7 +43,11 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
 					<Sidebar.GroupContent>
 						<Sidebar.Menu>
-							<Tree key={pathname} tree={data} openedNotePath={openedNotePath} />
+							<Tree
+								key={pathname}
+								tree={data}
+								openedNotePath={openedNotePath}
+							/>
 						</Sidebar.Menu>
 					</Sidebar.GroupContent>
 				</Sidebar.Group>
@@ -72,7 +91,7 @@ function Tree({
 				<Collapsible.Trigger asChild>
 					<Sidebar.MenuButton>
 						<ChevronRightIcon className="transition-transform w-4 h-4" />
-						{localeMonth(tree.folderName)}
+						{folderNameToMonthLabel(tree.folderName)}
 					</Sidebar.MenuButton>
 				</Collapsible.Trigger>
 				<Collapsible.Content>
@@ -95,6 +114,25 @@ function Tree({
 			</Collapsible>
 		</Sidebar.MenuItem>
 	);
+}
+
+const monthMapping: Record<string, string> = {
+	"01": "1월",
+	"02": "2월",
+	"03": "3월",
+	"04": "4월",
+	"05": "5월",
+	"06": "6월",
+	"07": "7월",
+	"08": "8월",
+	"09": "9월",
+	"10": "10월",
+	"11": "11월",
+	"12": "12월",
+};
+
+function folderNameToMonthLabel(folderName: string): string {
+	return monthMapping[folderName] || folderName;
 }
 
 function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
@@ -127,23 +165,26 @@ function NoteLink({ slug, fullPath }: { slug: string; fullPath: string[] }) {
 	);
 }
 
-// 한글 월 폴더명을 숫자로 매핑
-const monthMapping: Record<string, string> = {
-	"01": "1월",
-	"02": "2월",
-	"03": "3월",
-	"04": "4월",
-	"05": "5월",
-	"06": "6월",
-	"07": "7월",
-	"08": "8월",
-	"09": "9월",
-	"10": "10월",
-	"11": "11월",
-	"12": "12월",
-};
+const SKELETON_KEYS = Array.from(
+	{ length: 5 },
+	(_, i) => `skeleton-${i}-${Date.now()}`,
+);
 
-// 폴더명을 URL용으로 변환
-function localeMonth(folderName: string): string {
-	return monthMapping[folderName] || folderName;
+export function NoteSidebarSkeleton() {
+	return (
+		<Sidebar>
+			<Sidebar.Content>
+				<Sidebar.Group>
+					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
+					<Sidebar.GroupContent>
+						<Sidebar.Menu>
+							{SKELETON_KEYS.map((key) => (
+								<Sidebar.MenuSkeleton key={key} showIcon />
+							))}
+						</Sidebar.Menu>
+					</Sidebar.GroupContent>
+				</Sidebar.Group>
+			</Sidebar.Content>
+		</Sidebar>
+	);
 }
