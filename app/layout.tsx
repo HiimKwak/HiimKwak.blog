@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html
 			lang="ko"
 			className={cn(
-				"text-black dark:text-white bg-white dark:bg-[#111010] antialiased",
+				"text-black dark:text-white bg-white dark:bg-neutral-900 antialiased",
 				`${pretendard.variable}`,
 			)}
 		>

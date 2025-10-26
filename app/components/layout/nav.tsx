@@ -44,9 +44,9 @@ export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode })
 	return (
 		<aside
 			className={cn(
-				"tracking-tight px-2 py-4 border-b border-neutral-300 z-100 bg-background",
+				"tracking-tight px-2 py-4 border-b border-neutral-300 dark:border-gray-600 z-100 bg-background dark:bg-neutral-900",
 				"md:sticky md:top-0 md:w-full md:px-0",
-				!isIntersected && "bg-transparent dark:border-gray-600 backdrop-blur-xl",
+				!isIntersected && "bg-transparent backdrop-blur-xl",
 			)}
 		>
 			<div className="max-w-2xl md:mx-auto">
