@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CustomMDX } from "@/components/common/mdx";
 import { PostNavigator } from "@/components/common/post-navigator";
-import { Navbar } from "@/components/layout/nav";
-import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NAV_PATH } from "@/constants";
 import { getNoteByPath, getNotes, type NoteTree } from "@/db/content/note";
@@ -60,17 +58,17 @@ function findAdjacentNotes(
 	const prev =
 		currentIndex < allNotes.length - 1
 			? {
-				...allNotes[currentIndex + 1].note,
-				slug: allNotes[currentIndex + 1].fullPath.join("/"),
-			}
+					...allNotes[currentIndex + 1].note,
+					slug: allNotes[currentIndex + 1].fullPath.join("/"),
+				}
 			: null;
 
 	const next =
 		currentIndex > 0
 			? {
-				...allNotes[currentIndex - 1].note,
-				slug: allNotes[currentIndex - 1].fullPath.join("/"),
-			}
+					...allNotes[currentIndex - 1].note,
+					slug: allNotes[currentIndex - 1].fullPath.join("/"),
+				}
 			: null;
 
 	return { prev, next };
@@ -93,8 +91,6 @@ export default async function NotePage({
 
 	return (
 		<div className="w-full">
-			<Navbar sidebarTrigger={<SidebarTrigger />} />
-
 			<Suspense fallback={<NoteLoading />}>
 				<NoteContent note={note} slug={decodedSlug} />
 			</Suspense>

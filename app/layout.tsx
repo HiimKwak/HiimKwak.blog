@@ -2,6 +2,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Navbar } from "./components/layout/nav";
 import { cn } from "./lib/core";
 
 export const metadata: Metadata = {
@@ -42,7 +43,7 @@ const pretendard = localFont({
 	variable: "--font-pretendard",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
@@ -56,6 +57,7 @@ export default function RootLayout({
 			)}
 		>
 			<body>
+				<Navbar />
 				<div id="header-flag" />
 				<main>
 					{children}

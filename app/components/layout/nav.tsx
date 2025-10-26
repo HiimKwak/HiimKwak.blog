@@ -48,10 +48,10 @@ export function Navbar({
 	return (
 		<aside
 			className={cn(
-				"tracking-tight px-2 py-4 border-b border-neutral-300",
-				"md:sticky md:top-0 md:w-full md:z-10 md:px-0",
+				"tracking-tight px-2 py-4 border-b border-neutral-300 z-100 bg-background",
+				"md:sticky md:top-0 md:w-full md:px-0",
 				!isIntersected &&
-					"bg-transparent dark:border-gray-600 backdrop-blur-xl",
+				"bg-transparent dark:border-gray-600 backdrop-blur-xl",
 			)}
 		>
 			<div className="max-w-2xl md:mx-auto">
