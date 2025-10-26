@@ -122,7 +122,7 @@ function NoteLink({
 	const isCurrentNote = pathname === href;
 
 	// 현재 노트가 속한 폴더의 노트들을 펼치기 위해 부모 폴더 열기
-	const shouldExpandParent = isCurrentNote;
+	const _shouldExpandParent = isCurrentNote;
 
 	const { setOpenMobile } = useSidebar();
 

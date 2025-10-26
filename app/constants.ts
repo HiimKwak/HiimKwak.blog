@@ -6,7 +6,7 @@ export const CONTENT_LOCATION = {
 };
 
 export const NAV_PATH = {
-	home: '/',
-	post: '/post',
-	notes: '/notes'
-} as const
+	home: "/",
+	post: "/post",
+	notes: "/notes",
+} as const;

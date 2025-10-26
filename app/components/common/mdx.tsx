@@ -217,7 +217,7 @@ export function CustomMDX(props) {
 				...props.options,
 				mdxOptions: {
 					remarkPlugins: [remarkMath],
-					rehypePlugins: [[rehypeKatex, { output: 'mathml' }]], // ref: https://github.com/remarkjs/remark-math/issues/108#issuecomment-2621185520
+					rehypePlugins: [[rehypeKatex, { output: "mathml" }]], // ref: https://github.com/remarkjs/remark-math/issues/108#issuecomment-2621185520
 				},
 			}}
 		/>

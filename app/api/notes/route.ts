@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getNotes, type NoteTree } from "@/db/content/note";
 import type { MDXData } from "@/db/content/utils";
 
+// /api/notes에 접근하면 호출되는 route handlers
+
 // 최신 노트를 찾는 함수
 function findLatestNote(tree: NoteTree): MDXData | null {
 	let latestNote: MDXData | null = null;

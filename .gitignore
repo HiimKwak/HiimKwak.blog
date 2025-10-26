@@ -42,3 +42,5 @@ next-env.d.ts
 
 # obsidian
 .obsidian
+/.obsidian
+/.obsidian/workspace.json

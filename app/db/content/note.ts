@@ -24,7 +24,7 @@ const buildNoteTree = (currDir: string, depth: number = 0): NoteTree => {
 		switch (depth) {
 			case 0:
 				// 첫 번째 겹: 연도 숫자 내림차순 (2025, 2024, ...)
-				return parseInt(b) - parseInt(a);
+				return parseInt(b, 10) - parseInt(a, 10);
 			case 1: {
 				// 두 번째 겹: x월 형태 내림차순 (12, 11, ..., 01)
 				return b.localeCompare(a);

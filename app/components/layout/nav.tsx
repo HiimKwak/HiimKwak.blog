@@ -5,8 +5,7 @@ import { LayoutGroup, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import { Moon, Sun } from "lucide-react";
+import { Suspense, useEffect } from "react";
 import { NAV_PATH } from "@/constants";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/core";
@@ -49,10 +48,10 @@ export function Navbar({
 	return (
 		<aside
 			className={cn(
-				"tracking-tight px-2 py-4 md:px-0",
-				"md:sticky md:top-0 md:w-full md:z-10 border-b border-neutral-300",
+				"tracking-tight px-2 py-4 border-b border-neutral-300",
+				"md:sticky md:top-0 md:w-full md:z-10 md:px-0",
 				!isIntersected &&
-				"bg-transparent  dark:border-gray-600 backdrop-blur-xl",
+					"bg-transparent dark:border-gray-600 backdrop-blur-xl",
 			)}
 		>
 			<div className="max-w-2xl md:mx-auto">

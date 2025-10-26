@@ -9,8 +9,9 @@ export function Comment() {
 	useEffect(() => {
 		// 다크모드 감지
 		const checkTheme = () => {
-			const isDark = document.documentElement.classList.contains('dark') || 
-				window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const isDark =
+				document.documentElement.classList.contains("dark") ||
+				window.matchMedia("(prefers-color-scheme: dark)").matches;
 			setTheme(isDark ? "dark" : "light");
 		};
 
@@ -20,16 +21,16 @@ export function Comment() {
 		const observer = new MutationObserver(checkTheme);
 		observer.observe(document.documentElement, {
 			attributes: true,
-			attributeFilter: ['class']
+			attributeFilter: ["class"],
 		});
 
 		// 미디어 쿼리 변경 감지
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		mediaQuery.addEventListener('change', checkTheme);
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+		mediaQuery.addEventListener("change", checkTheme);
 
 		return () => {
 			observer.disconnect();
-			mediaQuery.removeEventListener('change', checkTheme);
+			mediaQuery.removeEventListener("change", checkTheme);
 		};
 	}, []);
 
