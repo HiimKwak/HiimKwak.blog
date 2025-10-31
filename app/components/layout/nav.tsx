@@ -32,7 +32,11 @@ const navItems = {
 	// },
 } as const;
 
-export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode }) {
+export function Navbar({
+	sidebarTrigger,
+}: {
+	sidebarTrigger?: React.ReactNode;
+}) {
 	const [setTargetElement, isIntersected] = useIntersectionObserver({});
 	useEffect(() => {
 		const target = document.getElementById("header-flag");
@@ -55,7 +59,7 @@ export function Navbar({ sidebarTrigger }: { sidebarTrigger?: React.ReactNode })
 						className="flex px-4 pb-0 fade md:overflow-auto scroll-pr-6 md:relative md:px-0"
 						id="nav"
 					>
-						<div className="flex w-full justify-between -ml-[8px]">
+						<div className="flex w-full items-center -ml-[8px]">
 							{sidebarTrigger && isMobile && (
 								<div className="flex items-center">{sidebarTrigger}</div>
 							)}

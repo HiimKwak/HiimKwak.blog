@@ -1,19 +1,16 @@
 "use client";
 
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, PanelLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentProps, ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 import { Collapsible } from "@/components/ui/collapsible";
 import { Sidebar, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { NAV_PATH } from "@/constants";
 import type { NoteTree } from "@/db/content/note";
 
-export function NoteSidebarProvider({
-	children,
-}: {
-	children: ReactNode;
-}) {
+export function NoteSidebarProvider({ children }: { children: ReactNode }) {
 	return <SidebarProvider>{children}</SidebarProvider>;
 }
 
@@ -21,8 +18,28 @@ type NoteSidebarProps = ComponentProps<typeof Sidebar> & {
 	data: NoteTree;
 };
 
+export function NoteSidebarTrigger() {
+	const { isMobile, toggleSidebar } = useSidebar();
+
+	if (!isMobile) {
+		return null;
+	}
+
+	return (
+		<Button
+			type="button"
+			onClick={toggleSidebar}
+			className="h-10 w-10 rounded-full p-0 mr-4"
+			size="icon"
+		>
+			<PanelLeftIcon className="h-5 w-5" />
+		</Button>
+	);
+}
+
 export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 	const pathname = usePathname();
+	const { isMobile, toggleSidebar } = useSidebar();
 
 	// 매번 pathname에서 직접 계산
 	const openedNotePath = pathname.startsWith(NAV_PATH.notes)
@@ -30,22 +47,35 @@ export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 		: [];
 
 	return (
-		<Sidebar {...sidebarProps}>
-			<Sidebar.Content>
-				<Sidebar.Group>
-					<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
-					<Sidebar.GroupContent>
-						<Sidebar.Menu>
-							<Tree
-								key={pathname}
-								tree={data}
-								openedNotePath={openedNotePath}
-							/>
-						</Sidebar.Menu>
-					</Sidebar.GroupContent>
-				</Sidebar.Group>
-			</Sidebar.Content>
-		</Sidebar>
+		<>
+			<Sidebar {...sidebarProps}>
+				<Sidebar.Content>
+					<Sidebar.Group>
+						<Sidebar.GroupLabel>Files</Sidebar.GroupLabel>
+						<Sidebar.GroupContent>
+							<Sidebar.Menu>
+								<Tree
+									key={pathname}
+									tree={data}
+									openedNotePath={openedNotePath}
+								/>
+							</Sidebar.Menu>
+						</Sidebar.GroupContent>
+					</Sidebar.Group>
+				</Sidebar.Content>
+			</Sidebar>
+
+			{isMobile && (
+				<Button
+					type="button"
+					onClick={toggleSidebar}
+					className="fixed top-2.5 right-2.5 z-50 h-10 w-10 rounded-full p-0"
+					size="icon"
+				>
+					<PanelLeftIcon className="h-5 w-5" />
+				</Button>
+			)}
+		</>
 	);
 }
 
