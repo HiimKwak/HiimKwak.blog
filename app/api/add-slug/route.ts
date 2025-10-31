@@ -1,18 +1,21 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-	const { searchParams } = new URL(request.url);
-	const slug = searchParams.get("slug");
-	// add slug into query params. e.g. api/add-slug?slug=postName
+export const dynamic = "force-dynamic";
 
+export async function POST(request: Request) {
 	try {
-		if (!slug) throw new Error("Slug required");
+		const { slug } = await request.json();
+
+		if (!slug) {
+			throw new Error("Slug required");
+		}
+
 		await sql`INSERT INTO views (slug) VALUES (${slug});`;
+
+		const views = await sql`SELECT * FROM views;`;
+		return NextResponse.json({ views }, { status: 200 });
 	} catch (error) {
 		return NextResponse.json({ error }, { status: 500 });
 	}
-
-	const views = await sql`SELECT * FROM views;`;
-	return NextResponse.json({ views }, { status: 200 });
 }

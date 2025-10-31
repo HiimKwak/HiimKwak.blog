@@ -1,12 +1,13 @@
-import { getNotes } from "@/db/content/note";
-import { NoteSidebarClient } from "./note-sidebar";
+import { Suspense } from "react";
+import { NoteSidebar } from "./note-sidebar.server";
 
-export default async function Layout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
-	const data = getNotes();
-
-	return <NoteSidebarClient data={data}>{children}</NoteSidebarClient>;
+export default function Layout({ children }: { children: React.ReactNode }) {
+	return (
+		<NoteSidebar.Provider>
+			<Suspense fallback={<NoteSidebar.Skeleton />}>
+				<NoteSidebar.Fetcher />
+			</Suspense>
+			{children}
+		</NoteSidebar.Provider>
+	);
 }

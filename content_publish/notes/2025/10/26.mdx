@@ -1,0 +1,161 @@
+---
+title: 블로그 Streaming SSR 적용기
+publishedAt: 2025-10-26
+image: public/images/notes/2025/10/26
+tags:
+  - streaming-ssr
+  - partial-prerendering
+  - nextjs
+  - ssr
+  - suspense
+  - blog
+  - server-component
+  - client-component
+personal: "0"
+---
+
+## Streaming SSR이 적용되지 않은 원인 분석
+
+블로그의 `/notes` 라우트에서 스트리밍 SSR이 제대로 작동하지 않는 문제를 발견했다. 클릭 시 브라우저 기준 2~3초, 모바일 기준 5~10초 동안 멈춘 뒤 렌더링이 되는 현상이 발생했다. 원인을 분석해보니 크게 세 가지 문제가 있었다.
+
+## 1. Navbar 레이아웃 문제
+
+`/diary`와 `/notes`에 각각 다른 레이아웃을 그리기 위해 navbar를 각 페이지마다 독립적으로 호출하고 있었다. 정적인 컨텐츠인 Navbar는 각 페이지별로 렌더하기보다 한 번 렌더되면 리렌더되지 않는 layout.tsx에서 렌더시키는게 지당할 것이다.
+
+해결 방법은 디자인을 수정해 `<Navbar />`를 `RootLayout`에 호출하고, `/notes` 레이아웃에서는 `<Sidebar className='z-10 md:pt-[65px]' />`로 겹치는 문제를 패딩으로 해결했다. 최대한 z-index, 레이아웃 CSS로 해결하려고 했지만 가변적으로 `sticky` 상태가 되는 `Navbar`에 맞춰 `Sidebar`의 레이어를 조정하는 방법이 올바른 접근인지 확신이 없어서 일단은 패딩으로 해결했다.
+
+## 2. Route Handler HTTP 메서드 수정
+
+Streaming이랑은 관계없지만 `add-slug` route handler가 GET method 가면을 쓴 채 INSERT하고 있어 이를 수정했다.
+
+```typescript
+// app/api/add-slug/route.ts
+export const dynamic = "force-dynamic";
+
+{/**  이전 코드: GET 메서드로 insert 수행 중이었음
+export async function GET(request: Request) {
+	const { searchParams } = new URL(request.url);
+	const slug = searchParams.get("slug");
+	// add slug into query params. e.g. api/add-slug?slug=postName
+
+	try {
+		if (!slug) throw new Error("Slug required");
+		await sql`INSERT INTO views (slug) VALUES (${slug});`;
+	} catch (error) {
+		return NextResponse.json({ error }, { status: 500 });
+	}
+
+	const views = await sql`SELECT * FROM views;`;
+	return NextResponse.json({ views }, { status: 200 });
+}
+*/}
+export async function POST(request: Request) {
+	const { slug } = await request.json();
+	// ...
+}
+```
+
+## 3. /notes 라우트 클라이언트/서버 컴포넌트 분리 문제
+
+가장 큰 문제였다. 사이드바와 노트 페이지는 서로 렌더링에 관계가 없는데 코드 구조상 `SidebarProvider`가 최상단 layout에 감싸져 있어서 자연스럽게 클라이언트 컴포넌트로 잡히고 있었다.
+
+그밖에도 파일시스템 데이터 페칭 로직이 적절한 위치에 있지 않아 서버 컴포넌트 렌더 시에 스트리밍되어야 하는 구역에 제대로 처리가 되지 않았다.
+
+```
+/notes
+ㄴ /[...slug]
+	ㄴ page.tsx      - NotePage > NoteContent, NoteLoading
+ㄴ layout.tsx        - SidebarProvider > NoteSidebar data={data}, {children}
+ㄴ note-sidebar.tsx  - Tree.tsx, NoteLink.tsx
+```
+
+문제점:
+- `layout.tsx`에서 `getNotes()`를 동기적으로 호출해 children 렌더링을 블로킹하고 있었음
+- `NoteContent`가 이미 resolve된 데이터를 props로 받아 실제 Suspense 경계가 작동하지 않음
+- 컴포넌트 분리가 정확히 되어있지 않아 `/notes` 페이지를 렌더하는데 필요한 모든 컴포넌트를 한꺼번에 만들어 보내는데 시간이 소요됨
+
+`<Sidebar />`는 모바일 반응형, 오픈 여부 컨트롤 목적의 `Context API` 때문에 클라이언트 컴포넌트일 수밖에 없지만, 실제 데이터 페칭은 서버에서 처리해야 했다.
+
+해결 방법은 커서의 도움을 받아 적절한 위치에 배치해두면서 각 컴포넌트별 관심사 분리에 성공했다.
+
+Layout에서 Sidebar 데이터 페칭을 별도 async 컴포넌트로 분리하고 Suspense로 감쌌다:
+
+```typescript
+// app/notes/note-sidebar.server.tsx
+import { getNotes } from "@/db/content/note";
+import { NoteSidebar as NoteSidebarBase, NoteSidebarProvider, NoteSidebarSkeleton } from "./note-sidebar";
+
+export async function NoteSidebarFetcher() {
+	const data = getNotes();
+	return <NoteSidebarBase data={data} />;
+}
+
+export const NoteSidebar = Object.assign(NoteSidebarBase, {
+	Provider: NoteSidebarProvider,
+	Fetcher: NoteSidebarFetcher,
+	Skeleton: NoteSidebarSkeleton,
+});
+
+// app/notes/layout.tsx
+import { Suspense } from "react";
+import { NoteSidebar } from "./note-sidebar.server";
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+	return (
+		<NoteSidebar.Provider>
+			<Suspense fallback={<NoteSidebar.Skeleton />}>
+				<NoteSidebar.Fetcher />
+			</Suspense>
+			{children}
+		</NoteSidebar.Provider>
+	);
+}
+```
+
+`NoteContent`를 slug만 받아 내부에서 데이터 페칭하도록 변경했다:
+
+```typescript
+// app/notes/[...slug]/note-content.tsx
+export async function NoteContent({ slug }: { slug: string[] }) {
+	const note = getNoteByPath(slug);
+	if (!note) {
+		notFound();
+	}
+	// ...
+}
+```
+
+`page.tsx`에서 데이터 페칭 로직을 제거하고 `NoteContent`에 slug만 전달했다.
+
+기대 효과:
+- Sidebar와 Note Content가 독립적으로 렌더될 것
+- 각 컴포넌트가 준비되는 대로 화면에 표시될 것
+- 하드 네비게이션 시 레이아웃이 즉시 표시되고, Sidebar와 Content가 각각 skeleton으로 시작
+
+## 4. 테스트 및 검증
+
+방법:
+- 개발자 도구 Network 탭에서 속도를 3G로 제한
+- Performance 탭에서 Record하여 렌더링 흐름 확인
+- 테스트용 지연 코드 추가로 스트리밍 동작 확인
+
+결과:
+- SSG로 인해 정적으로 생성된 페이지는 스트리밍이 발생하지 않음
+- /notes 라우트는 최근 50개 컨텐트를 빌드타임에 굽는 SSG 전략을 사용중이어서 아무리 지연을 끼워넣어도 스트리밍을 확인할 수 없었음
+- 그렇다고 요청 시마다 렌더하는 SSR로 바꾸기엔 정적 블로그에 억지로 네트워크 라운드 트립을 강요하는 꼴이라 하기싫었음
+
+## 번외: Sidebar도 사실 오픈 컨트롤, 모바일 반응 제외하면 static한 컨텐트인데, 서버 컴포넌트로 바꿀 순 없는걸까?
+
+[reddit comment](https://www.reddit.com/r/nextjs/comments/1bnxtr4/comment/kwlnk12/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button): 
+"Client Components allow you to write interactive UI that is prerendered on the server and can use client JavaScript to run in the browser." - https://nextjs.org/docs/app/building-your-application/rendering/client-components
+
+So client components still get rendered on the server. The difference is, once they end up on the client, they can be hydrated and provide interactivity. If you pass all the required data through props from a server component (i.e. not data fetching in a use effect or some other client side method like trpc/react query/swr) the full contentful load of that client component will be rendered on the server.
+
+Using client components is not a deoptimisation. The best way to use them is to move them down towards the "leaves" as far as they can, which does provide some benefits as your client side bundle can be much smaller. In this analogy, Page.tsx files are the trunk, other server compoents are branches, and the interactivity lives at the "leaves" if required. Just like a tree without leaves is unable to breathe, an RSC app without client components has no interactivity and entirely defeats the purpose of using react! If you have a very interactive feature, sometimes it's ok to move the client boundary (the 'use client') up a little bit - some trees have a small number of big leaves that each do a lot. In the case where you don't need as much interactivity and browser apis will do, it's ok to have something like a shadcn component imported as a small but numerous leaf at the end of the tree.
+
+Highly recommend this article to get a deeper understanding [https://www.joshwcomeau.com/react/server-components/](https://www.joshwcomeau.com/react/server-components/)
+
+> 클라이언트 컴포넌트를 사용하는게 반-최적화로 여겨지는, 죄악시되는 경향이 있는데 이는 잘못된 생각이다. 
+React 앱에서 인터랙션을 위해선 클라이언트 컴포넌트가 꼭 필요하며, 클라이언트 컴포넌트라고 해서 서버에서 렌더되지 않는게 아니다. 
+클라이언트 컴포넌트도 서버에서 렌더되며, 클라이언트 컴포넌트는 'React client' 컴포넌트일 뿐이다. 
+이 개념들을 잘 사용하는 방법은 클라이언트 컴포넌트를 최대한 렌더 트리의 "아래쪽"으로 이동시키는 것이며 이 뜻은 결국 최대한 클라이언트 사이드 번들의 크기를 줄이는 행위와 같다.

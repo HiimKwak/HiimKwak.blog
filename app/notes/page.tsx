@@ -3,7 +3,7 @@ import { getLatestNote } from "@/db/content/note";
 import { NoteContent } from "./[...slug]/note-content";
 import { NoteLoading } from "./[...slug]/note-loading";
 
-export default async function NotesIndexPage() {
+async function LatestNoteContent() {
 	const latestNoteData = getLatestNote();
 
 	if (!latestNoteData) {
@@ -14,10 +14,14 @@ export default async function NotesIndexPage() {
 		);
 	}
 
+	return <NoteContent slug={latestNoteData.path} />;
+}
+
+export default function NotesIndexPage() {
 	return (
 		<div className="w-full">
 			<Suspense fallback={<NoteLoading />}>
-				<NoteContent note={latestNoteData.note} slug={latestNoteData.path} />
+				<LatestNoteContent />
 			</Suspense>
 		</div>
 	);

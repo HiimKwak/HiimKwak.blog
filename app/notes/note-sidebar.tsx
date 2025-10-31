@@ -9,26 +9,19 @@ import { Sidebar, SidebarProvider, useSidebar } from "@/components/ui/sidebar";
 import { NAV_PATH } from "@/constants";
 import type { NoteTree } from "@/db/content/note";
 
-export function NoteSidebarClient({
-	data,
+export function NoteSidebarProvider({
 	children,
 }: {
-	data: NoteTree;
 	children: ReactNode;
 }) {
-	return (
-		<SidebarProvider>
-			<NoteSidebar data={data} />
-			{children}
-		</SidebarProvider>
-	);
+	return <SidebarProvider>{children}</SidebarProvider>;
 }
 
 type NoteSidebarProps = ComponentProps<typeof Sidebar> & {
 	data: NoteTree;
 };
 
-function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
+export function NoteSidebar({ data, ...sidebarProps }: NoteSidebarProps) {
 	const pathname = usePathname();
 
 	// 매번 pathname에서 직접 계산

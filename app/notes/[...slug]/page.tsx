@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getAllNotePaths, getNoteByPath } from "@/db/content/note";
 import { NoteContent } from "./note-content";
@@ -94,18 +93,12 @@ export default async function NotePage({
 }) {
 	const { slug } = await params;
 
-	// URL 디코딩 처리
 	const decodedSlug = slug.map((segment) => decodeURIComponent(segment));
-	const note = getNoteByPath(decodedSlug);
-
-	if (!note) {
-		notFound();
-	}
 
 	return (
 		<div className="w-full">
 			<Suspense fallback={<NoteLoading />}>
-				<NoteContent note={note} slug={decodedSlug} />
+				<NoteContent slug={decodedSlug} />
 			</Suspense>
 		</div>
 	);

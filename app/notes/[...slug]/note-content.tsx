@@ -1,16 +1,20 @@
+import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/common/mdx";
 import { PostNavigator } from "@/components/common/post-navigator";
 import { NAV_PATH } from "@/constants";
-import { getAdjacentNotes } from "@/db/content/note";
-import type { MDXData } from "@/db/content/utils";
+import { getAdjacentNotes, getNoteByPath } from "@/db/content/note";
 
 export async function NoteContent({
-	note,
 	slug,
 }: {
-	note: MDXData;
 	slug: string[];
 }) {
+	const note = getNoteByPath(slug);
+
+	if (!note) {
+		notFound();
+	}
+
 	const { prev, next } = getAdjacentNotes(slug);
 
 	return (
