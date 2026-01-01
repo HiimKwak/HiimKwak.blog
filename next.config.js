@@ -6,9 +6,7 @@ const nextConfig = {
 		"/*": [".pnpm-store/v3/files", ".next/cache/webpack", ".git/objects/pack"],
 	},
 
-	// Partial Prerendering 활성화 (Next.js 15)
 	experimental: {
-		ppr: "incremental",
 		reactCompiler: false, // React 19.1.0은 아직 실험적
 	},
 
